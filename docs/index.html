@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <title>POE TradeUX — Path of Exile 2 Trade Tools</title>
+    <meta
+      name="description"
+      content="Learn about POE TradeUX, a local-first Chrome extension that improves Path of Exile 2 trade-search pages."
+    >
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background: #0f1216;
+        color: #dce3ea;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 50% -10rem, rgba(38, 113, 139, 0.25), transparent 38rem),
+          #0f1216;
+      }
+
+      a {
+        color: #78d7eb;
+      }
+
+      main {
+        width: min(940px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0 88px;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding-bottom: 32px;
+      }
+
+      .brand {
+        color: #f5f8fb;
+        font-size: 0.92rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+      }
+
+      .nav-links a {
+        color: #aeb9c4;
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .nav-links a[aria-current="page"],
+      .nav-links a:hover {
+        color: #78d7eb;
+      }
+
+      .hero {
+        padding: 56px 0 52px;
+        border-bottom: 1px solid #29313a;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: #63c8df;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        color: #f5f8fb;
+        font-size: clamp(2.4rem, 7vw, 4.8rem);
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+      }
+
+      .intro {
+        max-width: 730px;
+        margin: 24px 0 0;
+        color: #c8d0d8;
+        font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+        line-height: 1.7;
+      }
+
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .fact {
+        padding: 17px 18px;
+        border: 1px solid #34404b;
+        border-radius: 10px;
+        background: rgba(21, 28, 34, 0.72);
+      }
+
+      .fact strong {
+        display: block;
+        color: #f1d58b;
+        font-size: 0.96rem;
+      }
+
+      .fact span {
+        display: block;
+        margin-top: 6px;
+        color: #9da9b5;
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+
+      section {
+        padding-top: 48px;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        color: #f1d58b;
+        font-size: 1.45rem;
+        letter-spacing: -0.015em;
+      }
+
+      .section-intro,
+      p,
+      li {
+        color: #c8d0d8;
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      .section-intro {
+        max-width: 720px;
+        margin: 0;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .feature-card {
+        padding: 24px;
+        border: 1px solid #2d3842;
+        border-radius: 12px;
+        background: rgba(18, 24, 30, 0.82);
+      }
+
+      .feature-card h3 {
+        margin: 0;
+        color: #f5f8fb;
+        font-size: 1.08rem;
+      }
+
+      .feature-card ul {
+        margin: 14px 0 0;
+        padding-left: 1.2rem;
+      }
+
+      .feature-card li + li {
+        margin-top: 7px;
+      }
+
+      .screenshot-gallery {
+        display: grid;
+        gap: 28px;
+        margin-top: 24px;
+      }
+
+      .screenshot-card {
+        overflow: hidden;
+        margin: 0;
+        border: 1px solid #34404b;
+        border-radius: 12px;
+        background: rgba(18, 24, 30, 0.82);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+      }
+
+      .screenshot-card > a {
+        display: block;
+        background: #080b0e;
+      }
+
+      .screenshot-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 8 / 5;
+      }
+
+      .screenshot-card figcaption {
+        display: grid;
+        gap: 5px;
+        padding: 18px 20px 20px;
+      }
+
+      .screenshot-card figcaption strong {
+        color: #f1d58b;
+        font-size: 1.02rem;
+      }
+
+      .screenshot-card figcaption span {
+        color: #9da9b5;
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .privacy-card {
+        margin-top: 24px;
+        padding: 26px;
+        border: 1px solid #3e5260;
+        border-radius: 12px;
+        background: rgba(22, 33, 41, 0.8);
+      }
+
+      .privacy-card p {
+        margin: 0;
+      }
+
+      .privacy-card p + p {
+        margin-top: 12px;
+      }
+
+      code {
+        padding: 0.14em 0.38em;
+        border: 1px solid #34404b;
+        border-radius: 5px;
+        background: #161c22;
+        color: #d9e7ef;
+        font-size: 0.9em;
+      }
+
+      .steps {
+        margin: 20px 0 0;
+        padding-left: 1.3rem;
+      }
+
+      .steps li + li {
+        margin-top: 8px;
+      }
+
+      .notice {
+        margin-top: 48px;
+        padding: 18px 20px;
+        border: 1px solid #3e5260;
+        border-radius: 10px;
+        background: rgba(21, 30, 37, 0.78);
+        color: #c8d0d8;
+        line-height: 1.65;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 44px;
+        padding-top: 24px;
+        border-top: 1px solid #29313a;
+        color: #8f9aa5;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 700px) {
+        .facts,
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding-top: 34px;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav aria-label="Main navigation">
+        <a class="brand" href="index.html">POE TradeUX</a>
+        <div class="nav-links">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="#screenshots">Screenshots</a>
+          <a href="privacy-policy.html">Privacy</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <p class="eyebrow">Path of Exile 2 trade tools</p>
+        <h1>Trade searches, without the busywork.</h1>
+        <p class="intro">
+          POE TradeUX is a Chrome extension that enhances the official Path
+          of Exile 2 trade interface with faster filters, item presets, stat tools,
+          and optional layout improvements. It works with the site's native trade
+          form instead of replacing it.
+        </p>
+
+        <div class="facts" aria-label="Extension facts">
+          <div class="fact">
+            <strong>Path of Exile 2 only</strong>
+            <span>Runs on supported <code>/trade2/*</code> pages and stays disabled on PoE 1 trade.</span>
+          </div>
+          <div class="fact">
+            <strong>Local-first</strong>
+            <span>Settings and favorites remain in Chrome's local extension storage.</span>
+          </div>
+          <div class="fact">
+            <strong>Manifest V3</strong>
+            <span>Uses one Chrome permission: <code>storage</code>.</span>
+          </div>
+        </div>
+      </header>
+
+      <section aria-labelledby="features">
+        <h2 id="features">Features</h2>
+        <p class="section-intro">
+          The extension keeps common trade actions close at hand while preserving
+          the official search page's controls and results.
+        </p>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Faster filters</h3>
+            <ul>
+              <li>Quick rarity selection and clear-search action.</li>
+              <li>One-click corrupted, fractured, desecrated, crafted, mirrored, and sanctified filters.</li>
+              <li>Quality, augmentable-socket, gem-level, and gem-socket controls.</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <h3>Item helpers</h3>
+            <ul>
+              <li>Presets for Waystones, Tablets, Charms, Flasks, Gems, Gear, and Jewels.</li>
+              <li>Gear browser organized by equipment slot and base type.</li>
+              <li>Skill Gem browser with search, tags, attributes, sorting, and favorites.</li>
+              <li>Unique Helper with type navigation, level filters, favorites, and Runeforged variants.</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <h3>Stat tools</h3>
+            <ul>
+              <li>Favorite frequently used stat filters.</li>
+              <li>Cleaner grouping and ordering of stat options for active presets.</li>
+              <li>Native autocomplete handoff instead of a replacement search form.</li>
+              <li>Add result modifiers directly to positive or <code>NOT</code> stat groups.</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <h3>Layout and appearance</h3>
+            <ul>
+              <li>Optional two-column and full-width layouts.</li>
+              <li>Sticky filters and search controls.</li>
+              <li>Optional background removal and space for Better Trading.</li>
+              <li>Experimental hiding of irrelevant prefixes and suffixes.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="screenshots">
+        <h2 id="screenshots">See POE TradeUX in action</h2>
+        <p class="section-intro">
+          Explore the extension's item browsers and presets. Select any screenshot
+          to open the full 1280 × 800 image.
+        </p>
+
+        <div class="screenshot-gallery">
+          <figure class="screenshot-card">
+            <a
+              href="assets/screenshots/poe-tradeux-unique-helper-1280x800.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the POE TradeUX Unique Helper screenshot at full size"
+            >
+              <img
+                src="assets/screenshots/poe-tradeux-unique-helper-1280x800.jpg"
+                alt="POE TradeUX Unique Helper showing bow categories and detailed unique items"
+                width="1280"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              >
+            </a>
+            <figcaption>
+              <strong>Unique Helper</strong>
+              <span>Browse uniques by item type, filter by level, save favorites, and inspect Runeforged options.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="screenshot-card">
+            <a
+              href="assets/screenshots/poe-tradeux-skill-gem-presets-1280x800.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the POE TradeUX Skill Gem Presets screenshot at full size"
+            >
+              <img
+                src="assets/screenshots/poe-tradeux-skill-gem-presets-1280x800.jpg"
+                alt="POE TradeUX Skill Gem Presets browser with tag filters and gem cards"
+                width="1280"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              >
+            </a>
+            <figcaption>
+              <strong>Skill Gem Presets</strong>
+              <span>Search and sort the gem catalogue, combine tag filters, and keep frequently used gems close.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="screenshot-card">
+            <a
+              href="assets/screenshots/poe-tradeux-gear-presets-1280x800.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the POE TradeUX Gear Presets screenshot at full size"
+            >
+              <img
+                src="assets/screenshots/poe-tradeux-gear-presets-1280x800.jpg"
+                alt="POE TradeUX Gear Presets showing body armour bases and attribute filters"
+                width="1280"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              >
+            </a>
+            <figcaption>
+              <strong>Gear Presets</strong>
+              <span>Navigate equipment slots and base types with attribute-aware filters and bundled item artwork.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="screenshot-card">
+            <a
+              href="assets/screenshots/poe-tradeux-flask-presets-1280x800.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the POE TradeUX Flask Presets screenshot at full size"
+            >
+              <img
+                src="assets/screenshots/poe-tradeux-flask-presets-1280x800.jpg"
+                alt="POE TradeUX Flask Presets over the two-column Path of Exile 2 trade layout"
+                width="1280"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              >
+            </a>
+            <figcaption>
+              <strong>Flask Presets</strong>
+              <span>Choose life, mana, and unique flasks without leaving the official trade-search workflow.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="screenshot-card">
+            <a
+              href="assets/screenshots/poe-tradeux-tablet-presets-1280x800.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the POE TradeUX Tablet Presets screenshot at full size"
+            >
+              <img
+                src="assets/screenshots/poe-tradeux-tablet-presets-1280x800.jpg"
+                alt="POE TradeUX Tablet Presets showing precursor and unique tablet choices"
+                width="1280"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              >
+            </a>
+            <figcaption>
+              <strong>Tablet Presets</strong>
+              <span>Select precursor and unique tablets through a compact visual menu.</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section aria-labelledby="privacy">
+        <h2 id="privacy">Designed for privacy</h2>
+        <div class="privacy-card">
+          <p>
+            POE TradeUX does not collect trade-search history, search text,
+            trade-page URLs, credentials, cookies, analytics, advertising IDs, or
+            personal information. Item artwork is bundled with the extension.
+          </p>
+          <p>
+            Chrome local storage is used only for interface preferences and
+            favorite stat, gem, and unique-item identifiers. Read the complete
+            <a href="privacy-policy.html">Privacy Policy</a>.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="use">
+        <h2 id="use">How it works</h2>
+        <ol class="steps">
+          <li>Install POE TradeUX in a Chromium-based browser.</li>
+          <li>Open an official Path of Exile 2 trade-search page.</li>
+          <li>Use the TradeUX control to choose layout options and open presets.</li>
+          <li>Continue searching through the official trade form as usual.</li>
+        </ol>
+      </section>
+
+      <p class="notice">
+        This product isn't affiliated with or endorsed by Grinding Gear Games in
+        any way. Path of Exile and related game materials are the property of
+        their respective owners.
+      </p>
+
+      <footer>
+        <span>POE TradeUX</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+      </footer>
+    </main>
+  </body>
+</html>
