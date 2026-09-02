@@ -441,7 +441,108 @@
       "icon": "",
       "key": "time-lost-emerald",
       "hasCraftModifierPool": false,
-      "modifierIds": [],
+      "modifierIds": [
+        "Prefixes\u0000explicit.stat_868556494",
+        "Prefixes\u0000explicit.stat_945774314",
+        "Prefixes\u0000explicit.stat_821948283",
+        "Prefixes\u0000explicit.stat_1994296038",
+        "Prefixes\u0000explicit.stat_1285594161",
+        "Prefixes\u0000explicit.stat_1494950893",
+        "Prefixes\u0000explicit.stat_1166140625",
+        "Prefixes\u0000explicit.stat_533892981",
+        "Prefixes\u0000explicit.stat_3065378291",
+        "Prefixes\u0000explicit.stat_288364275",
+        "Prefixes\u0000explicit.stat_1590846356",
+        "Prefixes\u0000explicit.stat_462424929",
+        "Prefixes\u0000explicit.stat_455816363",
+        "Prefixes\u0000explicit.stat_2421151933",
+        "Prefixes\u0000explicit.stat_3891355829|2",
+        "Prefixes\u0000explicit.stat_3891355829|1",
+        "Prefixes\u0000explicit.stat_517664839",
+        "Prefixes\u0000explicit.stat_4180952808",
+        "Prefixes\u0000explicit.stat_147764878",
+        "Prefixes\u0000explicit.stat_1426522529",
+        "Prefixes\u0000explicit.stat_2768899959",
+        "Prefixes\u0000explicit.stat_3222402650",
+        "Prefixes\u0000explicit.stat_1007380041",
+        "Prefixes\u0000explicit.stat_255840549",
+        "Prefixes\u0000explicit.stat_2638756573",
+        "Prefixes\u0000explicit.stat_1777421941",
+        "Prefixes\u0000explicit.stat_179541474",
+        "Prefixes\u0000explicit.stat_3752589831",
+        "Prefixes\u0000explicit.stat_4092130601",
+        "Prefixes\u0000explicit.stat_2809428780",
+        "Prefixes\u0000explicit.stat_2912416697",
+        "Prefixes\u0000explicit.stat_1321104829",
+        "Suffixes\u0000explicit.stat_2066964205",
+        "Suffixes\u0000explicit.stat_1060572482",
+        "Suffixes\u0000explicit.stat_3513818125",
+        "Suffixes\u0000explicit.stat_3173882956",
+        "Suffixes\u0000explicit.stat_2580617872",
+        "Suffixes\u0000explicit.stat_1352561456",
+        "Suffixes\u0000explicit.stat_2320654813",
+        "Suffixes\u0000explicit.stat_654207792",
+        "Suffixes\u0000explicit.stat_3700202631",
+        "Suffixes\u0000explicit.stat_4234573345",
+        "Suffixes\u0000explicit.stat_942519401",
+        "Suffixes\u0000explicit.stat_3171212276",
+        "Suffixes\u0000explicit.stat_1800303440",
+        "Suffixes\u0000explicit.stat_4162678661",
+        "Suffixes\u0000explicit.stat_2610562860",
+        "Suffixes\u0000explicit.stat_1514844108",
+        "Suffixes\u0000explicit.stat_127081978",
+        "Suffixes\u0000explicit.stat_980177976",
+        "Suffixes\u0000explicit.stat_3088348485",
+        "Suffixes\u0000explicit.stat_3774951878",
+        "Suffixes\u0000explicit.stat_2202308025",
+        "Suffixes\u0000explicit.stat_3865605585",
+        "Suffixes\u0000explicit.stat_2256120736",
+        "Suffixes\u0000explicit.stat_1495814176",
+        "Suffixes\u0000explicit.stat_1944020877",
+        "Suffixes\u0000explicit.stat_3409275777",
+        "Suffixes\u0000explicit.stat_138421180",
+        "Suffixes\u0000explicit.stat_1773308808",
+        "Suffixes\u0000explicit.stat_1266413530",
+        "Suffixes\u0000explicit.stat_4258000627",
+        "Suffixes\u0000explicit.stat_221701169",
+        "Suffixes\u0000explicit.stat_2822644689",
+        "Suffixes\u0000explicit.stat_2149603090",
+        "Suffixes\u0000explicit.stat_1039268420",
+        "Suffixes\u0000explicit.stat_2840989393",
+        "Suffixes\u0000explicit.stat_3641543553",
+        "Suffixes\u0000explicit.stat_111835965",
+        "Suffixes\u0000explicit.stat_4258720395",
+        "Suffixes\u0000explicit.stat_2272980012",
+        "Suffixes\u0000explicit.stat_844449513",
+        "Suffixes\u0000explicit.stat_715957346",
+        "Suffixes\u0000explicit.stat_2334956771",
+        "Suffixes\u0000explicit.stat_3856744003",
+        "Suffixes\u0000explicit.stat_1323216174",
+        "Suffixes\u0000explicit.stat_412709880",
+        "Desecrated\u0000desecrated.stat_2748665614",
+        "Desecrated\u0000desecrated.stat_458438597",
+        "Desecrated\u0000desecrated.stat_472520716",
+        "Desecrated\u0000desecrated.stat_983749596",
+        "Desecrated\u0000desecrated.stat_1177404658",
+        "Desecrated\u0000desecrated.stat_1444556985",
+        "Desecrated\u0000desecrated.stat_4101445926",
+        "Desecrated\u0000desecrated.stat_3566150527",
+        "Desecrated\u0000desecrated.stat_1034611536",
+        "Desecrated\u0000desecrated.stat_2200293569",
+        "Desecrated\u0000desecrated.stat_2135541924",
+        "Desecrated\u0000desecrated.stat_1102738251",
+        "Corrupted Implicits\u0000enchant.stat_1658498488",
+        "Corrupted Implicits\u0000enchant.stat_3429557654",
+        "Corrupted Implicits\u0000enchant.stat_1671376347",
+        "Corrupted Implicits\u0000enchant.stat_4220027924",
+        "Corrupted Implicits\u0000enchant.stat_328541901",
+        "Corrupted Implicits\u0000enchant.stat_3261801346",
+        "Corrupted Implicits\u0000enchant.stat_3372524247",
+        "Corrupted Implicits\u0000enchant.stat_4080418644",
+        "Corrupted Implicits\u0000enchant.stat_2923486259",
+        "Corrupted Implicits\u0000enchant.stat_1436284579",
+        "Corrupted Implicits\u0000enchant.stat_721014846"
+      ],
       "searchText": "Time-Lost Emerald"
     },
     {
@@ -449,7 +550,191 @@
       "icon": "",
       "key": "time-lost-diamond",
       "hasCraftModifierPool": false,
-      "modifierIds": [],
+      "modifierIds": [
+        "Prefixes\u0000explicit.stat_3395186672",
+        "Prefixes\u0000explicit.stat_1994296038",
+        "Prefixes\u0000explicit.stat_288364275",
+        "Prefixes\u0000explicit.stat_1896066427",
+        "Prefixes\u0000explicit.stat_1417267954",
+        "Prefixes\u0000explicit.stat_3821543413",
+        "Prefixes\u0000explicit.stat_3891355829|2",
+        "Prefixes\u0000explicit.stat_3891355829|1",
+        "Prefixes\u0000explicit.stat_3665922113",
+        "Prefixes\u0000explicit.stat_455816363",
+        "Prefixes\u0000explicit.stat_1426522529",
+        "Prefixes\u0000explicit.stat_4142814612",
+        "Prefixes\u0000explicit.stat_1007380041",
+        "Prefixes\u0000explicit.stat_1892122971",
+        "Prefixes\u0000explicit.stat_139889694",
+        "Prefixes\u0000explicit.stat_1852184471",
+        "Prefixes\u0000explicit.stat_945774314",
+        "Prefixes\u0000explicit.stat_821948283",
+        "Prefixes\u0000explicit.stat_3936121440",
+        "Prefixes\u0000explicit.stat_266564538",
+        "Prefixes\u0000explicit.stat_1590846356",
+        "Prefixes\u0000explicit.stat_318092306",
+        "Prefixes\u0000explicit.stat_3429148113",
+        "Prefixes\u0000explicit.stat_517664839",
+        "Prefixes\u0000explicit.stat_4180952808",
+        "Prefixes\u0000explicit.stat_1494950893",
+        "Prefixes\u0000explicit.stat_255840549",
+        "Prefixes\u0000explicit.stat_3391917254",
+        "Prefixes\u0000explicit.stat_1846980580",
+        "Prefixes\u0000explicit.stat_442393998",
+        "Prefixes\u0000explicit.stat_2912416697",
+        "Prefixes\u0000explicit.stat_1337740333",
+        "Prefixes\u0000explicit.stat_2108821127",
+        "Prefixes\u0000explicit.stat_1320662475",
+        "Prefixes\u0000explicit.stat_1834658952",
+        "Prefixes\u0000explicit.stat_1432756708",
+        "Prefixes\u0000explicit.stat_3065378291",
+        "Prefixes\u0000explicit.stat_253641217",
+        "Prefixes\u0000explicit.stat_2421151933",
+        "Prefixes\u0000explicit.stat_2442527254",
+        "Prefixes\u0000explicit.stat_533892981",
+        "Prefixes\u0000explicit.stat_2954360902",
+        "Prefixes\u0000explicit.stat_1160637284",
+        "Prefixes\u0000explicit.stat_391602279",
+        "Prefixes\u0000explicit.stat_473917671",
+        "Prefixes\u0000explicit.stat_378796798",
+        "Prefixes\u0000explicit.stat_3859848445",
+        "Prefixes\u0000explicit.stat_1137305356",
+        "Prefixes\u0000explicit.stat_2107703111",
+        "Prefixes\u0000explicit.stat_944643028",
+        "Prefixes\u0000explicit.stat_1321104829",
+        "Prefixes\u0000explicit.stat_462424929",
+        "Prefixes\u0000explicit.stat_1285594161",
+        "Prefixes\u0000explicit.stat_2809428780",
+        "Prefixes\u0000explicit.stat_3858398337",
+        "Prefixes\u0000explicit.stat_1166140625",
+        "Prefixes\u0000explicit.stat_4092130601",
+        "Prefixes\u0000explicit.stat_147764878",
+        "Prefixes\u0000explicit.stat_1777421941",
+        "Prefixes\u0000explicit.stat_4089835882",
+        "Prefixes\u0000explicit.stat_3222402650",
+        "Prefixes\u0000explicit.stat_3419203492",
+        "Prefixes\u0000explicit.stat_2534359663",
+        "Prefixes\u0000explicit.stat_2638756573",
+        "Prefixes\u0000explicit.stat_4032352472",
+        "Prefixes\u0000explicit.stat_179541474",
+        "Prefixes\u0000explicit.stat_2770044702",
+        "Prefixes\u0000explicit.stat_3752589831",
+        "Prefixes\u0000explicit.stat_868556494",
+        "Prefixes\u0000explicit.stat_3394832998",
+        "Prefixes\u0000explicit.stat_2768899959",
+        "Prefixes\u0000explicit.stat_1309799717",
+        "Suffixes\u0000explicit.stat_2066964205",
+        "Suffixes\u0000explicit.stat_830345042",
+        "Suffixes\u0000explicit.stat_2580617872",
+        "Suffixes\u0000explicit.stat_654207792",
+        "Suffixes\u0000explicit.stat_3700202631",
+        "Suffixes\u0000explicit.stat_2969557004",
+        "Suffixes\u0000explicit.stat_2466785537",
+        "Suffixes\u0000explicit.stat_61644361",
+        "Suffixes\u0000explicit.stat_4234573345",
+        "Suffixes\u0000explicit.stat_942519401",
+        "Suffixes\u0000explicit.stat_3171212276",
+        "Suffixes\u0000explicit.stat_3669820740",
+        "Suffixes\u0000explicit.stat_1800303440",
+        "Suffixes\u0000explicit.stat_3386297724",
+        "Suffixes\u0000explicit.stat_4162678661",
+        "Suffixes\u0000explicit.stat_2334956771",
+        "Suffixes\u0000explicit.stat_3225608889",
+        "Suffixes\u0000explicit.stat_2131720304",
+        "Suffixes\u0000explicit.stat_593241812",
+        "Suffixes\u0000explicit.stat_3088348485",
+        "Suffixes\u0000explicit.stat_3628935286",
+        "Suffixes\u0000explicit.stat_394473632",
+        "Suffixes\u0000explicit.stat_484792219",
+        "Suffixes\u0000explicit.stat_2976476845",
+        "Suffixes\u0000explicit.stat_221701169",
+        "Suffixes\u0000explicit.stat_2822644689",
+        "Suffixes\u0000explicit.stat_2149603090",
+        "Suffixes\u0000explicit.stat_1505023559",
+        "Suffixes\u0000explicit.stat_3579898587",
+        "Suffixes\u0000explicit.stat_3641543553",
+        "Suffixes\u0000explicit.stat_111835965",
+        "Suffixes\u0000explicit.stat_3256879910",
+        "Suffixes\u0000explicit.stat_844449513",
+        "Suffixes\u0000explicit.stat_715957346",
+        "Suffixes\u0000explicit.stat_3856744003",
+        "Suffixes\u0000explicit.stat_2849546516",
+        "Suffixes\u0000explicit.stat_1266413530",
+        "Suffixes\u0000explicit.stat_2392824305",
+        "Suffixes\u0000explicit.stat_1756380435",
+        "Suffixes\u0000explicit.stat_3173882956",
+        "Suffixes\u0000explicit.stat_3106718406",
+        "Suffixes\u0000explicit.stat_504915064",
+        "Suffixes\u0000explicit.stat_1352561456",
+        "Suffixes\u0000explicit.stat_2359002191",
+        "Suffixes\u0000explicit.stat_2320654813",
+        "Suffixes\u0000explicit.stat_1185341308",
+        "Suffixes\u0000explicit.stat_30438393",
+        "Suffixes\u0000explicit.stat_4173554949",
+        "Suffixes\u0000explicit.stat_2704905000",
+        "Suffixes\u0000explicit.stat_2610562860",
+        "Suffixes\u0000explicit.stat_693237939",
+        "Suffixes\u0000explicit.stat_2056107438",
+        "Suffixes\u0000explicit.stat_138421180",
+        "Suffixes\u0000explicit.stat_2709646369",
+        "Suffixes\u0000explicit.stat_980177976",
+        "Suffixes\u0000explicit.stat_1022759479",
+        "Suffixes\u0000explicit.stat_1653682082",
+        "Suffixes\u0000explicit.stat_3774951878",
+        "Suffixes\u0000explicit.stat_2202308025",
+        "Suffixes\u0000explicit.stat_2077117738",
+        "Suffixes\u0000explicit.stat_3865605585",
+        "Suffixes\u0000explicit.stat_1495814176",
+        "Suffixes\u0000explicit.stat_1087108135",
+        "Suffixes\u0000explicit.stat_2256120736",
+        "Suffixes\u0000explicit.stat_1145481685",
+        "Suffixes\u0000explicit.stat_3113764475",
+        "Suffixes\u0000explicit.stat_3513818125",
+        "Suffixes\u0000explicit.stat_1602294220",
+        "Suffixes\u0000explicit.stat_127081978",
+        "Suffixes\u0000explicit.stat_3409275777",
+        "Suffixes\u0000explicit.stat_2840989393",
+        "Suffixes\u0000explicit.stat_1773308808",
+        "Suffixes\u0000explicit.stat_1944020877",
+        "Suffixes\u0000explicit.stat_4258000627",
+        "Suffixes\u0000explicit.stat_2907381231",
+        "Suffixes\u0000explicit.stat_1060572482",
+        "Suffixes\u0000explicit.stat_2272980012",
+        "Suffixes\u0000explicit.stat_1039268420",
+        "Suffixes\u0000explicit.stat_1514844108",
+        "Suffixes\u0000explicit.stat_2374711847",
+        "Suffixes\u0000explicit.stat_1087531620",
+        "Suffixes\u0000explicit.stat_2726713579",
+        "Suffixes\u0000explicit.stat_2690740379",
+        "Suffixes\u0000explicit.stat_525523040",
+        "Suffixes\u0000explicit.stat_3666476747",
+        "Suffixes\u0000explicit.stat_4258720395",
+        "Suffixes\u0000explicit.stat_1323216174",
+        "Suffixes\u0000explicit.stat_412709880",
+        "Desecrated\u0000desecrated.stat_2748665614",
+        "Desecrated\u0000desecrated.stat_458438597",
+        "Desecrated\u0000desecrated.stat_472520716",
+        "Desecrated\u0000desecrated.stat_983749596",
+        "Desecrated\u0000desecrated.stat_1177404658",
+        "Desecrated\u0000desecrated.stat_1444556985",
+        "Desecrated\u0000desecrated.stat_4101445926",
+        "Desecrated\u0000desecrated.stat_3566150527",
+        "Desecrated\u0000desecrated.stat_1034611536",
+        "Desecrated\u0000desecrated.stat_2200293569",
+        "Desecrated\u0000desecrated.stat_2135541924",
+        "Desecrated\u0000desecrated.stat_1102738251",
+        "Corrupted Implicits\u0000enchant.stat_1658498488",
+        "Corrupted Implicits\u0000enchant.stat_3429557654",
+        "Corrupted Implicits\u0000enchant.stat_1671376347",
+        "Corrupted Implicits\u0000enchant.stat_4220027924",
+        "Corrupted Implicits\u0000enchant.stat_328541901",
+        "Corrupted Implicits\u0000enchant.stat_3261801346",
+        "Corrupted Implicits\u0000enchant.stat_3372524247",
+        "Corrupted Implicits\u0000enchant.stat_4080418644",
+        "Corrupted Implicits\u0000enchant.stat_2923486259",
+        "Corrupted Implicits\u0000enchant.stat_1436284579",
+        "Corrupted Implicits\u0000enchant.stat_721014846"
+      ],
       "searchText": "Time-Lost Diamond"
     },
     {
@@ -457,7 +742,91 @@
       "icon": "",
       "key": "time-lost-sapphire",
       "hasCraftModifierPool": false,
-      "modifierIds": [],
+      "modifierIds": [
+        "Prefixes\u0000explicit.stat_3419203492",
+        "Prefixes\u0000explicit.stat_473917671",
+        "Prefixes\u0000explicit.stat_3859848445",
+        "Prefixes\u0000explicit.stat_2107703111",
+        "Prefixes\u0000explicit.stat_3936121440",
+        "Prefixes\u0000explicit.stat_266564538",
+        "Prefixes\u0000explicit.stat_1590846356",
+        "Prefixes\u0000explicit.stat_253641217",
+        "Prefixes\u0000explicit.stat_1137305356",
+        "Prefixes\u0000explicit.stat_3665922113",
+        "Prefixes\u0000explicit.stat_1166140625",
+        "Prefixes\u0000explicit.stat_1309799717",
+        "Prefixes\u0000explicit.stat_2954360902",
+        "Prefixes\u0000explicit.stat_3222402650",
+        "Prefixes\u0000explicit.stat_1892122971",
+        "Prefixes\u0000explicit.stat_3891355829|2",
+        "Prefixes\u0000explicit.stat_3891355829|1",
+        "Prefixes\u0000explicit.stat_3391917254",
+        "Prefixes\u0000explicit.stat_4032352472",
+        "Prefixes\u0000explicit.stat_2770044702",
+        "Prefixes\u0000explicit.stat_1321104829",
+        "Prefixes\u0000explicit.stat_4092130601",
+        "Prefixes\u0000explicit.stat_3394832998",
+        "Prefixes\u0000explicit.stat_2442527254",
+        "Prefixes\u0000explicit.stat_1896066427",
+        "Suffixes\u0000explicit.stat_3113764475",
+        "Suffixes\u0000explicit.stat_1060572482",
+        "Suffixes\u0000explicit.stat_1756380435",
+        "Suffixes\u0000explicit.stat_3173882956",
+        "Suffixes\u0000explicit.stat_3106718406",
+        "Suffixes\u0000explicit.stat_2359002191",
+        "Suffixes\u0000explicit.stat_693237939",
+        "Suffixes\u0000explicit.stat_2466785537",
+        "Suffixes\u0000explicit.stat_61644361",
+        "Suffixes\u0000explicit.stat_4234573345",
+        "Suffixes\u0000explicit.stat_3669820740",
+        "Suffixes\u0000explicit.stat_2704905000",
+        "Suffixes\u0000explicit.stat_3225608889",
+        "Suffixes\u0000explicit.stat_2709646369",
+        "Suffixes\u0000explicit.stat_593241812",
+        "Suffixes\u0000explicit.stat_3628935286",
+        "Suffixes\u0000explicit.stat_2077117738",
+        "Suffixes\u0000explicit.stat_1087108135",
+        "Suffixes\u0000explicit.stat_2256120736",
+        "Suffixes\u0000explicit.stat_394473632",
+        "Suffixes\u0000explicit.stat_525523040",
+        "Suffixes\u0000explicit.stat_1653682082",
+        "Suffixes\u0000explicit.stat_2726713579",
+        "Suffixes\u0000explicit.stat_2272980012",
+        "Suffixes\u0000explicit.stat_1039268420",
+        "Suffixes\u0000explicit.stat_1022759479",
+        "Suffixes\u0000explicit.stat_3579898587",
+        "Suffixes\u0000explicit.stat_3256879910",
+        "Suffixes\u0000explicit.stat_830345042",
+        "Suffixes\u0000explicit.stat_3513818125",
+        "Suffixes\u0000explicit.stat_127081978",
+        "Suffixes\u0000explicit.stat_2374711847",
+        "Suffixes\u0000explicit.stat_1087531620",
+        "Suffixes\u0000explicit.stat_2849546516",
+        "Suffixes\u0000explicit.stat_412709880",
+        "Desecrated\u0000desecrated.stat_2748665614",
+        "Desecrated\u0000desecrated.stat_458438597",
+        "Desecrated\u0000desecrated.stat_472520716",
+        "Desecrated\u0000desecrated.stat_983749596",
+        "Desecrated\u0000desecrated.stat_1177404658",
+        "Desecrated\u0000desecrated.stat_1444556985",
+        "Desecrated\u0000desecrated.stat_4101445926",
+        "Desecrated\u0000desecrated.stat_3566150527",
+        "Desecrated\u0000desecrated.stat_1034611536",
+        "Desecrated\u0000desecrated.stat_2200293569",
+        "Desecrated\u0000desecrated.stat_2135541924",
+        "Desecrated\u0000desecrated.stat_1102738251",
+        "Corrupted Implicits\u0000enchant.stat_1658498488",
+        "Corrupted Implicits\u0000enchant.stat_3429557654",
+        "Corrupted Implicits\u0000enchant.stat_1671376347",
+        "Corrupted Implicits\u0000enchant.stat_4220027924",
+        "Corrupted Implicits\u0000enchant.stat_328541901",
+        "Corrupted Implicits\u0000enchant.stat_3261801346",
+        "Corrupted Implicits\u0000enchant.stat_3372524247",
+        "Corrupted Implicits\u0000enchant.stat_4080418644",
+        "Corrupted Implicits\u0000enchant.stat_2923486259",
+        "Corrupted Implicits\u0000enchant.stat_1436284579",
+        "Corrupted Implicits\u0000enchant.stat_721014846"
+      ],
       "searchText": "Time-Lost Sapphire"
     },
     {
@@ -465,12 +834,88 @@
       "icon": "",
       "key": "time-lost-ruby",
       "hasCraftModifierPool": false,
-      "modifierIds": [],
+      "modifierIds": [
+        "Prefixes\u0000explicit.stat_1834658952",
+        "Prefixes\u0000explicit.stat_391602279",
+        "Prefixes\u0000explicit.stat_1852184471",
+        "Prefixes\u0000explicit.stat_3395186672",
+        "Prefixes\u0000explicit.stat_1432756708",
+        "Prefixes\u0000explicit.stat_1160637284",
+        "Prefixes\u0000explicit.stat_3858398337",
+        "Prefixes\u0000explicit.stat_4142814612",
+        "Prefixes\u0000explicit.stat_266564538",
+        "Prefixes\u0000explicit.stat_1590846356",
+        "Prefixes\u0000explicit.stat_318092306",
+        "Prefixes\u0000explicit.stat_3429148113",
+        "Prefixes\u0000explicit.stat_3821543413",
+        "Prefixes\u0000explicit.stat_253641217",
+        "Prefixes\u0000explicit.stat_4032352472",
+        "Prefixes\u0000explicit.stat_944643028",
+        "Prefixes\u0000explicit.stat_1417267954",
+        "Prefixes\u0000explicit.stat_1426522529",
+        "Prefixes\u0000explicit.stat_4089835882",
+        "Prefixes\u0000explicit.stat_3222402650",
+        "Prefixes\u0000explicit.stat_378796798",
+        "Prefixes\u0000explicit.stat_2534359663",
+        "Prefixes\u0000explicit.stat_3391917254",
+        "Prefixes\u0000explicit.stat_139889694",
+        "Prefixes\u0000explicit.stat_442393998",
+        "Prefixes\u0000explicit.stat_1846980580",
+        "Prefixes\u0000explicit.stat_1337740333",
+        "Prefixes\u0000explicit.stat_3891355829|2",
+        "Prefixes\u0000explicit.stat_3891355829|1",
+        "Prefixes\u0000explicit.stat_2108821127",
+        "Prefixes\u0000explicit.stat_1320662475",
+        "Suffixes\u0000explicit.stat_3113764475",
+        "Suffixes\u0000explicit.stat_2392824305",
+        "Suffixes\u0000explicit.stat_504915064",
+        "Suffixes\u0000explicit.stat_1145481685",
+        "Suffixes\u0000explicit.stat_1185341308",
+        "Suffixes\u0000explicit.stat_1602294220",
+        "Suffixes\u0000explicit.stat_394473632",
+        "Suffixes\u0000explicit.stat_30438393",
+        "Suffixes\u0000explicit.stat_484792219",
+        "Suffixes\u0000explicit.stat_2976476845",
+        "Suffixes\u0000explicit.stat_2907381231",
+        "Suffixes\u0000explicit.stat_2056107438",
+        "Suffixes\u0000explicit.stat_1505023559",
+        "Suffixes\u0000explicit.stat_3386297724",
+        "Suffixes\u0000explicit.stat_4173554949",
+        "Suffixes\u0000explicit.stat_3579898587",
+        "Suffixes\u0000explicit.stat_2969557004",
+        "Suffixes\u0000explicit.stat_1060572482",
+        "Suffixes\u0000explicit.stat_3666476747",
+        "Suffixes\u0000explicit.stat_4234573345",
+        "Suffixes\u0000explicit.stat_2690740379",
+        "Suffixes\u0000explicit.stat_2131720304",
+        "Desecrated\u0000desecrated.stat_2748665614",
+        "Desecrated\u0000desecrated.stat_458438597",
+        "Desecrated\u0000desecrated.stat_472520716",
+        "Desecrated\u0000desecrated.stat_983749596",
+        "Desecrated\u0000desecrated.stat_1177404658",
+        "Desecrated\u0000desecrated.stat_1444556985",
+        "Desecrated\u0000desecrated.stat_4101445926",
+        "Desecrated\u0000desecrated.stat_3566150527",
+        "Desecrated\u0000desecrated.stat_1034611536",
+        "Desecrated\u0000desecrated.stat_2200293569",
+        "Desecrated\u0000desecrated.stat_2135541924",
+        "Desecrated\u0000desecrated.stat_1102738251",
+        "Corrupted Implicits\u0000enchant.stat_1658498488",
+        "Corrupted Implicits\u0000enchant.stat_3429557654",
+        "Corrupted Implicits\u0000enchant.stat_1671376347",
+        "Corrupted Implicits\u0000enchant.stat_4220027924",
+        "Corrupted Implicits\u0000enchant.stat_328541901",
+        "Corrupted Implicits\u0000enchant.stat_3261801346",
+        "Corrupted Implicits\u0000enchant.stat_3372524247",
+        "Corrupted Implicits\u0000enchant.stat_4080418644",
+        "Corrupted Implicits\u0000enchant.stat_2923486259",
+        "Corrupted Implicits\u0000enchant.stat_1436284579",
+        "Corrupted Implicits\u0000enchant.stat_721014846"
+      ],
       "searchText": "Time-Lost Ruby"
     }
   ],
   "source": {
-
     "generatedAt": "2026-08-30T17:04:39.337Z",
     "unmapped": [
       {
@@ -1124,7 +1569,51 @@
         "matches": [],
         "text": "Companions have #% increased maximum Life, Companions deal #% increased Damage"
       }
-    ]
+    ],
+    "timeLost": {
+      "generatedAt": "2026-09-02T09:03:09.550Z",
+      "statCatalogUrl": "https://www.pathofexile.com/api/trade2/data/stats",
+      "uniqueStats": 183,
+      "unresolved": [],
+      "bases": {
+        "time-lost-ruby": {
+          "sourceUrl": "https://www.poe2wiki.net/wiki/List_of_modifiers_for_time-lost_ruby_jewel",
+          "sourceCounts": {
+            "standard": 53,
+            "desecrated": 12,
+            "corruption": 11
+          },
+          "stats": 76
+        },
+        "time-lost-emerald": {
+          "sourceUrl": "https://www.poe2wiki.net/wiki/List_of_modifiers_for_time-lost_emerald_jewel",
+          "sourceCounts": {
+            "standard": 77,
+            "desecrated": 12,
+            "corruption": 11
+          },
+          "stats": 100
+        },
+        "time-lost-sapphire": {
+          "sourceUrl": "https://www.poe2wiki.net/wiki/List_of_modifiers_for_time-lost_sapphire_jewel",
+          "sourceCounts": {
+            "standard": 60,
+            "desecrated": 12,
+            "corruption": 11
+          },
+          "stats": 83
+        },
+        "time-lost-diamond": {
+          "sourceUrl": "https://www.poe2wiki.net/wiki/List_of_modifiers_for_time-lost_diamond_jewel",
+          "sourceCounts": {
+            "standard": 160,
+            "desecrated": 12,
+            "corruption": 11
+          },
+          "stats": 183
+        }
+      }
+    }
   },
   "stats": {
     "Prefixes\u0000explicit.stat_2174054121": {
@@ -2309,6 +2798,1264 @@
       "id": "explicit.stat_3067892458",
       "text": "Triggered Spells deal #% increased Spell Damage",
       "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_868556494": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_868556494",
+      "text": "Small Passive Skills in Radius also grant Damage Penetrates #% Lightning Resistance",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_945774314": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_945774314",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Bows",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_821948283": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_821948283",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Quarterstaves",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1994296038": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1994296038",
+      "text": "Small Passive Skills in Radius also grant #% increased Evasion Rating",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1285594161": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1285594161",
+      "text": "Small Passive Skills in Radius also grant #% increased Accuracy Rating with Bows",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1494950893": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1494950893",
+      "text": "Small Passive Skills in Radius also grant Companions deal #% increased Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1166140625": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1166140625",
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Shock you inflict",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_533892981": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_533892981",
+      "text": "Small Passive Skills in Radius also grant #% increased Accuracy Rating",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3065378291": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3065378291",
+      "text": "Small Passive Skills in Radius also grant Herald Skills deal #% increased Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_288364275": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_288364275",
+      "text": "Small Passive Skills in Radius also grant #% increased Projectile Damage if you've dealt a Melee Hit in the past eight seconds",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1590846356": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1590846356",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Plant Skills",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_462424929": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_462424929",
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Poison you inflict",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_455816363": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_455816363",
+      "text": "Small Passive Skills in Radius also grant #% increased Projectile Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2421151933": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2421151933",
+      "text": "Small Passive Skills in Radius also grant #% increased Melee Damage if you've dealt a Projectile Attack Hit in the past eight seconds",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3891355829|2": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3891355829|2",
+      "text": "Upgrades Radius to Large",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3891355829|1": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3891355829|1",
+      "text": "Upgrades Radius to Medium",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_517664839": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_517664839",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Crossbows",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_4180952808": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4180952808",
+      "text": "Notable Passive Skills in Radius also grant #% increased bonuses gained from Equipped Quiver",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_147764878": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_147764878",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Hits against Rare and Unique Enemies",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1426522529": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1426522529",
+      "text": "Small Passive Skills in Radius also grant #% increased Attack Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2768899959": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2768899959",
+      "text": "Small Passive Skills in Radius also grant #% increased Lightning Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3222402650": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3222402650",
+      "text": "Small Passive Skills in Radius also grant #% increased Elemental Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1007380041": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1007380041",
+      "text": "Small Passive Skills in Radius also grant #% increased Parry Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_255840549": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_255840549",
+      "text": "Small Passive Skills in Radius also grant #% increased Hazard Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2638756573": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2638756573",
+      "text": "Small Passive Skills in Radius also grant Companions have #% increased maximum Life",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1777421941": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1777421941",
+      "text": "Notable Passive Skills in Radius also grant #% increased Projectile Speed",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_179541474": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_179541474",
+      "text": "Notable Passive Skills in Radius also grant #% increased Effect of your Mark Skills",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3752589831": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3752589831",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage while you have an active Charm",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_4092130601": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4092130601",
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Damaging Ailments you inflict with Critical Hits",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2809428780": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2809428780",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Spears",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2912416697": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2912416697",
+      "text": "Notable Passive Skills in Radius also grant #% increased Blind Effect",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1321104829": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1321104829",
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Ailments you inflict",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2066964205": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2066964205",
+      "text": "Notable Passive Skills in Radius also grant #% increased Flask Charges gained",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1060572482": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1060572482",
+      "text": "#% increased Effect of Small Passive Skills in Radius",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3513818125": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3513818125",
+      "text": "Small Passive Skills in Radius also grant #% increased Shock Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3173882956": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3173882956",
+      "text": "Notable Passive Skills in Radius also grant Damaging Ailments deal damage #% faster",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2580617872": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2580617872",
+      "text": "Notable Passive Skills in Radius also grant #% increased Slowing Potency of Debuffs on You",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1352561456": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1352561456",
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Damage Bonus for Attack Damage",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2320654813": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2320654813",
+      "text": "Notable Passive Skills in Radius also grant #% increased Charm Charges gained",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_654207792": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_654207792",
+      "text": "Small Passive Skills in Radius also grant #% increased Stun Threshold if you haven't been Stunned Recently",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3700202631": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3700202631",
+      "text": "Small Passive Skills in Radius also grant #% increased amount of Mana Leeched",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_4234573345": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4234573345",
+      "text": "#% increased Effect of Notable Passive Skills in Radius",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_942519401": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_942519401",
+      "text": "Notable Passive Skills in Radius also grant #% increased Life Flask Charges gained",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3171212276": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3171212276",
+      "text": "Notable Passive Skills in Radius also grant #% increased Mana Flask Charges gained",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1800303440": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1800303440",
+      "text": "Notable Passive Skills in Radius also grant #% chance to Pierce an Enemy",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_4162678661": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4162678661",
+      "text": "Small Passive Skills in Radius also grant Mark Skills have #% increased Skill Effect Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2610562860": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2610562860",
+      "text": "Small Passive Skills in Radius also grant #% chance to Blind Enemies on Hit with Attacks",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1514844108": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1514844108",
+      "text": "Notable Passive Skills in Radius also grant #% increased Parried Debuff Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_127081978": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_127081978",
+      "text": "Notable Passive Skills in Radius also grant #% increased Freeze Buildup with Quarterstaves",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_980177976": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_980177976",
+      "text": "Small Passive Skills in Radius also grant #% increased Life Recovery from Flasks",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3088348485": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3088348485",
+      "text": "Small Passive Skills in Radius also grant #% increased Charm Effect Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3774951878": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3774951878",
+      "text": "Small Passive Skills in Radius also grant #% increased Mana Recovery from Flasks",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2202308025": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2202308025",
+      "text": "Small Passive Skills in Radius also grant Mark Skills have #% increased Use Speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3865605585": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3865605585",
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Hit Chance for Attacks",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2256120736": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2256120736",
+      "text": "Notable Passive Skills in Radius also grant Debuffs on you expire #% faster",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1495814176": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1495814176",
+      "text": "Notable Passive Skills in Radius also grant #% increased Stun Threshold while Parrying",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1944020877": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1944020877",
+      "text": "Notable Passive Skills in Radius also grant #% increased Pin Buildup",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3409275777": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3409275777",
+      "text": "Small Passive Skills in Radius also grant #% increased Elemental Ailment Threshold",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_138421180": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_138421180",
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Damage Bonus with Spears",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1773308808": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1773308808",
+      "text": "Small Passive Skills in Radius also grant #% increased Flask Effect Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1266413530": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1266413530",
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Spears",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_4258000627": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4258000627",
+      "text": "Small Passive Skills in Radius also grant Dazes on Hit",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_221701169": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_221701169",
+      "text": "Notable Passive Skills in Radius also grant #% increased Poison Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2822644689": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2822644689",
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2149603090": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2149603090",
+      "text": "Notable Passive Skills in Radius also grant #% increased Cooldown Recovery Rate",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1039268420": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1039268420",
+      "text": "Small Passive Skills in Radius also grant #% increased chance to Shock",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2840989393": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2840989393",
+      "text": "Small Passive Skills in Radius also grant #% chance to Poison on Hit",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3641543553": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3641543553",
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Bows",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_111835965": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_111835965",
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Quarterstaves",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_4258720395": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4258720395",
+      "text": "Notable Passive Skills in Radius also grant Projectiles have #% chance for an additional Projectile when Forking",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2272980012": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2272980012",
+      "text": "Notable Passive Skills in Radius also grant #% increased Duration of Damaging Ailments on Enemies",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_844449513": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_844449513",
+      "text": "Notable Passive Skills in Radius also grant #% increased Movement Speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_715957346": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_715957346",
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Crossbows",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2334956771": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2334956771",
+      "text": "Notable Passive Skills in Radius also grant Projectiles have #% chance to Chain an additional time from terrain",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3856744003": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3856744003",
+      "text": "Notable Passive Skills in Radius also grant #% increased Crossbow Reload Speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1323216174": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1323216174",
+      "text": "Notable Passive Skills in Radius also grant #% increased Duration of Ignite, Shock and Chill on Enemies",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_412709880": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_412709880",
+      "text": "Notable Passive Skills in Radius also grant #% increased chance to inflict Ailments",
+      "type": "explicit"
+    },
+    "Desecrated\u0000desecrated.stat_2748665614": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_2748665614",
+      "text": "#% increased maximum Mana",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_458438597": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_458438597",
+      "text": "#% of Damage is taken from Mana before Life",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_472520716": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_472520716",
+      "text": "#% of Damage taken Recouped as Mana",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_983749596": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_983749596",
+      "text": "#% increased maximum Life",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_1177404658": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_1177404658",
+      "text": "#% increased Global Armour, Evasion and Energy Shield",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_1444556985": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_1444556985",
+      "text": "#% of Damage taken Recouped as Life",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_4101445926": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_4101445926",
+      "text": "#% increased Mana Cost Efficiency",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_3566150527": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_3566150527",
+      "text": "Notable Passive Skills in Radius also grant Regenerate #% of maximum Life per second",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_1034611536": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_1034611536",
+      "text": "Notable Passive Skills in Radius also grant Charms gain # charge per Second",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_2200293569": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_2200293569",
+      "text": "Mana Flasks gain # charges per Second",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_2135541924": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_2135541924",
+      "text": "Notable Passive Skills in Radius also grant Hits have #% increased Critical Hit Chance against you",
+      "type": "desecrated"
+    },
+    "Desecrated\u0000desecrated.stat_1102738251": {
+      "group": "Desecrated",
+      "id": "desecrated.stat_1102738251",
+      "text": "Life Flasks gain # charges per Second",
+      "type": "desecrated"
+    },
+    "Corrupted Implicits\u0000enchant.stat_1658498488": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_1658498488",
+      "text": "Corrupted Blood cannot be inflicted on you",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_3429557654": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_3429557654",
+      "text": "Immune to Maim",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_1671376347": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_1671376347",
+      "text": "#% to Lightning Resistance",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_4220027924": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_4220027924",
+      "text": "#% to Cold Resistance",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_328541901": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_328541901",
+      "text": "# to Intelligence",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_3261801346": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_3261801346",
+      "text": "# to Dexterity",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_3372524247": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_3372524247",
+      "text": "#% to Fire Resistance",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_4080418644": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_4080418644",
+      "text": "# to Strength",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_2923486259": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_2923486259",
+      "text": "#% to Chaos Resistance",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_1436284579": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_1436284579",
+      "text": "Cannot be Blinded",
+      "type": "enchant"
+    },
+    "Corrupted Implicits\u0000enchant.stat_721014846": {
+      "group": "Corrupted Implicits",
+      "id": "enchant.stat_721014846",
+      "text": "You cannot be Hindered",
+      "type": "enchant"
+    },
+    "Prefixes\u0000explicit.stat_3395186672": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3395186672",
+      "text": "Small Passive Skills in Radius also grant Empowered Attacks deal #% increased Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1896066427": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1896066427",
+      "text": "Small Passive Skills in Radius also grant Damage Penetrates #% Cold Resistance",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1417267954": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1417267954",
+      "text": "Small Passive Skills in Radius also grant #% increased Global Physical Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3821543413": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3821543413",
+      "text": "Notable Passive Skills in Radius also grant #% increased Block chance",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3665922113": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3665922113",
+      "text": "Small Passive Skills in Radius also grant #% increased maximum Energy Shield",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_4142814612": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4142814612",
+      "text": "Small Passive Skills in Radius also grant Banner Skills have #% increased Area of Effect",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1892122971": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1892122971",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage if you have Consumed a Corpse Recently",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_139889694": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_139889694",
+      "text": "Small Passive Skills in Radius also grant #% increased Fire Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1852184471": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1852184471",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Maces",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3936121440": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3936121440",
+      "text": "Notable Passive Skills in Radius also grant #% increased Withered Magnitude",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_266564538": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_266564538",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage while Shapeshifted",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_318092306": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_318092306",
+      "text": "Small Passive Skills in Radius also grant Attack Hits apply Incision",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3429148113": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3429148113",
+      "text": "Notable Passive Skills in Radius also grant #% increased Armour, Evasion and Energy Shield from Equipped Shield",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3391917254": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3391917254",
+      "text": "Notable Passive Skills in Radius also grant #% increased Area of Effect",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1846980580": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1846980580",
+      "text": "Notable Passive Skills in Radius also grant # to Maximum Rage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_442393998": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_442393998",
+      "text": "Small Passive Skills in Radius also grant #% increased Totem Life",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1337740333": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1337740333",
+      "text": "Small Passive Skills in Radius also grant #% increased Melee Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2108821127": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2108821127",
+      "text": "Small Passive Skills in Radius also grant #% increased Totem Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1320662475": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1320662475",
+      "text": "Small Passive Skills in Radius also grant #% increased Thorns damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1834658952": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1834658952",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage against Enemies with Fully Broken Armour",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1432756708": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1432756708",
+      "text": "Small Passive Skills in Radius also grant Damage Penetrates #% Fire Resistance",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_253641217": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_253641217",
+      "text": "Notable Passive Skills in Radius also grant #% increased Ignite Magnitude",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2442527254": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2442527254",
+      "text": "Small Passive Skills in Radius also grant #% increased Cold Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2954360902": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2954360902",
+      "text": "Small Passive Skills in Radius also grant Minions deal #% increased Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1160637284": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1160637284",
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Warcries",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_391602279": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_391602279",
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Bleeding you inflict",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_473917671": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_473917671",
+      "text": "Small Passive Skills in Radius also grant Triggered Spells deal #% increased Spell Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_378796798": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_378796798",
+      "text": "Small Passive Skills in Radius also grant Minions have #% increased maximum Life",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3859848445": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3859848445",
+      "text": "Notable Passive Skills in Radius also grant #% increased Area of Effect of Curses",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1137305356": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1137305356",
+      "text": "Small Passive Skills in Radius also grant #% increased Spell Damage",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2107703111": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2107703111",
+      "text": "Small Passive Skills in Radius also grant Offerings have #% increased Maximum Life",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_944643028": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_944643028",
+      "text": "Small Passive Skills in Radius also grant #% chance to inflict Bleeding on Hit",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3858398337": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3858398337",
+      "text": "Small Passive Skills in Radius also grant #% increased Armour",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_4089835882": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4089835882",
+      "text": "Small Passive Skills in Radius also grant Break #% increased Armour",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3419203492": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3419203492",
+      "text": "Notable Passive Skills in Radius also grant #% increased Energy Shield from Equipped Focus",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2534359663": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2534359663",
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Area of Effect",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_4032352472": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4032352472",
+      "text": "Notable Passive Skills in Radius also grant #% increased Presence Area of Effect",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_2770044702": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2770044702",
+      "text": "Notable Passive Skills in Radius also grant #% increased Curse Magnitudes",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_3394832998": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3394832998",
+      "text": "Notable Passive Skills in Radius also grant #% faster start of Energy Shield Recharge",
+      "type": "explicit"
+    },
+    "Prefixes\u0000explicit.stat_1309799717": {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1309799717",
+      "text": "Small Passive Skills in Radius also grant #% increased Chaos Damage",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_830345042": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_830345042",
+      "text": "Small Passive Skills in Radius also grant #% increased Freeze Threshold",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2969557004": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2969557004",
+      "text": "Notable Passive Skills in Radius also grant Gain # Rage on Melee Hit",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2466785537": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2466785537",
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Spell Damage Bonus",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_61644361": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_61644361",
+      "text": "Notable Passive Skills in Radius also grant #% increased Chill Duration on Enemies",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3669820740": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3669820740",
+      "text": "Notable Passive Skills in Radius also grant #% of Damage taken Recouped as Life",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3386297724": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3386297724",
+      "text": "Notable Passive Skills in Radius also grant #% of Skill Mana Costs Converted to Life Costs",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3225608889": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3225608889",
+      "text": "Small Passive Skills in Radius also grant Minions have #% to all Elemental Resistances",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2131720304": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2131720304",
+      "text": "Notable Passive Skills in Radius also grant Gain # Rage when Hit by an Enemy",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_593241812": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_593241812",
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Critical Damage Bonus",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3628935286": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3628935286",
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Critical Hit Chance",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_394473632": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_394473632",
+      "text": "Small Passive Skills in Radius also grant #% increased Flammability Magnitude",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_484792219": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_484792219",
+      "text": "Small Passive Skills in Radius also grant #% increased Stun Threshold",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2976476845": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2976476845",
+      "text": "Notable Passive Skills in Radius also grant #% increased Knockback Distance",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1505023559": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1505023559",
+      "text": "Notable Passive Skills in Radius also grant #% increased Bleeding Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3579898587": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3579898587",
+      "text": "Notable Passive Skills in Radius also grant #% increased Skill Speed while Shapeshifted",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3256879910": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3256879910",
+      "text": "Small Passive Skills in Radius also grant #% increased Mana Regeneration Rate",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2849546516": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2849546516",
+      "text": "Notable Passive Skills in Radius also grant Meta Skills gain #% increased Energy",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2392824305": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2392824305",
+      "text": "Notable Passive Skills in Radius also grant #% increased Stun Buildup with Maces",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1756380435": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1756380435",
+      "text": "Small Passive Skills in Radius also grant Minions have #% to Chaos Resistance",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3106718406": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3106718406",
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Attack and Cast Speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_504915064": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_504915064",
+      "text": "Notable Passive Skills in Radius also grant #% increased Armour Break Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2359002191": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2359002191",
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Damage Bonus",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1185341308": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1185341308",
+      "text": "Notable Passive Skills in Radius also grant #% increased Life Regeneration rate",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_30438393": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_30438393",
+      "text": "Small Passive Skills in Radius also grant Minions have #% additional Physical Damage Reduction",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_4173554949": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4173554949",
+      "text": "Notable Passive Skills in Radius also grant #% increased Stun Buildup",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2704905000": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2704905000",
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Hit Chance for Spells",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_693237939": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_693237939",
+      "text": "Small Passive Skills in Radius also grant Gain additional Ailment Threshold equal to #% of maximum Energy Shield",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2056107438": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2056107438",
+      "text": "Notable Passive Skills in Radius also grant #% increased Warcry Cooldown Recovery Rate",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2709646369": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2709646369",
+      "text": "Notable Passive Skills in Radius also grant #% of Damage is taken from Mana before Life",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1022759479": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1022759479",
+      "text": "Notable Passive Skills in Radius also grant #% increased Cast Speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1653682082": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1653682082",
+      "text": "Small Passive Skills in Radius also grant Gain additional Stun Threshold equal to #% of maximum Energy Shield",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2077117738": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2077117738",
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Hit Chance",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1087108135": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1087108135",
+      "text": "Small Passive Skills in Radius also grant #% increased Curse Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1145481685": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1145481685",
+      "text": "Small Passive Skills in Radius also grant #% increased Totem Placement speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3113764475": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3113764475",
+      "text": "Notable Passive Skills in Radius also grant #% increased Skill Effect Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1602294220": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1602294220",
+      "text": "Small Passive Skills in Radius also grant #% increased Warcry Speed",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2907381231": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2907381231",
+      "text": "Notable Passive Skills in Radius also grant #% increased Glory generation for Banner Skills",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2374711847": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2374711847",
+      "text": "Notable Passive Skills in Radius also grant Offering Skills have #% increased Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_1087531620": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1087531620",
+      "text": "Notable Passive Skills in Radius also grant #% increased Freeze Buildup",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2726713579": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2726713579",
+      "text": "Notable Passive Skills in Radius also grant Recover #% of maximum Life on Kill",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_2690740379": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2690740379",
+      "text": "Small Passive Skills in Radius also grant Banner Skills have #% increased Duration",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_525523040": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_525523040",
+      "text": "Notable Passive Skills in Radius also grant Recover #% of maximum Mana on Kill",
+      "type": "explicit"
+    },
+    "Suffixes\u0000explicit.stat_3666476747": {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3666476747",
+      "text": "Small Passive Skills in Radius also grant #% increased amount of Life Leeched",
+      "type": "explicit"
     }
   }
 };
@@ -2317,7 +4064,7 @@
   const BUNDLED_FALLBACK = BUNDLED_DATA.fallbackPath || "assets/item-icons/fallback.webp";
   const JEWEL_BASES = Object.freeze(SNAPSHOT.bases.map((base) => Object.freeze({ ...base, icon: BUNDLED_ICONS[base.key] || BUNDLED_FALLBACK })));
   const JEWEL_STATS = Object.freeze(SNAPSHOT.stats);
-  const JEWEL_STAT_GROUP_ORDER = Object.freeze(["Prefixes", "Suffixes", "Desecrated", "Vaal Implicits"]);
+  const JEWEL_STAT_GROUP_ORDER = Object.freeze(["Prefixes", "Suffixes", "Desecrated", "Vaal Implicits", "Corrupted Implicits"]);
   const JEWEL_BASE_BY_KEY = new Map(JEWEL_BASES.map((base) => [base.key, base]));
   function normalize(value) { return String(value || "").replace(/\s+/g, " ").trim().toLowerCase(); }
   function getJewelBase(key) { return JEWEL_BASE_BY_KEY.get(normalize(key)) || null; }

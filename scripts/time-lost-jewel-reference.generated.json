@@ -1,0 +1,1774 @@
+{
+  "generatedAt": "2026-09-02T08:38:58.697Z",
+  "sourceUrl": "https://poe2db.tw/us/Time-Lost_Jewels",
+  "statCatalogUrl": "https://www.pathofexile.com/api/trade2/data/stats",
+  "referenceRows": 184,
+  "matchedRows": 170,
+  "uniqueStats": 169,
+  "unmatched": [
+    {
+      "affix": "prefix",
+      "description": "Small Passive Skills in Radius also grant (2—3)% increased Damage with Axes",
+      "name": "Sinister"
+    },
+    {
+      "affix": "prefix",
+      "description": "Small Passive Skills in Radius also grant (2—3)% increased Damage with Daggers",
+      "name": "Lethal"
+    },
+    {
+      "affix": "prefix",
+      "description": "Small Passive Skills in Radius also grant (1—2)% increased Damage with Flails",
+      "name": "Flailing"
+    },
+    {
+      "affix": "prefix",
+      "description": "Small Passive Skills in Radius also grant (1—2)% increased Damage with Swords",
+      "name": "Vicious"
+    },
+    {
+      "affix": "prefix",
+      "description": "Small Passive Skills in Radius also grant (1—2)% increased Trap Damage",
+      "name": "Trapping"
+    },
+    {
+      "affix": "prefix",
+      "description": "Small Passive Skills in Radius also grant (1—2)% increased Damage with Unarmed Attacks",
+      "name": "Punching"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant (1—2)% increased Attack Speed with Axes",
+      "name": "of Cleaving"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant (3—7)% increased Critical Hit Chance with Daggers",
+      "name": "of Backstabbing"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant (1—2)% increased Attack Speed with Daggers",
+      "name": "of Slicing"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant (3—7)% increased Critical Hit Chance with Flails",
+      "name": "of Thrashing"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant Minions Revive (3—7)% faster",
+      "name": "of Revival"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant (1—2)% increased Attack Speed with Swords",
+      "name": "of Fencing"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant (2—4)% increased Trap Throwing Speed",
+      "name": "of Preparation"
+    },
+    {
+      "affix": "suffix",
+      "description": "Notable Passive Skills in Radius also grant (1—2)% increased Unarmed Attack Speed",
+      "name": "of Jabbing"
+    }
+  ],
+  "ambiguous": [],
+  "stats": [
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_895564377",
+      "names": [
+        "Wrath"
+      ],
+      "text": "Increases and Reductions to\n Cold and Fire Damage in Radius are transformed to apply to Lightning Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1400313697",
+      "names": [
+        "Anger"
+      ],
+      "text": "Increases and Reductions to\n Cold and Lightning Damage in Radius are transformed to apply to Fire Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3368921525",
+      "names": [
+        "Hatred"
+      ],
+      "text": "Increases and Reductions to\n Fire and Lightning Damage in Radius are transformed to apply to Cold Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1846980580",
+      "names": [
+        "Angry"
+      ],
+      "text": "Notable Passive Skills in Radius also grant # to Maximum Rage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3394832998",
+      "names": [
+        "Serene"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% faster start of Energy Shield Recharge",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3391917254",
+      "names": [
+        "Blasting"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Area of Effect",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3859848445",
+      "names": [
+        "Expanding"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Area of Effect of Curses",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3429148113",
+      "names": [
+        "Shielding"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Armour, Evasion and Energy Shield from Equipped Shield",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2912416697",
+      "names": [
+        "Stifling"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Blind Effect",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3821543413",
+      "names": [
+        "Protecting"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Block chance",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4180952808",
+      "names": [
+        "Fletching"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased bonuses gained from Equipped Quiver",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2770044702",
+      "names": [
+        "Hexing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Curse Magnitudes",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_179541474",
+      "names": [
+        "Marking"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Effect of your Mark Skills",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3419203492",
+      "names": [
+        "Focusing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Energy Shield from Equipped Focus",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_253641217",
+      "names": [
+        "Burning"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Ignite Magnitude",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1321104829",
+      "names": [
+        "Acrimonious"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Ailments you inflict",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_391602279",
+      "names": [
+        "Haemorrhaging"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Bleeding you inflict",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4092130601",
+      "names": [
+        "Rancorous"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Damaging Ailments you inflict with Critical Hits",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_462424929",
+      "names": [
+        "Venomous"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Poison you inflict",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1166140625",
+      "names": [
+        "Jolting"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Magnitude of Shock you inflict",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4032352472",
+      "names": [
+        "Iconic"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Presence Area of Effect",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1777421941",
+      "names": [
+        "Soaring"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Projectile Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2675129731",
+      "names": [
+        "of Warcries"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Warcry Buff Effect",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3936121440",
+      "names": [
+        "Withering"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Withered Magnitude",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3243034867",
+      "names": [
+        "Commanding"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Aura Skills have #% increased Magnitudes",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2534359663",
+      "names": [
+        "Companion"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Area of Effect",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_944643028",
+      "names": [
+        "Bleeding"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% chance to inflict Bleeding on Hit",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_533892981",
+      "names": [
+        "Accurate"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Accuracy Rating",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1285594161",
+      "names": [
+        "Precise"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Accuracy Rating with Bows",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3858398337",
+      "names": [
+        "Armoured"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Armour",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1426522529",
+      "names": [
+        "Combat"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Attack Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1309799717",
+      "names": [
+        "Chaotic"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Chaos Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2442527254",
+      "names": [
+        "Chilling"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Cold Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1834658952",
+      "names": [
+        "Exploiting"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage against Enemies with Fully Broken Armour",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1892122971",
+      "names": [
+        "Necromantic"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage if you have Consumed a Corpse Recently",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_266564538",
+      "names": [
+        "Bestial"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage while Shapeshifted",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3752589831",
+      "names": [
+        "Verdant"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage while you have an active Charm",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_945774314",
+      "names": [
+        "Perforating"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Bows",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_517664839",
+      "names": [
+        "Bolting"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Crossbows",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_147764878",
+      "names": [
+        "Slaying"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Hits against Rare and Unique Enemies",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1852184471",
+      "names": [
+        "Beating"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Maces",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1590846356",
+      "names": [
+        "Overgrown"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Plant Skills",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_821948283",
+      "names": [
+        "Monk's"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Quarterstaves",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2809428780",
+      "names": [
+        "Spearheaded"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Spears",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1160637284",
+      "names": [
+        "Yelling"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Damage with Warcries",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3222402650",
+      "names": [
+        "Prismatic"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Elemental Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1552666713",
+      "names": [
+        "Fevered"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Energy Shield Recharge Rate",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1994296038",
+      "names": [
+        "Evasive"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Evasion Rating",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_139889694",
+      "names": [
+        "Flaming"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Fire Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1417267954",
+      "names": [
+        "Sharpened"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Global Physical Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_255840549",
+      "names": [
+        "Hazardous"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Hazard Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2768899959",
+      "names": [
+        "Humming"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Lightning Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3665922113",
+      "names": [
+        "Shimmering"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased maximum Energy Shield",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1337740333",
+      "names": [
+        "Clashing"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Melee Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2421151933",
+      "names": [
+        "Engaging"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Melee Damage if you've dealt a Projectile Attack Hit in the past eight seconds",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_793875384",
+      "names": [
+        "Training"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Minion Accuracy Rating",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1007380041",
+      "names": [
+        "Parrying"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Parry Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_455816363",
+      "names": [
+        "Archer's"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Projectile Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_288364275",
+      "names": [
+        "Retreating"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Projectile Damage if you've dealt a Melee Hit in the past eight seconds",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1137305356",
+      "names": [
+        "Mystic"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Spell Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1320662475",
+      "names": [
+        "Retaliating"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Thorns damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2108821127",
+      "names": [
+        "Shaman's"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Totem Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_442393998",
+      "names": [
+        "Carved"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Totem Life",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_318092306",
+      "names": [
+        "Incise"
+      ],
+      "text": "Small Passive Skills in Radius also grant Attack Hits apply Incision",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4142814612",
+      "names": [
+        "Rallying"
+      ],
+      "text": "Small Passive Skills in Radius also grant Banner Skills have #% increased Area of Effect",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_4089835882",
+      "names": [
+        "Shattering"
+      ],
+      "text": "Small Passive Skills in Radius also grant Break #% increased Armour",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1494950893",
+      "names": [
+        "Kinship"
+      ],
+      "text": "Small Passive Skills in Radius also grant Companions deal #% increased Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2638756573",
+      "names": [
+        "Kindred"
+      ],
+      "text": "Small Passive Skills in Radius also grant Companions have #% increased maximum Life",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1896066427",
+      "names": [
+        "Numbing"
+      ],
+      "text": "Small Passive Skills in Radius also grant Damage Penetrates #% Cold Resistance",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_1432756708",
+      "names": [
+        "Searing"
+      ],
+      "text": "Small Passive Skills in Radius also grant Damage Penetrates #% Fire Resistance",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_868556494",
+      "names": [
+        "Surging"
+      ],
+      "text": "Small Passive Skills in Radius also grant Damage Penetrates #% Lightning Resistance",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3395186672",
+      "names": [
+        "Empowering"
+      ],
+      "text": "Small Passive Skills in Radius also grant Empowered Attacks deal #% increased Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3065378291",
+      "names": [
+        "Heralding"
+      ],
+      "text": "Small Passive Skills in Radius also grant Herald Skills deal #% increased Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2954360902",
+      "names": [
+        "Authoritative"
+      ],
+      "text": "Small Passive Skills in Radius also grant Minions deal #% increased Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_378796798",
+      "names": [
+        "Fortuitous"
+      ],
+      "text": "Small Passive Skills in Radius also grant Minions have #% increased maximum Life",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_2107703111",
+      "names": [
+        "Sacrificial"
+      ],
+      "text": "Small Passive Skills in Radius also grant Offerings have #% increased Maximum Life",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_473917671",
+      "names": [
+        "Triggered"
+      ],
+      "text": "Small Passive Skills in Radius also grant Triggered Spells deal #% increased Spell Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3891355829|2",
+      "names": [
+        "Grand"
+      ],
+      "text": "Upgrades Radius to Large",
+      "type": "explicit"
+    },
+    {
+      "affix": "prefix",
+      "group": "Prefixes",
+      "id": "explicit.stat_3891355829|1",
+      "names": [
+        "Greater"
+      ],
+      "text": "Upgrades Radius to Medium",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4234573345",
+      "names": [
+        "of Supremacy"
+      ],
+      "text": "#% increased Effect of Notable Passive Skills in Radius",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1060572482",
+      "names": [
+        "of Influence",
+        "of Potency"
+      ],
+      "text": "#% increased Effect of Small Passive Skills in Radius",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4225700219",
+      "names": [
+        "of Volatility"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% chance to gain Volatility on Kill",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1800303440",
+      "names": [
+        "of Piercing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% chance to Pierce an Enemy",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_504915064",
+      "names": [
+        "Resonating"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Armour Break Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2822644689",
+      "names": [
+        "of Alacrity"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3641543553",
+      "names": [
+        "of Nocking"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Bows",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_715957346",
+      "names": [
+        "of Rapidity"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Crossbows",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_111835965",
+      "names": [
+        "of Sequencing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Quarterstaves",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1266413530",
+      "names": [
+        "of Spearing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Attack Speed with Spears",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1505023559",
+      "names": [
+        "of Haemophilia"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Bleeding Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1022759479",
+      "names": [
+        "of Enchanting"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Cast Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_412709880",
+      "names": [
+        "of Ailing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased chance to inflict Ailments",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2320654813",
+      "names": [
+        "of the Thicker"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Charm Charges gained",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_61644361",
+      "names": [
+        "of Frost"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Chill Duration on Enemies",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2149603090",
+      "names": [
+        "of Chronomancy"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Cooldown Recovery Rate",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2359002191",
+      "names": [
+        "of Potency"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Damage Bonus",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1352561456",
+      "names": [
+        "of Demolishing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Damage Bonus for Attack Damage",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_138421180",
+      "names": [
+        "of Hunting"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Damage Bonus with Spears",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2077117738",
+      "names": [
+        "of Annihilation"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Hit Chance",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3865605585",
+      "names": [
+        "of Deadliness"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Hit Chance for Attacks",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2704905000",
+      "names": [
+        "of Annihilating"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Hit Chance for Spells",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2466785537",
+      "names": [
+        "of Unmaking"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Critical Spell Damage Bonus",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3856744003",
+      "names": [
+        "of Reloading"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Crossbow Reload Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2272980012",
+      "names": [
+        "of Suffusion"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Duration of Damaging Ailments on Enemies",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1323216174",
+      "names": [
+        "of Suffering"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Duration of Ignite, Shock and Chill on Enemies",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2066964205",
+      "names": [
+        "of Gathering"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Flask Charges gained",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1087531620",
+      "names": [
+        "of Freezing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Freeze Buildup",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_127081978",
+      "names": [
+        "of Glaciers"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Freeze Buildup with Quarterstaves",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2907381231",
+      "names": [
+        "of Valour"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Glory generation for Banner Skills",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2976476845",
+      "names": [
+        "of Fending"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Knockback Distance",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_942519401",
+      "names": [
+        "of Pathfinding"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Life Flask Charges gained",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1185341308",
+      "names": [
+        "of Regeneration"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Life Regeneration rate",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3171212276",
+      "names": [
+        "of Fountains"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Mana Flask Charges gained",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_844449513",
+      "names": [
+        "of Speed"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Movement Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1514844108",
+      "names": [
+        "of Unsettling"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Parried Debuff Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1944020877",
+      "names": [
+        "of Pinning"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Pin Buildup",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_221701169",
+      "names": [
+        "of Infection"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Poison Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3113764475",
+      "names": [
+        "of Lengthening"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Skill Effect Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3579898587",
+      "names": [
+        "of the Wild"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Skill Speed while Shapeshifted",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2580617872",
+      "names": [
+        "of Hastening"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Slowing Potency of Debuffs on You",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4173554949",
+      "names": [
+        "of Stunning"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Stun Buildup",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2392824305",
+      "names": [
+        "of Thumping"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Stun Buildup with Maces",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1495814176",
+      "names": [
+        "of Biding"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Stun Threshold while Parrying",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2056107438",
+      "names": [
+        "of Rallying"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% increased Warcry Cooldown Recovery Rate",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2709646369",
+      "names": [
+        "of Mind"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% of Damage is taken from Mana before Life",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3669820740",
+      "names": [
+        "of Infusion"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% of Damage taken Recouped as Life",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3386297724",
+      "names": [
+        "of Sacrifice"
+      ],
+      "text": "Notable Passive Skills in Radius also grant #% of Skill Mana Costs Converted to Life Costs",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3173882956",
+      "names": [
+        "of Decrepifying"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Damaging Ailments deal damage #% faster",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2256120736",
+      "names": [
+        "of Diminishing"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Debuffs on you expire #% faster",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2969557004",
+      "names": [
+        "of Raging"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Gain # Rage on Melee Hit",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2131720304",
+      "names": [
+        "of Retribution"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Gain # Rage when Hit by an Enemy",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2849546516",
+      "names": [
+        "of Generation"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Meta Skills gain #% increased Energy",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3106718406",
+      "names": [
+        "of Orchestration"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Attack and Cast Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_593241812",
+      "names": [
+        "of Gripping"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Critical Damage Bonus",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3628935286",
+      "names": [
+        "of Marshalling"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Minions have #% increased Critical Hit Chance",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2374711847",
+      "names": [
+        "of Offering"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Offering Skills have #% increased Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4258720395",
+      "names": [
+        "of Forking"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Projectiles have #% chance for an additional Projectile when Forking",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2334956771",
+      "names": [
+        "of Chaining"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Projectiles have #% chance to Chain an additional time from terrain",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2726713579",
+      "names": [
+        "of Success"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Recover #% of maximum Life on Kill",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_525523040",
+      "names": [
+        "of Osmosis"
+      ],
+      "text": "Notable Passive Skills in Radius also grant Recover #% of maximum Mana on Kill",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2610562860",
+      "names": [
+        "of Blinding"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% chance to Blind Enemies on Hit with Attacks",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2840989393",
+      "names": [
+        "of Poisoning"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% chance to Poison on Hit",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3666476747",
+      "names": [
+        "of Frenzy"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased amount of Life Leeched",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3700202631",
+      "names": [
+        "of Thirsting"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased amount of Mana Leeched",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1039268420",
+      "names": [
+        "of Shocking"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased chance to Shock",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3088348485",
+      "names": [
+        "of the Woodland"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Charm Effect Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1087108135",
+      "names": [
+        "of Continuation"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Curse Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3409275777",
+      "names": [
+        "of Enduring"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Elemental Ailment Threshold",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_394473632",
+      "names": [
+        "of Ignition"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Flammability Magnitude",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1773308808",
+      "names": [
+        "of Prolonging"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Flask Effect Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_830345042",
+      "names": [
+        "of Snowbreathing"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Freeze Threshold",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_980177976",
+      "names": [
+        "of Recovery"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Life Recovery from Flasks",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3774951878",
+      "names": [
+        "of Quenching"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Mana Recovery from Flasks",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3256879910",
+      "names": [
+        "of Energy"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Mana Regeneration Rate",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3513818125",
+      "names": [
+        "of Paralyzing"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Shock Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_484792219",
+      "names": [
+        "of Withstanding"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Stun Threshold",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_654207792",
+      "names": [
+        "of Stoutness"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Stun Threshold if you haven't been Stunned Recently",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1145481685",
+      "names": [
+        "of Ancestry"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Totem Placement speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1602294220",
+      "names": [
+        "of Lungs"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Warcry Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1129429646",
+      "names": [
+        "of Swapping"
+      ],
+      "text": "Small Passive Skills in Radius also grant #% increased Weapon Swap Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2690740379",
+      "names": [
+        "of Inspiring"
+      ],
+      "text": "Small Passive Skills in Radius also grant Banner Skills have #% increased Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4258000627",
+      "names": [
+        "of Dazing"
+      ],
+      "text": "Small Passive Skills in Radius also grant Dazes on Hit",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_693237939",
+      "names": [
+        "of Inuring"
+      ],
+      "text": "Small Passive Skills in Radius also grant Gain additional Ailment Threshold equal to #% of maximum Energy Shield",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1653682082",
+      "names": [
+        "of Barriers"
+      ],
+      "text": "Small Passive Skills in Radius also grant Gain additional Stun Threshold equal to #% of maximum Energy Shield",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_4162678661",
+      "names": [
+        "of Tracking"
+      ],
+      "text": "Small Passive Skills in Radius also grant Mark Skills have #% increased Skill Effect Duration",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_2202308025",
+      "names": [
+        "of Targeting"
+      ],
+      "text": "Small Passive Skills in Radius also grant Mark Skills have #% increased Use Speed",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_30438393",
+      "names": [
+        "of Confidence"
+      ],
+      "text": "Small Passive Skills in Radius also grant Minions have #% additional Physical Damage Reduction",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_3225608889",
+      "names": [
+        "of Acclimatisation"
+      ],
+      "text": "Small Passive Skills in Radius also grant Minions have #% to all Elemental Resistances",
+      "type": "explicit"
+    },
+    {
+      "affix": "suffix",
+      "group": "Suffixes",
+      "id": "explicit.stat_1756380435",
+      "names": [
+        "of Righteousness"
+      ],
+      "text": "Small Passive Skills in Radius also grant Minions have #% to Chaos Resistance",
+      "type": "explicit"
+    }
+  ]
+}

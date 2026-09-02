@@ -156,7 +156,8 @@ export function createQuickRarityFilterFeature(
     trigger?.classList.toggle("is-enabled", Boolean(value));
     if (trigger) {
       const tone = getRarityTone(value);
-      trigger.textContent = value || "Rarity";
+      const label = value || "Rarity";
+      if (trigger.textContent !== label) trigger.textContent = label;
       for (const rarityTone of ["normal", "magic", "rare", "unique"]) {
         trigger.classList.toggle(
           `is-rarity-${rarityTone}`,

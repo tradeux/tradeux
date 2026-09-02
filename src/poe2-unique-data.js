@@ -14500,7 +14500,7 @@
       "number of stackable unique jewels [1]"
     ],
     "name": "Grand Spectrum",
-    "officialIcon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvSmV3ZWxzL1VuaXF1ZXMvR3JhbmRTcGVjdHJ1bV9FbWVyYWxkIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/687a109210/GrandSpectrum_Emerald.png",
+    "officialIcon": "assets/item-icons/32bda2cac0be42e1fa78.webp",
     "pool": "Emerald",
     "requirements": "Requires: Level 20",
     "runeforging": [],
@@ -14529,7 +14529,7 @@
       "number of stackable unique jewels [1]"
     ],
     "name": "Grand Spectrum",
-    "officialIcon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvSmV3ZWxzL1VuaXF1ZXMvR3JhbmRTcGVjdHJ1bV9TYXBwaGlyZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/514d06d40e/GrandSpectrum_Sapphire.png",
+    "officialIcon": "assets/item-icons/a92432e85a01978a362f.webp",
     "pool": "Sapphire",
     "requirements": "Requires: Level 20",
     "runeforging": [],

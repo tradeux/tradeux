@@ -1,5 +1,6 @@
 import { DEFAULT_SETTINGS, type StylerSettings } from "./model";
 import { createModalFrame } from "../modal-frame";
+import manifest from "../../../manifest.json";
 
 export type { StylerSettings } from "./model";
 
@@ -23,7 +24,7 @@ export interface SettingsDependencies {
 
 const SETTINGS_STORAGE_KEY = "poe-tradeux-settings";
 const BRAND_NAME = "POE TradeUX";
-const APP_VERSION = "0.1.5";
+const APP_VERSION = manifest.version;
 
 export function createSettingsFeature(
   dependencies: SettingsDependencies

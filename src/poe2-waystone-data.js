@@ -13,22 +13,22 @@
   // Exile's Top Tier Waystone affixes on 2026-08-29. Keep legacy searchable
   // modifiers because existing Waystones can remain listed after pool changes.
   const WAYSTONE_TIER_ICONS = Object.freeze({
-    1: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/d36b6409e3/EndgameMap1.png",
-    2: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMiIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/4ac71eea17/EndgameMap2.png",
-    3: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/4257e8e4cd/EndgameMap3.png",
-    4: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwNCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/5462dc78bb/EndgameMap4.png",
-    5: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwNSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/f8cd6b1b86/EndgameMap5.png",
-    6: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwNiIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/6150ee81f7/EndgameMap6.png",
-    7: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwNyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/5687c12be9/EndgameMap7.png",
-    8: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwOCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/8a3fc85d64/EndgameMap8.png",
-    9: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwOSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/24a49a7f09/EndgameMap9.png",
-    10: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMTAiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/ce426a3feb/EndgameMap10.png",
-    11: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMTEiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/3cbc9f6a21/EndgameMap11.png",
-    12: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMTIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/2729435b50/EndgameMap12.png",
-    13: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMTMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/543471526d/EndgameMap13.png",
-    14: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMTQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIiwibWQiOnRydWV9XQ/00bfecd213/EndgameMap14.png",
-    15: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMTUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/17149586aa/EndgameMap15.png",
-    16: "https://web.poecdn.com/gen/image/WzI4LDE0LHsiZiI6IjJESXRlbXMvTWFwcy9FbmRnYW1lTWFwcy9FbmRnYW1lTWFwMTYiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/c0f4423d40/EndgameMap16.png"
+    1: "assets/item-icons/8bfdda13bab1fea16e0a.webp",
+    2: "assets/item-icons/f6f332c1238b8d978abb.webp",
+    3: "assets/item-icons/bae5822fd45f517a2551.webp",
+    4: "assets/item-icons/8344be1079d9c3ea10f2.webp",
+    5: "assets/item-icons/a6a491b66de7028317f2.webp",
+    6: "assets/item-icons/d200b18d55879707d53e.webp",
+    7: "assets/item-icons/d94daf0ae99e6efd4233.webp",
+    8: "assets/item-icons/6e9bcc1d83766d8c9a9b.webp",
+    9: "assets/item-icons/063353b855dadf7561eb.webp",
+    10: "assets/item-icons/4cbeaa7ebd3ca55f0d9e.webp",
+    11: "assets/item-icons/df645b0b317e0d170f26.webp",
+    12: "assets/item-icons/1323ca96c79e8548ada4.webp",
+    13: "assets/item-icons/cdf4f445a0e23137b768.webp",
+    14: "assets/item-icons/adca03694258748de2dc.webp",
+    15: "assets/item-icons/7644902434937c26e24f.webp",
+    16: "assets/item-icons/40699c7dcff3781e07ed.webp"
   });
   const WAYSTONE_TIERS = Object.freeze(
     Array.from({ length: 16 }, (_, index) => {

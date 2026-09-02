@@ -2730,7 +2730,7 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
   background: rgba(55, 45, 25, 0.96);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.55);
   color: #dfcf99;
-  font: 700 12px/1 "PoeFontin";
+  font: 700 12px/1 "FontinSmallCaps";
   cursor: pointer;
 }
 
@@ -4919,6 +4919,8 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
 .poe-trade-styler-decorated-popover :where(*),
 .poe-trade-styler-decorated-popover :where(*)::before,
 .poe-trade-styler-decorated-popover :where(*)::after,
+#trade .poe-trade-styler-active-preset-status,
+#trade .poe-trade-styler-active-preset-status-label,
 #trade .poe-trade-styler-quick-rarity-trigger {
   font-family: "FontinSmallCaps" !important;
 }

@@ -90,13 +90,13 @@ export function createStatFiltersFeature({
       presetState.activePreset === "jewels" &&
       presetState.selectedJewelBaseKey
     ) {
-      const selectedJewel = jewelData.getJewelBase(
-        presetState.selectedJewelBaseKey
-      );
-
-      // Time-Lost jewels do not have a preset stat catalog. Keep the native
-      // catalogue visible so selecting the base does not leave an empty list.
-      if (selectedJewel?.hasCraftModifierPool === false) return false;
+      // Keep the native catalogue as a fallback only for bases that genuinely
+      // have no bundled preset options. Time-Lost jewels have a shared pool
+      // even though they do not use the normal crafting modifier source.
+      if (
+        jewelData.getJewelStatOptions(presetState.selectedJewelBaseKey)
+          .length === 0
+      ) return false;
     }
 
     return true;

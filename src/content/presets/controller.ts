@@ -433,30 +433,46 @@ export function createPresetsFeature({
             event.stopPropagation();
             void deactivatePreset();
           });
+          strip.append(status);
         }
 
-        const label = document.createElement("span");
-        label.className = "poe-trade-styler-active-preset-status-label";
-        label.textContent = "Preset:";
+        let label = status.querySelector<HTMLElement>(
+          ":scope > .poe-trade-styler-active-preset-status-label"
+        );
+        if (!label) {
+          label = document.createElement("span");
+          label.className = "poe-trade-styler-active-preset-status-label";
+          status.prepend(label);
+        }
+        if (label.textContent !== "Preset:") label.textContent = "Preset:";
+
         const launcherIcon = document.querySelector<HTMLImageElement>(
           `[data-poe-trade-styler-preset="${activeMode}"] img`
         );
-        const icon = document.createElement("img");
-        icon.className = "poe-trade-styler-active-preset-status-icon";
-        icon.src =
+        const iconSource =
           launcherIcon?.getAttribute("src") || launcherIcon?.src || "";
-        icon.alt = "";
-        icon.referrerPolicy = "no-referrer";
-        icon.setAttribute("aria-hidden", "true");
+        let icon = status.querySelector<HTMLImageElement>(
+          ":scope > .poe-trade-styler-active-preset-status-icon"
+        );
+        if (!icon) {
+          icon = document.createElement("img");
+          icon.className = "poe-trade-styler-active-preset-status-icon";
+          icon.alt = "";
+          icon.referrerPolicy = "no-referrer";
+          icon.setAttribute("aria-hidden", "true");
+          status.append(icon);
+        }
+        if (icon.getAttribute("src") !== iconSource) icon.src = iconSource;
 
         status.dataset.poeTradeStylerActivePreset = activeMode;
-        status.title = `Disable the ${labels[activeMode]} preset and restore stat filtering`;
+        status.title =
+          "Disable preset mode to remove base-specific stat filtering and " +
+          "choose from all available stats.";
         status.setAttribute(
           "aria-label",
-          `${labels[activeMode]} preset active. Click to disable the preset and restore stat filtering.`
+          `${labels[activeMode]} preset active. Click to disable preset mode, ` +
+            "remove base-specific stat filtering, and choose from all available stats."
         );
-        status.replaceChildren(label, icon);
-        strip.append(status);
       });
   }
 

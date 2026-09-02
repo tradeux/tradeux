@@ -390,20 +390,20 @@
 
   // src/content/image-assets.ts
   var FALLBACK_PATH = "assets/item-icons/fallback.webp";
+  var INERT_IMAGE_DATA_URL = "data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=";
   function resolveAssetBaseUrl() {
     const extensionRuntime = globalThis.chrome?.runtime;
-    const pageOrigin = globalThis.location?.origin || "https://www.pathofexile.com";
     if (extensionRuntime?.getURL) {
       try {
         return extensionRuntime.getURL("");
       } catch {
       }
     }
-    return new URL("/", pageOrigin).href;
+    return null;
   }
   var ASSET_BASE_URL = resolveAssetBaseUrl();
   function extensionAssetUrl(path) {
-    return new URL(path, ASSET_BASE_URL).href;
+    return ASSET_BASE_URL ? new URL(path, ASSET_BASE_URL).href : INERT_IMAGE_DATA_URL;
   }
   var GENERIC_ITEM_FALLBACK_ICON = extensionAssetUrl(FALLBACK_PATH);
   function getSafeItemImageUrl(source) {
@@ -415,9 +415,6 @@
       value
     )) {
       return extensionAssetUrl(value);
-    }
-    if (/^https:\/\/web\.poecdn\.com\/gen\/image\/[A-Za-z0-9_-]+\/[a-f0-9]+\/[A-Za-z0-9._-]+$/i.test(value)) {
-      return value;
     }
     return GENERIC_ITEM_FALLBACK_ICON;
   }
@@ -1284,27 +1281,39 @@
             event.stopPropagation();
             void deactivatePreset();
           });
+          strip.append(status);
         }
-        const label = document.createElement("span");
-        label.className = "poe-trade-styler-active-preset-status-label";
-        label.textContent = "Preset:";
+        let label = status.querySelector(
+          ":scope > .poe-trade-styler-active-preset-status-label"
+        );
+        if (!label) {
+          label = document.createElement("span");
+          label.className = "poe-trade-styler-active-preset-status-label";
+          status.prepend(label);
+        }
+        if (label.textContent !== "Preset:") label.textContent = "Preset:";
         const launcherIcon = document.querySelector(
           `[data-poe-trade-styler-preset="${activeMode}"] img`
         );
-        const icon = document.createElement("img");
-        icon.className = "poe-trade-styler-active-preset-status-icon";
-        icon.src = launcherIcon?.getAttribute("src") || launcherIcon?.src || "";
-        icon.alt = "";
-        icon.referrerPolicy = "no-referrer";
-        icon.setAttribute("aria-hidden", "true");
+        const iconSource = launcherIcon?.getAttribute("src") || launcherIcon?.src || "";
+        let icon = status.querySelector(
+          ":scope > .poe-trade-styler-active-preset-status-icon"
+        );
+        if (!icon) {
+          icon = document.createElement("img");
+          icon.className = "poe-trade-styler-active-preset-status-icon";
+          icon.alt = "";
+          icon.referrerPolicy = "no-referrer";
+          icon.setAttribute("aria-hidden", "true");
+          status.append(icon);
+        }
+        if (icon.getAttribute("src") !== iconSource) icon.src = iconSource;
         status.dataset.poeTradeStylerActivePreset = activeMode;
-        status.title = `Disable the ${labels[activeMode]} preset and restore stat filtering`;
+        status.title = "Disable preset mode to remove base-specific stat filtering and choose from all available stats.";
         status.setAttribute(
           "aria-label",
-          `${labels[activeMode]} preset active. Click to disable the preset and restore stat filtering.`
+          `${labels[activeMode]} preset active. Click to disable preset mode, remove base-specific stat filtering, and choose from all available stats.`
         );
-        status.replaceChildren(label, icon);
-        strip.append(status);
       });
     }
     async function setActivePreset(nextPreset, { preserveForm: _preserveForm = false } = {}) {
@@ -2089,7 +2098,8 @@
       trigger?.classList.toggle("is-enabled", Boolean(value));
       if (trigger) {
         const tone = getRarityTone(value);
-        trigger.textContent = value || "Rarity";
+        const label = value || "Rarity";
+        if (trigger.textContent !== label) trigger.textContent = label;
         for (const rarityTone of ["normal", "magic", "rare", "unique"]) {
           trigger.classList.toggle(
             `is-rarity-${rarityTone}`,
@@ -3059,10 +3069,59 @@
     return { overlay, dialog, header, title, closeButton };
   }
 
+  // manifest.json
+  var manifest_default = {
+    manifest_version: 3,
+    name: "POE TradeUX",
+    description: "Improves Path of Exile 2 trade search pages. Path of Exile 1 trade is not supported.",
+    version: "0.1.7",
+    permissions: ["storage"],
+    icons: {
+      "16": "assets/icons/icon-16.png",
+      "32": "assets/icons/icon-32.png",
+      "48": "assets/icons/icon-48.png",
+      "128": "assets/icons/icon-128.png"
+    },
+    content_scripts: [
+      {
+        matches: ["https://www.pathofexile.com/trade2/*"],
+        js: [
+          "src/styler.js",
+          "src/poe2-bundled-icon-data.js",
+          "src/poe2-corruption-data.js",
+          "src/poe2-charm-data.js",
+          "src/poe2-flask-data.js",
+          "src/poe2-gem-data.js",
+          "src/poe2-gear-data.js",
+          "src/poe2-jewel-data.js",
+          "src/poe2-waystone-data.js",
+          "src/poe2-tablet-data.js",
+          "src/poe2-unique-data.js",
+          "dist/content.js"
+        ],
+        css: ["src/content.css"],
+        run_at: "document_idle"
+      }
+    ],
+    web_accessible_resources: [
+      {
+        resources: [
+          "assets/item-icons/*.webp",
+          "assets/fonts/*.ttf",
+          "assets/ui/*.png",
+          "assets/ui/frame/v2/arcane-sigil-v2.png",
+          "assets/ui/frame/v2/corner-filigree-v2.png",
+          "assets/ui/frame/v2/footer-crest-v2.png"
+        ],
+        matches: ["https://www.pathofexile.com/*"]
+      }
+    ]
+  };
+
   // src/content/settings/controller.ts
   var SETTINGS_STORAGE_KEY = "poe-tradeux-settings";
   var BRAND_NAME = "POE TradeUX";
-  var APP_VERSION = "0.1.5";
+  var APP_VERSION = manifest_default.version;
   function createSettingsFeature(dependencies) {
     const doc = dependencies.document ?? document;
     const storage = dependencies.storage ?? chrome.storage.local;
@@ -3765,10 +3824,7 @@
     function shouldUsePresetStatListLayout() {
       if (!presetState.activePreset) return false;
       if (presetState.activePreset === "jewels" && presetState.selectedJewelBaseKey) {
-        const selectedJewel = jewelData.getJewelBase(
-          presetState.selectedJewelBaseKey
-        );
-        if (selectedJewel?.hasCraftModifierPool === false) return false;
+        if (jewelData.getJewelStatOptions(presetState.selectedJewelBaseKey).length === 0) return false;
       }
       return true;
     }
