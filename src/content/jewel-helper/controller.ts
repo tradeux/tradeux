@@ -18,6 +18,7 @@ export function createJewelHelperFeature({
   createUniqueItemCard,
   document: doc,
   jewelData,
+  onDeactivate = async () => undefined,
   onSelect,
   onSelectUnique = async () => false,
   presetState,
@@ -27,6 +28,7 @@ export function createJewelHelperFeature({
   createUniqueItemCard?: (key: string) => HTMLElement | null;
   document: Document;
   jewelData: JewelDataPort;
+  onDeactivate?: () => Promise<void>;
   onSelect(baseKey: string): Promise<boolean>;
   onSelectUnique?(name: string): Promise<boolean>;
   presetState: PresetState;
@@ -36,6 +38,7 @@ export function createJewelHelperFeature({
   let launcher: HTMLButtonElement | null = null;
   let menu: HTMLDivElement | null = null;
   let hoverBoundItem: Element | null = null;
+  let launcherToggleInProgress = false;
 
   function isPoe2Page(): boolean {
     return (
@@ -108,9 +111,21 @@ export function createJewelHelperFeature({
     icon.referrerPolicy = "no-referrer";
     icon.setAttribute("aria-hidden", "true");
     button.append(icon);
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", async (event) => {
       event.preventDefault();
       event.stopPropagation();
+      if (presetState.activePreset !== "jewels") return;
+      event.stopImmediatePropagation();
+      if (launcherToggleInProgress) return;
+      launcherToggleInProgress = true;
+      close();
+      try {
+        await onDeactivate();
+      } finally {
+        launcherToggleInProgress = false;
+        button.classList.remove("is-active");
+        button.setAttribute("aria-pressed", "false");
+      }
     });
     return button;
   }

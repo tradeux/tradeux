@@ -83,6 +83,25 @@ export function createStatFiltersFeature({
     requestAnimationFrame(decorateStatFilterOptions);
   }
 
+  function shouldUsePresetStatListLayout(): boolean {
+    if (!presetState.activePreset) return false;
+
+    if (
+      presetState.activePreset === "jewels" &&
+      presetState.selectedJewelBaseKey
+    ) {
+      const selectedJewel = jewelData.getJewelBase(
+        presetState.selectedJewelBaseKey
+      );
+
+      // Time-Lost jewels do not have a preset stat catalog. Keep the native
+      // catalogue visible so selecting the base does not leave an empty list.
+      if (selectedJewel?.hasCraftModifierPool === false) return false;
+    }
+
+    return true;
+  }
+
   function getStatGroupType(statGroup: Element): string | null {
     const header = statGroup.querySelector(".filter-group-header");
     const renderedType = header?.querySelector(
@@ -745,7 +764,7 @@ export function createStatFiltersFeature({
     const corruptionImplicits = corruptionData.getCorruptionImplicits(
       selectedUnique
     );
-    const sortForPreset = Boolean(presetState.activePreset);
+    const usePresetStatListLayout = shouldUsePresetStatListLayout();
 
     statFilters.forEach((statFilter) => {
       const statList = statFilter.querySelector<HTMLElement>(
@@ -765,7 +784,7 @@ export function createStatFiltersFeature({
 
       statList?.classList.toggle(
         "poe-trade-styler-stat-filter-list",
-        sortForPreset
+        usePresetStatListLayout
       );
 
       if (statList) {

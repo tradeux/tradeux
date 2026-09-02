@@ -1253,6 +1253,59 @@
       syncBaseMenu("flasks", presetState.selectedFlaskBaseKey);
       syncBaseMenu("jewels", presetState.selectedJewelBaseKey);
       syncBaseMenu("tablets", presetState.selectedTabletBaseKey);
+      syncActivePresetStatus();
+    }
+    function syncActivePresetStatus() {
+      const activeMode = getActiveGroupPolicyMode();
+      const labels = {
+        charms: "Charms",
+        flasks: "Flasks",
+        gems: "Gems",
+        gear: "Gear",
+        jewels: "Jewels",
+        tablets: "Tablets",
+        uniques: "Uniques",
+        waystones: "Waystones"
+      };
+      document.querySelectorAll("#trade .poe-trade-styler-quick-filters").forEach((strip) => {
+        let status = strip.querySelector(
+          ":scope > .poe-trade-styler-active-preset-status"
+        );
+        if (!activeMode) {
+          status?.remove();
+          return;
+        }
+        if (!status) {
+          status = document.createElement("button");
+          status.type = "button";
+          status.className = "poe-trade-styler-active-preset-status";
+          status.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            void deactivatePreset();
+          });
+        }
+        const label = document.createElement("span");
+        label.className = "poe-trade-styler-active-preset-status-label";
+        label.textContent = "Preset:";
+        const launcherIcon = document.querySelector(
+          `[data-poe-trade-styler-preset="${activeMode}"] img`
+        );
+        const icon = document.createElement("img");
+        icon.className = "poe-trade-styler-active-preset-status-icon";
+        icon.src = launcherIcon?.getAttribute("src") || launcherIcon?.src || "";
+        icon.alt = "";
+        icon.referrerPolicy = "no-referrer";
+        icon.setAttribute("aria-hidden", "true");
+        status.dataset.poeTradeStylerActivePreset = activeMode;
+        status.title = `Disable the ${labels[activeMode]} preset and restore stat filtering`;
+        status.setAttribute(
+          "aria-label",
+          `${labels[activeMode]} preset active. Click to disable the preset and restore stat filtering.`
+        );
+        status.replaceChildren(label, icon);
+        strip.append(status);
+      });
     }
     async function setActivePreset(nextPreset, { preserveForm: _preserveForm = false } = {}) {
       if (nextPreset === presetState.activePreset && !uniqueGroupPolicyActive && !preparedGroupMode) {
@@ -1293,6 +1346,7 @@
         "poe-trade-styler-tablet-preset",
         "poe-trade-styler-waystone-preset"
       );
+      syncPresetControls();
       await applyWaystoneGroupState();
       stats.filterForPreset();
       stats.decorateOptions();
@@ -1390,6 +1444,10 @@
       button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if (presetState.activePreset === "waystones") {
+          event.stopImmediatePropagation();
+          void deactivatePreset();
+        }
       });
       return button;
     }
@@ -1533,6 +1591,10 @@
       button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if (presetState.activePreset === preset) {
+          event.stopImmediatePropagation();
+          void deactivatePreset();
+        }
       });
       return button;
     }
@@ -1783,12 +1845,20 @@
       await applyWaystoneGroupState();
       stats.filterForPreset();
       stats.decorateOptions();
+      syncPresetControls();
     }
     async function searchUniqueItem(name) {
       await activateUniqueGroups();
       if (!uniqueGroupPolicyActive) return false;
       if (!await nativeForm.setSearchItem(name)) return false;
       return finalizeSearch();
+    }
+    async function deactivatePreset() {
+      closeWaystoneTierMenus();
+      closeBaseMenus("tablets");
+      closeBaseMenus("charms");
+      closeBaseMenus("flasks");
+      await setActivePreset(null);
     }
     return {
       activateUniqueGroups,
@@ -1799,13 +1869,7 @@
         const closedFlasks = closeBaseMenus("flasks");
         return closedWaystones || closedTablets || closedCharms || closedFlasks;
       },
-      async deactivate() {
-        closeWaystoneTierMenus();
-        closeBaseMenus("tablets");
-        closeBaseMenus("charms");
-        closeBaseMenus("flasks");
-        await setActivePreset(null);
-      },
+      deactivate: deactivatePreset,
       decorate: decoratePresets,
       finalizeSearch,
       isUniqueActive: () => uniqueGroupPolicyActive,
@@ -3698,6 +3762,16 @@
     function scheduleDecoration() {
       requestAnimationFrame(decorateStatFilterOptions);
     }
+    function shouldUsePresetStatListLayout() {
+      if (!presetState.activePreset) return false;
+      if (presetState.activePreset === "jewels" && presetState.selectedJewelBaseKey) {
+        const selectedJewel = jewelData.getJewelBase(
+          presetState.selectedJewelBaseKey
+        );
+        if (selectedJewel?.hasCraftModifierPool === false) return false;
+      }
+      return true;
+    }
     function getStatGroupType(statGroup) {
       const header = statGroup.querySelector(".filter-group-header");
       const renderedType = header?.querySelector(
@@ -4176,7 +4250,7 @@
       const corruptionImplicits = corruptionData.getCorruptionImplicits(
         selectedUnique
       );
-      const sortForPreset = Boolean(presetState.activePreset);
+      const usePresetStatListLayout = shouldUsePresetStatListLayout();
       statFilters.forEach((statFilter) => {
         const statList = statFilter.querySelector(
           ".multiselect__content"
@@ -4190,7 +4264,7 @@
         }
         statList?.classList.toggle(
           "poe-trade-styler-stat-filter-list",
-          sortForPreset
+          usePresetStatListLayout
         );
         if (statList) {
           syncCorruptionStatOptions(
@@ -58396,10 +58470,6 @@
       event.preventDefault();
       event.stopPropagation();
       launcher = button;
-      if (!modal || modal.hidden) {
-        open();
-        return;
-      }
       if (presetState.activePreset !== "gems") {
         open();
         return;
@@ -58485,6 +58555,7 @@
     createUniqueItemCard,
     document: doc,
     jewelData,
+    onDeactivate = async () => void 0,
     onSelect,
     onSelectUnique = async () => false,
     presetState,
@@ -58494,6 +58565,7 @@
     let launcher = null;
     let menu = null;
     let hoverBoundItem = null;
+    let launcherToggleInProgress = false;
     function isPoe2Page() {
       return styler.getTradeGameKey(location.pathname) === "poe2" || doc.body.dataset.fixtureGame === "poe2";
     }
@@ -58553,9 +58625,21 @@
       icon.referrerPolicy = "no-referrer";
       icon.setAttribute("aria-hidden", "true");
       button.append(icon);
-      button.addEventListener("click", (event) => {
+      button.addEventListener("click", async (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if (presetState.activePreset !== "jewels") return;
+        event.stopImmediatePropagation();
+        if (launcherToggleInProgress) return;
+        launcherToggleInProgress = true;
+        close();
+        try {
+          await onDeactivate();
+        } finally {
+          launcherToggleInProgress = false;
+          button.classList.remove("is-active");
+          button.setAttribute("aria-pressed", "false");
+        }
       });
       return button;
     }
@@ -58884,6 +58968,7 @@
       createUniqueItemCard: (key) => createUniqueItemCard(key),
       document: doc,
       jewelData,
+      onDeactivate: presets.deactivate,
       onSelect: presets.selectJewel,
       onSelectUnique: presets.selectUniqueItem,
       presetState,

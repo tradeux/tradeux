@@ -103,6 +103,7 @@ export function createContentApp(
     createUniqueItemCard: (key) => createUniqueItemCard(key),
     document: doc,
     jewelData,
+    onDeactivate: presets.deactivate,
     onSelect: presets.selectJewel,
     onSelectUnique: presets.selectUniqueItem,
     presetState,

@@ -2718,6 +2718,38 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
   background: rgba(5, 5, 5, 0.72);
 }
 
+#trade .poe-trade-styler-active-preset-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  margin: 0 0 0 6px;
+  padding: 3px 8px 3px 10px !important;
+  border: 1px solid #8c713c;
+  border-radius: 3px;
+  background: rgba(55, 45, 25, 0.96);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.55);
+  color: #dfcf99;
+  font: 700 12px/1 "PoeFontin";
+  cursor: pointer;
+}
+
+#trade .poe-trade-styler-active-preset-status:hover,
+#trade .poe-trade-styler-active-preset-status:focus-visible {
+  border-color: #e0b75d;
+  color: #fff4c9;
+  outline: 1px solid rgba(224, 183, 93, 0.35);
+  outline-offset: 1px;
+}
+
+#trade .poe-trade-styler-active-preset-status-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
 #trade .poe-trade-styler-quick-filter {
   position: relative;
   display: inline-grid;

@@ -396,6 +396,68 @@ export function createPresetsFeature({
     syncBaseMenu("flasks", presetState.selectedFlaskBaseKey);
     syncBaseMenu("jewels", presetState.selectedJewelBaseKey);
     syncBaseMenu("tablets", presetState.selectedTabletBaseKey);
+    syncActivePresetStatus();
+  }
+
+  function syncActivePresetStatus(): void {
+    const activeMode = getActiveGroupPolicyMode();
+    const labels: Record<GroupPolicyMode, string> = {
+      charms: "Charms",
+      flasks: "Flasks",
+      gems: "Gems",
+      gear: "Gear",
+      jewels: "Jewels",
+      tablets: "Tablets",
+      uniques: "Uniques",
+      waystones: "Waystones"
+    };
+
+    document
+      .querySelectorAll<HTMLElement>("#trade .poe-trade-styler-quick-filters")
+      .forEach((strip) => {
+        let status = strip.querySelector<HTMLButtonElement>(
+          ":scope > .poe-trade-styler-active-preset-status"
+        );
+
+        if (!activeMode) {
+          status?.remove();
+          return;
+        }
+
+        if (!status) {
+          status = document.createElement("button");
+          status.type = "button";
+          status.className = "poe-trade-styler-active-preset-status";
+          status.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            void deactivatePreset();
+          });
+        }
+
+        const label = document.createElement("span");
+        label.className = "poe-trade-styler-active-preset-status-label";
+        label.textContent = "Preset:";
+        const launcherIcon = document.querySelector<HTMLImageElement>(
+          `[data-poe-trade-styler-preset="${activeMode}"] img`
+        );
+        const icon = document.createElement("img");
+        icon.className = "poe-trade-styler-active-preset-status-icon";
+        icon.src =
+          launcherIcon?.getAttribute("src") || launcherIcon?.src || "";
+        icon.alt = "";
+        icon.referrerPolicy = "no-referrer";
+        icon.setAttribute("aria-hidden", "true");
+
+        status.dataset.poeTradeStylerActivePreset = activeMode;
+        status.title = `Disable the ${labels[activeMode]} preset and restore stat filtering`;
+        status.setAttribute(
+          "aria-label",
+          `${labels[activeMode]} preset active. Click to disable the preset and restore stat filtering.`
+        );
+        status.replaceChildren(label, icon);
+        strip.append(status);
+      });
   }
 
   async function setActivePreset(
@@ -451,6 +513,9 @@ export function createPresetsFeature({
       "poe-trade-styler-tablet-preset",
       "poe-trade-styler-waystone-preset"
     );
+    // Clear active launcher/status UI synchronously. Restoring the native
+    // group state and stat catalogue may finish on the following microtask.
+    syncPresetControls();
     // Group enablement/collapse is preset UI state and should always be
     // restored when the preset is disabled. preserveForm only means that the
     // native tier/category values remain populated.
@@ -575,6 +640,10 @@ export function createPresetsFeature({
     button.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
+      if (presetState.activePreset === "waystones") {
+        event.stopImmediatePropagation();
+        void deactivatePreset();
+      }
     });
     return button;
   }
@@ -734,6 +803,10 @@ export function createPresetsFeature({
     button.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
+      if (presetState.activePreset === preset) {
+        event.stopImmediatePropagation();
+        void deactivatePreset();
+      }
     });
     return button;
   }
@@ -1056,6 +1129,7 @@ export function createPresetsFeature({
     await applyWaystoneGroupState();
     stats.filterForPreset();
     stats.decorateOptions();
+    syncPresetControls();
   }
 
   async function searchUniqueItem(name: string): Promise<boolean> {
@@ -1063,6 +1137,14 @@ export function createPresetsFeature({
     if (!uniqueGroupPolicyActive) return false;
     if (!(await nativeForm.setSearchItem(name))) return false;
     return finalizeSearch();
+  }
+
+  async function deactivatePreset(): Promise<void> {
+    closeWaystoneTierMenus();
+    closeBaseMenus("tablets");
+    closeBaseMenus("charms");
+    closeBaseMenus("flasks");
+    await setActivePreset(null);
   }
 
   return {
@@ -1074,13 +1156,7 @@ export function createPresetsFeature({
       const closedFlasks = closeBaseMenus("flasks");
       return closedWaystones || closedTablets || closedCharms || closedFlasks;
     },
-    async deactivate() {
-      closeWaystoneTierMenus();
-      closeBaseMenus("tablets");
-      closeBaseMenus("charms");
-      closeBaseMenus("flasks");
-      await setActivePreset(null);
-    },
+    deactivate: deactivatePreset,
     decorate: decoratePresets,
     finalizeSearch,
     isUniqueActive: () => uniqueGroupPolicyActive,

@@ -729,10 +729,6 @@ export function createGemHelperFeature({
     event.stopPropagation();
     launcher = button;
 
-    if (!modal || modal.hidden) {
-      open();
-      return;
-    }
     if (presetState.activePreset !== "gems") {
       open();
       return;
