@@ -1,0 +1,6 @@
+.DS_Store
+AGENTS.md
+node_modules/
+coverage/
+dist/*
+!dist/content.js

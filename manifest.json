@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "POE TradeUX",
+  "description": "Improves Path of Exile 2 trade search pages. Path of Exile 1 trade is not supported.",
+  "version": "0.1.6",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.pathofexile.com/trade2/*"],
+      "js": [
+        "src/styler.js",
+        "src/poe2-bundled-icon-data.js",
+        "src/poe2-corruption-data.js",
+        "src/poe2-charm-data.js",
+        "src/poe2-flask-data.js",
+        "src/poe2-gem-data.js",
+        "src/poe2-gear-data.js",
+        "src/poe2-jewel-data.js",
+        "src/poe2-waystone-data.js",
+        "src/poe2-tablet-data.js",
+        "src/poe2-unique-data.js",
+        "dist/content.js"
+      ],
+      "css": ["src/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/item-icons/*.webp",
+        "assets/fonts/*.ttf",
+        "assets/ui/*.png",
+        "assets/ui/frame/v2/arcane-sigil-v2.png",
+        "assets/ui/frame/v2/corner-filigree-v2.png",
+        "assets/ui/frame/v2/footer-crest-v2.png"
+      ],
+      "matches": ["https://www.pathofexile.com/*"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "poe-tradeux",
+  "version": "0.1.6",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "Chrome extension for Path of Exile 2 trade search pages",
+  "scripts": {
+    "test": "npm --prefix ../TradeStylerWork run test:extension",
+    "build": "esbuild src/content/index.ts --bundle --format=iife --platform=browser --target=es2022 --outfile=dist/content.js",
+    "build:watch": "npm run build -- --watch",
+    "package:extension": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "chrome-types": "^0.1.360",
+    "esbuild": "^0.28.2",
+    "linkedom": "0.18.12",
+    "typescript": "^5.9.2"
+  }
+}
