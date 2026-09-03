@@ -92,8 +92,12 @@ export function createQuickRarityFilterFeature(
 
     input.focus();
     input.click();
-    input.value = value || "Any";
+    // Keep reset unfiltered so the native first option is the exact `Any`
+    // entry, rather than narrowing the list to both `Any` variants.
+    input.value = value;
     input.dispatchEvent(new Event("input", { bubbles: true }));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
     const target = normalizeText(value || "Any");
     const findOption = (): HTMLElement | null => {
@@ -102,47 +106,60 @@ export function createQuickRarityFilterFeature(
 
       if (!currentBody) return null;
 
-      return (
-        [...currentBody.querySelectorAll<HTMLElement>(
-          ".multiselect__option:not(.multiselect__option--disabled)"
-        )].find(
-          (option) => normalizeText(option.textContent || "") === target
-        ) || null
-      );
+      const options = [...currentBody.querySelectorAll<HTMLElement>(
+        ".multiselect__option:not(.multiselect__option--disabled)"
+      )];
+
+      return options.find(
+        (option) => normalizeText(option.textContent || "") === target
+      ) || null;
     };
-    const option = findOption() || (await waitForElement(findOption, 20));
+    let option = await waitForElement(findOption, 20);
 
     if (!option) return false;
 
     const isCommitted = (): boolean => readValue() === value;
-    option.dispatchEvent(
-      new Event("mousedown", { bubbles: true, cancelable: true })
-    );
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
-    if (!isCommitted()) {
-      option.click();
-      await new Promise((resolve) => setTimeout(resolve, 0));
-    }
-
-    if (!isCommitted()) {
-      input.dispatchEvent(
-        new KeyboardEvent("keydown", {
-          bubbles: true,
-          cancelable: true,
-          code: "Enter",
-          key: "Enter"
-        })
-      );
-      await new Promise((resolve) => setTimeout(resolve, 0));
-    }
-
-    return Boolean(
+    const waitForCommit = async (attempts = 6): Promise<boolean> => Boolean(
       await waitForElement(
         () => (isCommitted() ? getFilterBody() : null),
-        20
+        attempts
       )
     );
+
+    // PoE's Vue multiselect commits through its click handler. Calling it
+    // first also avoids a mousedown-triggered rerender detaching this option.
+    option.click();
+    if (await waitForCommit()) return true;
+
+    // Re-resolve before the fallback because filtering can replace option
+    // nodes asynchronously.
+    option = await waitForElement(findOption, 20);
+    if (option) {
+      const MouseEventConstructor = input.ownerDocument.defaultView?.MouseEvent;
+      option.dispatchEvent(
+        MouseEventConstructor
+          ? new MouseEventConstructor("mousedown", {
+              bubbles: true,
+              button: 0,
+              cancelable: true
+            })
+          : new Event("mousedown", { bubbles: true, cancelable: true })
+      );
+      if (await waitForCommit()) return true;
+    }
+
+    input.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        bubbles: true,
+        cancelable: true,
+        code: "Enter",
+        key: "Enter"
+      })
+    );
+
+    const committed = await waitForCommit(20);
+    if (!committed) input.blur();
+    return committed;
   }
 
   function syncControl(control: HTMLElement): void {

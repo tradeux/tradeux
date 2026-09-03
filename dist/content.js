@@ -2184,47 +2184,56 @@
       if (!input) return false;
       input.focus();
       input.click();
-      input.value = value || "Any";
+      input.value = value;
       input.dispatchEvent(new Event("input", { bubbles: true }));
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
       const target = normalizeText(value || "Any");
       const findOption = () => {
         filterBody = getFilterBody() || filterBody;
         const currentBody = filterBody;
         if (!currentBody) return null;
-        return [...currentBody.querySelectorAll(
+        const options = [...currentBody.querySelectorAll(
           ".multiselect__option:not(.multiselect__option--disabled)"
-        )].find(
+        )];
+        return options.find(
           (option2) => normalizeText(option2.textContent || "") === target
         ) || null;
       };
-      const option = findOption() || await waitForElement(findOption, 20);
+      let option = await waitForElement(findOption, 20);
       if (!option) return false;
       const isCommitted = () => readValue() === value;
-      option.dispatchEvent(
-        new Event("mousedown", { bubbles: true, cancelable: true })
-      );
-      await new Promise((resolve) => setTimeout(resolve, 0));
-      if (!isCommitted()) {
-        option.click();
-        await new Promise((resolve) => setTimeout(resolve, 0));
-      }
-      if (!isCommitted()) {
-        input.dispatchEvent(
-          new KeyboardEvent("keydown", {
-            bubbles: true,
-            cancelable: true,
-            code: "Enter",
-            key: "Enter"
-          })
-        );
-        await new Promise((resolve) => setTimeout(resolve, 0));
-      }
-      return Boolean(
+      const waitForCommit = async (attempts = 6) => Boolean(
         await waitForElement(
           () => isCommitted() ? getFilterBody() : null,
-          20
+          attempts
         )
       );
+      option.click();
+      if (await waitForCommit()) return true;
+      option = await waitForElement(findOption, 20);
+      if (option) {
+        const MouseEventConstructor = input.ownerDocument.defaultView?.MouseEvent;
+        option.dispatchEvent(
+          MouseEventConstructor ? new MouseEventConstructor("mousedown", {
+            bubbles: true,
+            button: 0,
+            cancelable: true
+          }) : new Event("mousedown", { bubbles: true, cancelable: true })
+        );
+        if (await waitForCommit()) return true;
+      }
+      input.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          bubbles: true,
+          cancelable: true,
+          code: "Enter",
+          key: "Enter"
+        })
+      );
+      const committed = await waitForCommit(20);
+      if (!committed) input.blur();
+      return committed;
     }
     function syncControl(control) {
       const value = readValue();
@@ -3284,6 +3293,10 @@
   });
 
   // src/content/modal-frame.ts
+  var MODAL_FADE_DURATION = 200;
+  var MODAL_FADE_CLASS = "poe-trade-styler-fade-modal";
+  var MODAL_VISIBLE_CLASS = "is-fade-visible";
+  var hideTimers2 = /* @__PURE__ */ new WeakMap();
   var ORNAMENTS = [
     { name: "texture" },
     { name: "sigil", asset: "assets/ui/frame/v2/arcane-sigil-v2.png" },
@@ -3302,6 +3315,37 @@
     } catch {
       return path;
     }
+  }
+  function isModalOpen(modal) {
+    return !modal.hidden && modal.classList.contains(MODAL_VISIBLE_CLASS);
+  }
+  function setModalOpen(modal, open) {
+    const pendingHide = hideTimers2.get(modal);
+    if (pendingHide !== void 0) {
+      clearTimeout(pendingHide);
+      hideTimers2.delete(modal);
+    }
+    modal.classList.add(MODAL_FADE_CLASS);
+    if (open) {
+      modal.removeAttribute("aria-hidden");
+      if (modal.hidden) {
+        modal.classList.remove(MODAL_VISIBLE_CLASS);
+        modal.hidden = false;
+        void modal.offsetWidth;
+      }
+      modal.classList.add(MODAL_VISIBLE_CLASS);
+      return;
+    }
+    modal.classList.remove(MODAL_VISIBLE_CLASS);
+    modal.setAttribute("aria-hidden", "true");
+    if (modal.hidden) return;
+    const timer = setTimeout(() => {
+      hideTimers2.delete(modal);
+      if (!modal.classList.contains(MODAL_VISIBLE_CLASS)) {
+        modal.hidden = true;
+      }
+    }, MODAL_FADE_DURATION);
+    hideTimers2.set(modal, timer);
   }
   function createModalFrame(doc, options) {
     const overlay = doc.createElement("div");
@@ -3366,7 +3410,7 @@
     manifest_version: 3,
     name: "POE TradeUX",
     description: "Improves Path of Exile 2 trade search pages. Path of Exile 1 trade is not supported.",
-    version: "0.1.8",
+    version: "0.1.9",
     permissions: ["storage"],
     icons: {
       "16": "assets/icons/icon-16.png",
@@ -3688,13 +3732,13 @@
       }
     }
     function open() {
-      modal.hidden = false;
+      setModalOpen(modal, true);
       launcher.setAttribute("aria-expanded", "true");
       doc.documentElement.classList.add("poe-trade-styler-modal-open");
       dialog.focus();
     }
     function close() {
-      modal.hidden = true;
+      setModalOpen(modal, false);
       launcher.setAttribute("aria-expanded", "false");
       doc.documentElement.classList.remove("poe-trade-styler-modal-open");
       launcher.focus();
@@ -3740,7 +3784,7 @@
       }
     }
     function handleEscape() {
-      if (modal.hidden) {
+      if (!isModalOpen(modal)) {
         return false;
       }
       close();
@@ -3759,7 +3803,7 @@
       close,
       destroy,
       handleEscape,
-      isOpen: () => !modal.hidden,
+      isOpen: () => isModalOpen(modal),
       mount,
       open,
       persist,
@@ -5940,14 +5984,14 @@
     function open() {
       if (!modal) modal = createModal();
       prepareSearchPromise = onBeforeOpen().catch(() => false);
-      modal.hidden = false;
+      setModalOpen(modal, true);
       doc.documentElement.classList.add("poe-trade-styler-unique-modal-open");
       launcher?.setAttribute("aria-expanded", "true");
       modal.querySelector(".poe-trade-styler-unique-close")?.focus();
     }
     function close() {
-      if (!modal || modal.hidden) return false;
-      modal.hidden = true;
+      if (!modal || !isModalOpen(modal)) return false;
+      setModalOpen(modal, false);
       doc.documentElement.classList.remove("poe-trade-styler-unique-modal-open");
       launcher?.setAttribute("aria-expanded", "false");
       launcher?.focus();
@@ -6381,14 +6425,14 @@
       selectedSlotKey = presetState.selectedGearSlotKey || selectedSlotKey || gearData.GEAR_SLOTS[0]?.key || "";
       selectedBaseKey = presetState.selectedGearBaseKey || (getSelectedSlot()?.baseKeys.length === 1 ? getSelectedSlot().baseKeys[0] : null);
       render();
-      modal.hidden = false;
+      setModalOpen(modal, true);
       doc.documentElement.classList.add("poe-trade-styler-gear-modal-open");
       launcher?.setAttribute("aria-expanded", "true");
       modal.querySelector(".poe-trade-styler-gear-close")?.focus();
     }
     function close() {
-      if (!modal || modal.hidden) return false;
-      modal.hidden = true;
+      if (!modal || !isModalOpen(modal)) return false;
+      setModalOpen(modal, false);
       doc.documentElement.classList.remove("poe-trade-styler-gear-modal-open");
       launcher?.setAttribute("aria-expanded", "false");
       launcher?.focus();
@@ -58405,8 +58449,8 @@
       parent.append(line);
     }
     function closeDetail() {
-      if (!detailModal || detailModal.hidden) return false;
-      detailModal.hidden = true;
+      if (!detailModal || !isModalOpen(detailModal)) return false;
+      setModalOpen(detailModal, false);
       const focusTarget = detailReturnFocus;
       detailReturnFocus = null;
       focusTarget?.focus();
@@ -58414,8 +58458,8 @@
     }
     function closeModal() {
       closeDetail();
-      if (!modal || modal.hidden) return false;
-      modal.hidden = true;
+      if (!modal || !isModalOpen(modal)) return false;
+      setModalOpen(modal, false);
       doc.documentElement.classList.remove("poe-trade-styler-gem-modal-open");
       launcher?.setAttribute("aria-expanded", "false");
       launcher?.focus();
@@ -58601,7 +58645,7 @@
       shell.append(top, content);
       detailModal.setAttribute("aria-labelledby", title.id);
       detailModal.replaceChildren(shell);
-      detailModal.hidden = false;
+      setModalOpen(detailModal, true);
       closeButton.focus();
     }
     function createGemRow(gem) {
@@ -58906,7 +58950,7 @@
     function open() {
       if (!modal) modal = createModal();
       render();
-      modal.hidden = false;
+      setModalOpen(modal, true);
       doc.documentElement.classList.add("poe-trade-styler-gem-modal-open");
       launcher?.setAttribute("aria-expanded", "true");
       searchInput?.focus();

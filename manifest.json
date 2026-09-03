@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "POE TradeUX",
   "description": "Improves Path of Exile 2 trade search pages. Path of Exile 1 trade is not supported.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "permissions": ["storage"],
   "icons": {
     "16": "assets/icons/icon-16.png",

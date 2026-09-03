@@ -168,7 +168,7 @@
       <header>
         <p class="eyebrow">POE TradeUX</p>
         <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: September 1, 2026</p>
+        <p class="updated">Last updated: September 3, 2026</p>
       </header>
 
       <section aria-labelledby="overview">
@@ -203,7 +203,11 @@
         <p>POE TradeUX does not collect or store:</p>
         <ul>
           <li>Trade-search history, search text, or trade-page URLs.</li>
-          <li>Path of Exile account credentials, authentication data, or cookies.</li>
+          <li>
+            Path of Exile account credentials, authentication data, or cookies.
+            The extension never reads, stores, or transmits these; see
+            <a href="#network">Requests to the Path of Exile trade site</a>.
+          </li>
           <li>Personal communications, payment information, or personal identifiers.</li>
           <li>Analytics, advertising identifiers, or behavioral profiles.</li>
         </ul>
@@ -217,6 +221,32 @@
           only on URLs under
           <code>https://www.pathofexile.com/trade2/*</code>. It does not run on
           Path of Exile 1 <code>/trade/*</code> pages.
+        </p>
+      </section>
+
+      <section aria-labelledby="network">
+        <h2 id="network">Requests to the Path of Exile trade site</h2>
+        <p>
+          To label stat filters and search results with their official wording,
+          the extension requests the trade site's own public stat catalog from
+          <code>https://www.pathofexile.com/api/trade2/data/stats</code>. This is
+          the same endpoint the official trade page uses to populate its own stat
+          filters, and it is the only network request the extension makes.
+        </p>
+        <p>
+          The request is sent to the Path of Exile site you are already browsing,
+          and your browser handles it exactly as it handles the trade page's own
+          requests to that site &mdash; including any pathofexile.com cookies it
+          would normally attach. No cookies, credentials, or other data are read
+          by the extension, sent to the developer, or sent to any third party.
+        </p>
+        <p>
+          The catalog is requested only when a feature needs it, at most once per
+          page load, and it contains only game data: stat identifiers and their
+          display text. It is not stored on your device. Because these identifiers
+          change when the game is patched, requesting them keeps filters accurate
+          without bundling data that would silently go out of date. If the request
+          fails, the extension continues working with less precise stat labels.
         </p>
       </section>
 

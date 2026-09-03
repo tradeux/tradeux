@@ -1,5 +1,5 @@
 import { DEFAULT_SETTINGS, type StylerSettings } from "./model";
-import { createModalFrame } from "../modal-frame";
+import { createModalFrame, isModalOpen, setModalOpen } from "../modal-frame";
 import { getSafeItemImageUrl } from "../image-assets";
 import manifest from "../../../manifest.json";
 
@@ -368,14 +368,14 @@ export function createSettingsFeature(
   }
 
   function open(): void {
-    modal.hidden = false;
+    setModalOpen(modal, true);
     launcher.setAttribute("aria-expanded", "true");
     doc.documentElement.classList.add("poe-trade-styler-modal-open");
     dialog.focus();
   }
 
   function close(): void {
-    modal.hidden = true;
+    setModalOpen(modal, false);
     launcher.setAttribute("aria-expanded", "false");
     doc.documentElement.classList.remove("poe-trade-styler-modal-open");
     launcher.focus();
@@ -431,7 +431,7 @@ export function createSettingsFeature(
   }
 
   function handleEscape(): boolean {
-    if (modal.hidden) {
+    if (!isModalOpen(modal)) {
       return false;
     }
 
@@ -453,7 +453,7 @@ export function createSettingsFeature(
     close,
     destroy,
     handleEscape,
-    isOpen: () => !modal.hidden,
+    isOpen: () => isModalOpen(modal),
     mount,
     open,
     persist,

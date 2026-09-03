@@ -360,6 +360,18 @@
   display: none !important;
 }
 
+.poe-trade-styler-fade-modal {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+  will-change: opacity;
+}
+
+.poe-trade-styler-fade-modal.is-fade-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 #poe-trade-styler-modal {
   position: fixed;
   inset: 0;

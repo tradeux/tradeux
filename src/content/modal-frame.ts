@@ -23,6 +23,12 @@ export interface ModalFrameElements {
   closeButton: HTMLButtonElement;
 }
 
+export const MODAL_FADE_DURATION = 200;
+
+const MODAL_FADE_CLASS = "poe-trade-styler-fade-modal";
+const MODAL_VISIBLE_CLASS = "is-fade-visible";
+const hideTimers = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
+
 const ORNAMENTS: ReadonlyArray<{ name: string; asset?: string }> = [
   { name: "texture" },
   { name: "sigil", asset: "assets/ui/frame/v2/arcane-sigil-v2.png" },
@@ -43,6 +49,43 @@ function getExtensionAssetUrl(path: string): string {
   } catch {
     return path;
   }
+}
+
+export function isModalOpen(modal: HTMLElement): boolean {
+  return !modal.hidden && modal.classList.contains(MODAL_VISIBLE_CLASS);
+}
+
+export function setModalOpen(modal: HTMLElement, open: boolean): void {
+  const pendingHide = hideTimers.get(modal);
+  if (pendingHide !== undefined) {
+    clearTimeout(pendingHide);
+    hideTimers.delete(modal);
+  }
+
+  modal.classList.add(MODAL_FADE_CLASS);
+
+  if (open) {
+    modal.removeAttribute("aria-hidden");
+    if (modal.hidden) {
+      modal.classList.remove(MODAL_VISIBLE_CLASS);
+      modal.hidden = false;
+      void modal.offsetWidth;
+    }
+    modal.classList.add(MODAL_VISIBLE_CLASS);
+    return;
+  }
+
+  modal.classList.remove(MODAL_VISIBLE_CLASS);
+  modal.setAttribute("aria-hidden", "true");
+  if (modal.hidden) return;
+
+  const timer = setTimeout(() => {
+    hideTimers.delete(modal);
+    if (!modal.classList.contains(MODAL_VISIBLE_CLASS)) {
+      modal.hidden = true;
+    }
+  }, MODAL_FADE_DURATION);
+  hideTimers.set(modal, timer);
 }
 
 /**

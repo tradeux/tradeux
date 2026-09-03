@@ -6,7 +6,7 @@ import type {
 } from "../ports";
 import type { PresetState } from "../presets/state";
 import { getSafeItemImageUrl } from "../image-assets";
-import { createModalFrame } from "../modal-frame";
+import { createModalFrame, isModalOpen, setModalOpen } from "../modal-frame";
 import {
   createGemFavorites,
   type GemFavoritesSettings
@@ -165,8 +165,8 @@ export function createGemHelperFeature({
   }
 
   function closeDetail(): boolean {
-    if (!detailModal || detailModal.hidden) return false;
-    detailModal.hidden = true;
+    if (!detailModal || !isModalOpen(detailModal)) return false;
+    setModalOpen(detailModal, false);
     const focusTarget = detailReturnFocus;
     detailReturnFocus = null;
     focusTarget?.focus();
@@ -175,8 +175,8 @@ export function createGemHelperFeature({
 
   function closeModal(): boolean {
     closeDetail();
-    if (!modal || modal.hidden) return false;
-    modal.hidden = true;
+    if (!modal || !isModalOpen(modal)) return false;
+    setModalOpen(modal, false);
     doc.documentElement.classList.remove("poe-trade-styler-gem-modal-open");
     launcher?.setAttribute("aria-expanded", "false");
     launcher?.focus();
@@ -369,7 +369,7 @@ export function createGemHelperFeature({
     shell.append(top, content);
     detailModal.setAttribute("aria-labelledby", title.id);
     detailModal.replaceChildren(shell);
-    detailModal.hidden = false;
+    setModalOpen(detailModal, true);
     closeButton.focus();
   }
 
@@ -707,7 +707,7 @@ export function createGemHelperFeature({
   function open(): void {
     if (!modal) modal = createModal();
     render();
-    modal.hidden = false;
+    setModalOpen(modal, true);
     doc.documentElement.classList.add("poe-trade-styler-gem-modal-open");
     launcher?.setAttribute("aria-expanded", "true");
     searchInput?.focus();

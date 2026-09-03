@@ -6,7 +6,7 @@ import type {
 } from "../ports";
 import type { PresetState } from "../presets/state";
 import { getSafeItemImageUrl } from "../image-assets";
-import { createModalFrame } from "../modal-frame";
+import { createModalFrame, isModalOpen, setModalOpen } from "../modal-frame";
 import { isPresetAccountOverflow } from "../preset-navigation-overflow";
 
 export interface GearHelperFeature {
@@ -407,15 +407,15 @@ export function createGearHelperFeature({
     selectedBaseKey = presetState.selectedGearBaseKey ||
       (getSelectedSlot()?.baseKeys.length === 1 ? getSelectedSlot()!.baseKeys[0] : null);
     render();
-    modal.hidden = false;
+    setModalOpen(modal, true);
     doc.documentElement.classList.add("poe-trade-styler-gear-modal-open");
     launcher?.setAttribute("aria-expanded", "true");
     modal.querySelector<HTMLElement>(".poe-trade-styler-gear-close")?.focus();
   }
 
   function close(): boolean {
-    if (!modal || modal.hidden) return false;
-    modal.hidden = true;
+    if (!modal || !isModalOpen(modal)) return false;
+    setModalOpen(modal, false);
     doc.documentElement.classList.remove("poe-trade-styler-gear-modal-open");
     launcher?.setAttribute("aria-expanded", "false");
     launcher?.focus();

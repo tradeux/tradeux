@@ -7,7 +7,7 @@ import type {
 } from "../ports";
 import { composeRuneforgedView } from "./composition";
 import { getSafeItemImageUrl } from "../image-assets";
-import { createModalFrame } from "../modal-frame";
+import { createModalFrame, isModalOpen, setModalOpen } from "../modal-frame";
 import { isPresetAccountOverflow } from "../preset-navigation-overflow";
 import {
   filterUniqueEntries,
@@ -754,15 +754,15 @@ export function createUniqueHelperFeature({
   function open(): void {
     if (!modal) modal = createModal();
     prepareSearchPromise = onBeforeOpen().catch(() => false);
-    modal.hidden = false;
+    setModalOpen(modal, true);
     doc.documentElement.classList.add("poe-trade-styler-unique-modal-open");
     launcher?.setAttribute("aria-expanded", "true");
     modal.querySelector<HTMLElement>(".poe-trade-styler-unique-close")?.focus();
   }
 
   function close(): boolean {
-    if (!modal || modal.hidden) return false;
-    modal.hidden = true;
+    if (!modal || !isModalOpen(modal)) return false;
+    setModalOpen(modal, false);
     doc.documentElement.classList.remove("poe-trade-styler-unique-modal-open");
     launcher?.setAttribute("aria-expanded", "false");
     launcher?.focus();
