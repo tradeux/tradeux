@@ -21,6 +21,7 @@ import {
   applyNativeQuickNumberValue,
   configureQuickNumberGrid,
   hasSelectedGem,
+  readQuickNumberBoundValue,
   readQuickNumberValue,
   setQuickNumberControlVisibility
 } from "./quick-number-filter";
@@ -30,6 +31,7 @@ import {
   type HoverPopoverBinding
 } from "./hover-popover";
 import { decoratePopover, setPopoverOpen } from "./popover-transition";
+import { positionViewportPopover } from "./popover-position";
 
 export interface QuickFiltersFeature {
   closeBoundPopovers(exceptControl?: Element | null): boolean;
@@ -55,6 +57,7 @@ export function createQuickFiltersFeature({
   const QUICK_BOUND_FILTERS = styler.QUICK_BOUND_FILTERS;
   let quickFilterSyncScheduled = false;
   let quickFilterGroupToggleInProgress = false;
+  let quickFilterClearInProgress = false;
   const hoverNumberInput = createHoverNumberInputController();
   const pendingQuickFilterGroupEnables = new Map<string, Promise<void>>();
   function getQuickFilterBody(label: string): Element | null {
@@ -242,7 +245,6 @@ export function createQuickFiltersFeature({
     control.classList.toggle("is-any", state === "any");
     control.classList.toggle("is-yes", state === "yes");
     control.classList.toggle("is-no", state === "no");
-    control.title = `Quick Miscellaneous filter: ${definition.label}. Current: ${stateLabel}. Click to cycle Any → Yes → No.`;
     control.setAttribute(
       "aria-label",
       `${definition.label}: ${stateLabel}. Click to change.`
@@ -315,7 +317,13 @@ export function createQuickFiltersFeature({
     button.className =
       "poe-trade-styler-quick-filter poe-trade-styler-quick-filter-boolean";
     button.dataset.quickFilter = definition.key;
-    button.append(createQuickFilterIcon(definition));
+    const tooltip = document.createElement("span");
+    tooltip.className = "poe-trade-styler-quick-filter-tooltip";
+    tooltip.id = `poe-trade-styler-quick-filter-${definition.key}-tooltip`;
+    tooltip.setAttribute("role", "tooltip");
+    tooltip.textContent = definition.label;
+    button.setAttribute("aria-describedby", tooltip.id);
+    button.append(createQuickFilterIcon(definition), tooltip);
     setQuickBooleanControlState(button, definition, "any");
     button.addEventListener("click", async (event) => {
       event.preventDefault();
@@ -335,7 +343,8 @@ export function createQuickFiltersFeature({
   function setQuickNumberControlValue(
     control: HTMLElement,
     definition: QuickNumberFilterDefinition,
-    value: string
+    value: string,
+    maximumValue = ""
   ): void {
     const trigger = control.querySelector<HTMLButtonElement>(
       ".poe-trade-styler-quick-number-trigger"
@@ -346,15 +355,22 @@ export function createQuickFiltersFeature({
     const resetButton = control.querySelector<HTMLButtonElement>(
       ".poe-trade-styler-quick-number-reset"
     );
-    const input = control.querySelector<HTMLInputElement>(
-      ".poe-trade-styler-quick-number-input"
+    const minimumInput = control.querySelector<HTMLInputElement>(
+      '.poe-trade-styler-quick-number-input[data-bound="min"]'
+    );
+    const maximumInput = control.querySelector<HTMLInputElement>(
+      '.poe-trade-styler-quick-number-input[data-bound="max"]'
     );
 
     if (!trigger || !badge) return;
 
     control.dataset.value = value;
-    trigger.classList.toggle("is-empty", !value);
-    trigger.classList.toggle("is-enabled", Boolean(value));
+    control.dataset.maximumValue = maximumValue;
+    const displayValue = value && maximumValue
+      ? `${value}–${maximumValue}`
+      : value || (maximumValue ? `≤${maximumValue}` : "");
+    trigger.classList.toggle("is-empty", !displayValue);
+    trigger.classList.toggle("is-enabled", Boolean(displayValue));
 
     control
       .querySelectorAll<HTMLElement>(".poe-trade-styler-quick-number-option")
@@ -364,24 +380,31 @@ export function createQuickFiltersFeature({
         option.setAttribute("aria-selected", String(selected));
       });
 
-    syncQuickValueBadge(badge, value);
+    syncQuickValueBadge(badge, displayValue);
 
     if (
-      input &&
-      input !== document.activeElement &&
-      input.value !== value
+      minimumInput &&
+      minimumInput !== document.activeElement &&
+      minimumInput.value !== value
     ) {
-      input.value = value;
+      minimumInput.value = value;
+    }
+    if (
+      maximumInput &&
+      maximumInput !== document.activeElement &&
+      maximumInput.value !== maximumValue
+    ) {
+      maximumInput.value = maximumValue;
     }
 
-    if (resetButton) resetButton.disabled = !value;
-    trigger.title = value
-      ? `${definition.shortLabel}: ${value}. Click to disable.`
+    if (resetButton) resetButton.disabled = !displayValue;
+    trigger.title = displayValue
+      ? `${definition.shortLabel}: ${displayValue}. Click to disable.`
       : `${definition.shortLabel}: disabled. Hover to choose.`;
     trigger.setAttribute(
       "aria-label",
-      value
-        ? `${definition.shortLabel}: ${value}. Click to disable.`
+      displayValue
+        ? `${definition.shortLabel}: ${displayValue}. Click to disable.`
         : `${definition.shortLabel}: disabled`
     );
   }
@@ -440,6 +463,7 @@ export function createQuickFiltersFeature({
     const open = (): void => {
       closeQuickBoundPopovers(control);
       setPopoverOpen(popover, true);
+      positionViewportPopover(trigger, popover);
       control.classList.add("is-open");
       trigger.setAttribute("aria-expanded", "true");
     };
@@ -447,6 +471,7 @@ export function createQuickFiltersFeature({
 
     const commitValue = async (
       value: string,
+      bound: "max" | "min" = "min",
       closePopover = false,
       restoreFocusTo: HTMLElement | null = null
     ): Promise<void> => {
@@ -454,19 +479,23 @@ export function createQuickFiltersFeature({
         await applyQuickNumberValue(
           definition,
           value,
-          "min",
+          bound,
           restoreFocusTo
         )
       ) {
         if (closePopover) {
-          control
-            .querySelector<HTMLInputElement>(
-              ".poe-trade-styler-quick-number-input"
-            )
-            ?.blur();
+          restoreFocusTo?.blur();
         }
 
-        setQuickNumberControlValue(control, definition, value);
+        const filterBody = getQuickFilterBody(definition.label);
+        setQuickNumberControlValue(
+          control,
+          definition,
+          readQuickNumberValue(filterBody, definition),
+          definition.hasMaximumInput
+            ? readQuickNumberBoundValue(filterBody, "max")
+            : ""
+        );
         requestQuickFilterSync();
         setTimeout(requestQuickFilterSync, 80);
 
@@ -479,7 +508,6 @@ export function createQuickFiltersFeature({
 
     let initialFocusTarget: HTMLElement | null = null;
     if (definition.min != null && definition.max != null) {
-      const input = document.createElement("input");
       const isValidInputValue = (value: string): boolean => {
         if (value === "") return true;
 
@@ -490,29 +518,49 @@ export function createQuickFiltersFeature({
           number <= definition.max!
         );
       };
-      input.className = "poe-trade-styler-quick-number-input";
-      input.type = "number";
-      input.inputMode = "numeric";
-      input.step = "1";
-      input.min = String(definition.min);
-      input.max = String(definition.max);
-      input.placeholder = `${definition.min}–${definition.max}`;
-      input.setAttribute("aria-label", definition.shortLabel);
-      hoverNumberInput.enable(input);
-      input.addEventListener("input", () => {
-        if (isValidInputValue(input.value)) {
-          void commitValue(input.value, false, input);
-        }
-      });
-      input.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" && isValidInputValue(input.value)) {
-          event.preventDefault();
-          event.stopPropagation();
-          void commitValue(input.value, true, input);
-        }
-      });
-      initialFocusTarget = input;
-      popover.append(input);
+      const createInput = (
+        bound: "max" | "min",
+        ariaLabel: string,
+        placeholder: string
+      ): HTMLInputElement => {
+        const input = document.createElement("input");
+        input.className = "poe-trade-styler-quick-number-input";
+        input.dataset.bound = bound;
+        input.type = "number";
+        input.inputMode = "numeric";
+        input.step = "1";
+        input.min = String(definition.min);
+        input.max = String(definition.max);
+        input.placeholder = placeholder;
+        input.setAttribute("aria-label", ariaLabel);
+        hoverNumberInput.enable(input);
+        input.addEventListener("input", () => {
+          if (isValidInputValue(input.value)) {
+            void commitValue(input.value, bound, false, input);
+          }
+        });
+        input.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" && isValidInputValue(input.value)) {
+            event.preventDefault();
+            event.stopPropagation();
+            void commitValue(input.value, bound, true, input);
+          }
+        });
+        return input;
+      };
+      const minimumInput = createInput(
+        "min",
+        definition.shortLabel,
+        `${definition.min}–${definition.max}`
+      );
+      initialFocusTarget = minimumInput;
+      popover.append(minimumInput);
+
+      if (definition.hasMaximumInput) {
+        popover.append(
+          createInput("max", "Maximum item quality", "Max quality")
+        );
+      }
     }
 
     const options = document.createElement("div");
@@ -532,7 +580,7 @@ export function createQuickFiltersFeature({
       option.addEventListener("click", async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        await commitValue(value, true);
+        await commitValue(value, "min", true);
       });
       option.addEventListener("keydown", (event) => {
         const optionButtons = [
@@ -568,7 +616,15 @@ export function createQuickFiltersFeature({
     resetButton.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      void commitValue("", true);
+      const reset = async (): Promise<void> => {
+        await commitValue("", "min");
+        if (definition.hasMaximumInput) {
+          await commitValue("", "max");
+        }
+        trigger.focus({ preventScroll: true });
+        popoverBinding?.dismiss();
+      };
+      void reset();
     });
 
     popover.prepend(title);
@@ -707,6 +763,7 @@ export function createQuickFiltersFeature({
     const open = (): void => {
       closeQuickBoundPopovers(control);
       setPopoverOpen(popover, true);
+      positionViewportPopover(trigger, popover);
       control.classList.add("is-open");
       trigger.setAttribute("aria-expanded", "true");
       input.value = control.dataset.value || "";
@@ -806,6 +863,135 @@ export function createQuickFiltersFeature({
     requestSync: requestQuickFilterSync,
     waitForElement
   });
+
+  function hasActiveQuickFilters(): boolean {
+    if (rarityFilter.hasValue()) return true;
+
+    if (
+      QUICK_BOOLEAN_FILTERS.some(
+        (definition) => readQuickBooleanState(definition) !== "any"
+      )
+    ) {
+      return true;
+    }
+
+    if (
+      QUICK_NUMBER_FILTERS.some((definition) => {
+        const filterBody = getQuickFilterBody(definition.label);
+        const maximumValue = definition.hasMaximumInput
+          ? readQuickNumberBoundValue(filterBody, "max")
+          : "";
+        return (
+          isQuickFilterGroupEnabled(filterBody) &&
+          Boolean(
+            readQuickNumberValue(filterBody, definition) || maximumValue
+          )
+        );
+      })
+    ) {
+      return true;
+    }
+
+    return QUICK_BOUND_FILTERS.some((definition) => {
+      const filterBody = getQuickFilterBody(definition.label);
+      return Boolean(
+        isQuickFilterGroupEnabled(filterBody) &&
+          filterBody
+            ?.querySelector<HTMLInputElement>(
+              `input[placeholder="${definition.bound}"]`
+            )
+            ?.value.trim()
+      );
+    });
+  }
+
+  function syncQuickFilterClearButton(strip: Element): void {
+    const button = strip.querySelector<HTMLButtonElement>(
+      ":scope > .poe-trade-styler-quick-filters-clear"
+    );
+
+    if (button) {
+      button.disabled =
+        quickFilterClearInProgress || !hasActiveQuickFilters();
+    }
+  }
+
+  async function clearAllQuickFilters(button: HTMLButtonElement): Promise<void> {
+    if (quickFilterClearInProgress) return;
+
+    quickFilterClearInProgress = true;
+    button.disabled = true;
+    button.setAttribute("aria-busy", "true");
+    closeQuickBoundPopovers();
+
+    try {
+      for (const definition of QUICK_BOUND_FILTERS) {
+        const filterBody = getQuickFilterBody(definition.label);
+        const value =
+          (isQuickFilterGroupEnabled(filterBody) &&
+            filterBody
+              ?.querySelector<HTMLInputElement>(
+                `input[placeholder="${definition.bound}"]`
+              )
+              ?.value.trim()) ||
+          "";
+
+        if (value) {
+          await applyQuickNumberValue(definition, "", definition.bound);
+        }
+      }
+
+      for (const definition of QUICK_BOOLEAN_FILTERS) {
+        if (readQuickBooleanState(definition) !== "any") {
+          await applyQuickBooleanState(definition, "any");
+        }
+      }
+
+      for (const definition of QUICK_NUMBER_FILTERS) {
+        const filterBody = getQuickFilterBody(definition.label);
+        const value = isQuickFilterGroupEnabled(filterBody)
+          ? readQuickNumberValue(filterBody, definition)
+          : "";
+        const maximumValue =
+          definition.hasMaximumInput && isQuickFilterGroupEnabled(filterBody)
+            ? readQuickNumberBoundValue(filterBody, "max")
+            : "";
+
+        if (value) {
+          await applyQuickNumberValue(definition, "");
+        }
+        if (maximumValue) {
+          await applyQuickNumberValue(definition, "", "max");
+        }
+      }
+
+      if (rarityFilter.hasValue()) {
+        await rarityFilter.clear();
+      }
+    } finally {
+      quickFilterClearInProgress = false;
+      button.removeAttribute("aria-busy");
+      syncQuickFilters();
+      requestQuickFilterSync();
+      setTimeout(requestQuickFilterSync, 80);
+    }
+  }
+
+  function createQuickFilterClearButton(): HTMLButtonElement {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "poe-trade-styler-quick-filters-clear";
+    button.textContent = "×";
+    button.title = "Clear all quick filters";
+    button.setAttribute("aria-label", "Clear all quick filters");
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      void clearAllQuickFilters(button);
+    });
+    return button;
+  }
+
   function syncQuickFilters() {
     const strip = document.querySelector(
       "#trade > .top .poe-trade-styler-quick-filters"
@@ -842,10 +1028,19 @@ export function createQuickFiltersFeature({
       const value = isQuickFilterGroupEnabled(filterBody)
         ? readQuickNumberValue(filterBody, definition)
         : "";
+      const maximumValue =
+        definition.hasMaximumInput && isQuickFilterGroupEnabled(filterBody)
+          ? readQuickNumberBoundValue(filterBody, "max")
+          : "";
 
       if (control) {
         setQuickNumberControlVisibility(control, definition, gemSelected);
-        setQuickNumberControlValue(control, definition, value);
+        setQuickNumberControlValue(
+          control,
+          definition,
+          value,
+          maximumValue
+        );
       }
     });
 
@@ -867,6 +1062,8 @@ export function createQuickFiltersFeature({
         setQuickBoundControlValue(control, definition, value);
       }
     });
+
+    syncQuickFilterClearButton(strip);
   }
 
   function requestQuickFilterSync() {
@@ -916,6 +1113,7 @@ export function createQuickFiltersFeature({
       strip.append(createQuickNumberControl(definition))
     );
     strip.append(rarityFilter.createControl());
+    strip.append(createQuickFilterClearButton());
 
     controlsParent.insertBefore(strip, controls);
     syncQuickFilters();

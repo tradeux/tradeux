@@ -1,5 +1,7 @@
 export interface StylerSettings {
   disableBackground: boolean;
+  disabledPresets: string[];
+  disabledQuickFilters: string[];
   fullWidthScreen: boolean;
   gemItemFavorites: string[];
   hideCornerDecorators: boolean;
@@ -15,6 +17,8 @@ export interface StylerSettings {
 
 export const DEFAULT_SETTINGS: Readonly<StylerSettings> = Object.freeze({
   disableBackground: true,
+  disabledPresets: [],
+  disabledQuickFilters: [],
   fullWidthScreen: true,
   gemItemFavorites: [],
   hideCornerDecorators: false,

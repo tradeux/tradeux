@@ -9,6 +9,7 @@ export interface QuickNumberFilterDefinition
   columns?: number;
   exact?: boolean;
   gemOnly?: boolean;
+  hasMaximumInput?: boolean;
   shortLabel: string;
   values: readonly string[];
   max?: number;
@@ -93,6 +94,7 @@ export const QUICK_NUMBER_FILTERS: readonly QuickNumberFilterDefinition[] = [
     shortLabel: "Minimum item quality",
     icon: quickFilterIcon("item-quality"),
     values: Array.from({ length: 30 }, (_, index) => String(index + 1)),
+    hasMaximumInput: true,
     min: 0,
     max: 100
   },

@@ -13,6 +13,185 @@
   max-width: 96px !important;
 }
 
+/* Keep the native site utilities available without allowing their header row
+   to consume vertical space above the trade tabs. The 12px top rail and the
+   floating logo form one continuous hover target; the expanded toolbar is a
+   fixed overlay, so the trade navigation never shifts. */
+.poe-trade-styler-site-toolbar {
+  position: fixed;
+  top: 0;
+  left: var(--poe-trade-styler-site-toolbar-left, 0);
+  z-index: 2147483647;
+  width: var(--poe-trade-styler-site-toolbar-width, 100vw);
+  height: 0;
+  overflow: visible;
+  border-bottom: 0 solid transparent;
+  background: transparent;
+  box-shadow: none;
+  transition:
+    height 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.poe-trade-styler-site-toolbar:is(:hover, :focus-within) {
+  height: 96px;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(184, 153, 82, 0.72);
+  background: rgba(12, 14, 15, 0.97);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.72);
+}
+
+.poe-trade-styler-site-toolbar > .poe-trade-styler-site-toolbar-native-item {
+  position: fixed !important;
+  top: var(--poe-trade-styler-native-item-top, 0) !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: var(--poe-trade-styler-native-item-left, 0) !important;
+  width: var(--poe-trade-styler-native-item-width, auto) !important;
+  z-index: 1;
+  float: none !important;
+  margin: 0 !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: none !important;
+  transition:
+    opacity 120ms ease,
+    visibility 0s linear 150ms;
+}
+
+.poe-trade-styler-site-toolbar:is(:hover, :focus-within)
+  > .poe-trade-styler-site-toolbar-native-item {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 25ms, 0s;
+}
+
+.poe-trade-styler-site-toolbar > .logo {
+  position: absolute !important;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  display: flex !important;
+  align-items: flex-start;
+  justify-content: center;
+  width: 88px;
+  max-width: 88px;
+  height: 48px;
+  margin: 0 !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto;
+  transform: translateX(-50%) !important;
+  transition:
+    width 160ms ease,
+    max-width 160ms ease,
+    height 160ms ease;
+}
+
+.poe-trade-styler-site-toolbar > .logo a {
+  position: relative;
+  z-index: 2;
+  display: block !important;
+  width: 64px !important;
+  max-width: 64px !important;
+  height: 48px !important;
+  overflow: visible !important;
+  transition:
+    width 160ms ease,
+    max-width 160ms ease,
+    height 160ms ease;
+}
+
+.poe-trade-styler-site-toolbar > .logo img {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 64px !important;
+  max-width: 64px !important;
+  height: auto !important;
+  transition:
+    width 160ms ease,
+    max-width 160ms ease;
+}
+
+.poe-trade-styler-site-toolbar:is(:hover, :focus-within) > .logo {
+  width: 120px;
+  max-width: 120px;
+  height: 72px;
+}
+
+.poe-trade-styler-site-toolbar:is(:hover, :focus-within) > .logo a {
+  width: 96px !important;
+  max-width: 96px !important;
+  height: 72px !important;
+}
+
+.poe-trade-styler-site-toolbar:is(:hover, :focus-within) > .logo img {
+  width: 96px !important;
+  max-width: 96px !important;
+}
+
+.poe-trade-styler-site-toolbar-footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 8px 18px;
+  border-top: 1px solid rgba(117, 101, 62, 0.66);
+  background: rgba(12, 14, 15, 0.97);
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.68);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: auto;
+  transform: translateY(100%);
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease,
+    visibility 0s linear 500ms;
+}
+
+.poe-trade-styler-site-toolbar:is(:hover, :focus-within)
+  > .poe-trade-styler-site-toolbar-footer {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 80ms, 60ms, 0s;
+}
+
+.poe-trade-styler-site-toolbar-footer > :is(footer, #footer, .footer),
+.poe-trade-styler-site-toolbar-footer > :not(.poe-trade-styler-site-toolbar) {
+  position: static !important;
+  inset: auto !important;
+  width: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+
+:root:has(.poe-trade-styler-site-toolbar) #trade > .navigation {
+  height: 46px !important;
+  margin-top: 16px !important;
+  padding-top: 0;
+}
+
+#trade > .navigation,
+#trade > .navigation .nav-tabs,
+.poe-trade-styler-site-toolbar .nav-tabs,
+[id^="poe-trade-styler"] [role="tablist"] {
+  border: 0 !important;
+  border-image: none !important;
+}
+
 :root.poe-trade-styler-full-width-enabled #trade {
   width: 100% !important;
   max-width: 1920px;
@@ -204,7 +383,7 @@
 .poe-trade-styler-dialog {
   display: flex;
   flex-direction: column;
-  width: min(520px, 100%);
+  width: min(900px, 100%);
   max-height: calc(100vh - 48px);
   border: 1px solid #75653e;
   border-radius: 7px;
@@ -249,10 +428,154 @@
 
 .poe-trade-styler-options {
   display: grid;
+  align-content: start;
   gap: 1px;
   min-height: 0;
   overflow-y: auto;
   padding: 12px;
+}
+
+.poe-trade-styler-settings-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.poe-trade-styler-feature-options {
+  display: grid;
+  align-content: start;
+  gap: 1px;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 20px 22px;
+  border-left: 1px solid rgba(117, 101, 62, 0.58);
+  background: rgba(2, 7, 10, 0.58);
+}
+
+.poe-trade-styler-feature-option-group {
+  display: grid;
+  gap: 10px;
+}
+
+.poe-trade-styler-option + .poe-trade-styler-feature-option-group,
+.poe-trade-styler-feature-option-group
+  + .poe-trade-styler-feature-option-group {
+  margin-top: 16px;
+}
+
+.poe-trade-styler-feature-option-group h3 {
+  margin: 0;
+  color: #e5d8ae;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.poe-trade-styler-feature-toggle-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 42px);
+  gap: 8px;
+}
+
+.poe-trade-styler-feature-toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 4px;
+  overflow: visible;
+  border: 1px solid #75653e;
+  border-radius: 4px;
+  background: rgba(18, 18, 18, 0.94);
+  color: #dfcf99;
+  font: 14px/1 "FontinSmallCaps";
+  opacity: 1;
+  cursor: pointer;
+  transition: opacity 120ms ease, border-color 120ms ease;
+}
+
+.poe-trade-styler-feature-toggle.is-disabled {
+  opacity: 0.5;
+}
+
+.poe-trade-styler-feature-toggle img {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.poe-trade-styler-feature-toggle span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.poe-trade-styler-feature-toggle
+  .poe-trade-styler-feature-toggle-tooltip,
+#trade
+  .poe-trade-styler-quick-filter-boolean
+  .poe-trade-styler-quick-filter-tooltip {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  z-index: 20;
+  display: block;
+  width: max-content;
+  max-width: 220px;
+  padding: 5px 8px;
+  overflow: visible;
+  border: 1px solid #8e7845;
+  border-radius: 3px;
+  background: #111;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.72);
+  color: #dfcf99;
+  font: 12px/1.25 "FontinSmallCaps";
+  text-align: center;
+  text-overflow: clip;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 3px);
+  transition:
+    opacity 100ms ease,
+    transform 100ms ease,
+    visibility 0s linear 100ms;
+}
+
+.poe-trade-styler-feature-toggle
+  .poe-trade-styler-feature-toggle-tooltip::after,
+#trade
+  .poe-trade-styler-quick-filter-boolean
+  .poe-trade-styler-quick-filter-tooltip::after {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 5px solid transparent;
+  border-top-color: #8e7845;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.poe-trade-styler-feature-toggle:is(:hover, :focus-visible),
+#trade .poe-trade-styler-quick-filter-boolean:is(:hover, :focus-visible) {
+  z-index: 21;
+}
+
+.poe-trade-styler-feature-toggle:is(:hover, :focus-visible)
+  .poe-trade-styler-feature-toggle-tooltip,
+#trade
+  .poe-trade-styler-quick-filter-boolean:is(:hover, :focus-visible)
+  .poe-trade-styler-quick-filter-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition-delay: 0s;
 }
 
 .poe-trade-styler-option {
@@ -262,7 +585,7 @@
   align-items: start;
   padding: 14px;
   border-radius: 5px;
-  background: #1c1c1c;
+  background: #1c1c1c96;
   cursor: pointer;
 }
 
@@ -290,6 +613,31 @@
 .poe-trade-styler-option small {
   color: #8f8f8f;
   font-size: 12px;
+}
+
+.poe-trade-styler-preset-navigation-item[hidden],
+#trade .poe-trade-styler-quick-filters[hidden],
+#trade
+  .poe-trade-styler-quick-filters
+  [data-quick-filter].poe-trade-styler-feature-disabled {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .poe-trade-styler-settings-layout {
+    display: block;
+    overflow-y: auto;
+  }
+
+  .poe-trade-styler-options,
+  .poe-trade-styler-feature-options {
+    overflow: visible;
+  }
+
+  .poe-trade-styler-feature-options {
+    border-top: 1px solid rgba(117, 101, 62, 0.58);
+    border-left: 0;
+  }
 }
 
 .poe-trade-styler-about {
@@ -343,7 +691,9 @@
   touch-action: pan-y;
 }
 
-.poe-trade-styler-corruption-option {
+.poe-trade-styler-corruption-option,
+.poe-trade-styler-waystone-stat-option,
+.poe-trade-styler-waystone-stat-group {
   order: -2;
 }
 
@@ -434,15 +784,30 @@
 
 .poe-trade-styler-preset-navigation-item {
   position: relative;
-  z-index: 2147483644;
+  z-index: 40;
   float: left;
   display: block;
   /* Keep most of the extra space after the button inside its hover target. */
   width: 40px;
   height: 32px;
-  margin-left: 6px;
+  margin-left: var(--poe-trade-styler-preset-main-leading-space, 6px);
   overflow: visible;
   pointer-events: auto;
+}
+
+.nav.nav-tabs.main {
+  height: 46px;
+  overflow: visible;
+}
+
+.nav.nav-tabs.account > .poe-trade-styler-preset-account-overflow {
+  float: left;
+  margin-left: 6px;
+}
+
+.nav.nav-tabs.account
+  > .poe-trade-styler-preset-account-overflow:first-child {
+  margin-left: 40px;
 }
 
 /* The final 6px is the wrapper margin. Cover it with the preceding launcher's
@@ -456,7 +821,17 @@
 
 .poe-trade-styler-preset-navigation-item:hover,
 .poe-trade-styler-preset-navigation-item:focus-within {
-  z-index: 2147483646;
+  z-index: 41;
+}
+
+/* In the single-column layout, collapsing the native filters can move the
+   preset row over an open fixed-position menu. Keep the menu's stacking
+   context above every launcher for its entire fade-out, not only while its
+   launcher happens to be hovered. */
+.poe-trade-styler-preset-navigation-item:has(
+    > .poe-trade-styler-preset-popover:not([hidden])
+  ) {
+  z-index: 60;
 }
 
 .poe-trade-styler-fade-popover {
@@ -2633,26 +3008,6 @@ html.poe-trade-styler-gem-modal-open {
   display: none !important;
 }
 
-/* Compact presets hide native rows at the list level instead of mutating the
-   live catalogue's thousands of options during activation. */
-html.poe-trade-styler-charm-preset.poe-trade-styler-hide-irrelevant-affixes
-  .poe-trade-styler-stat-filter-list
-  > .multiselect__element:not(.poe-trade-styler-waystone-stat-option):not(.poe-trade-styler-waystone-stat-group),
-html.poe-trade-styler-flask-preset.poe-trade-styler-hide-irrelevant-affixes
-  .poe-trade-styler-stat-filter-list
-  > .multiselect__element:not(.poe-trade-styler-waystone-stat-option):not(.poe-trade-styler-waystone-stat-group),
-html.poe-trade-styler-gem-preset.poe-trade-styler-hide-irrelevant-affixes
-  .poe-trade-styler-stat-filter-list
-  > .multiselect__element:not(.poe-trade-styler-waystone-stat-option):not(.poe-trade-styler-waystone-stat-group),
-html.poe-trade-styler-gear-preset.poe-trade-styler-hide-irrelevant-affixes
-  .poe-trade-styler-stat-filter-list
-  > .multiselect__element:not(.poe-trade-styler-waystone-stat-option):not(.poe-trade-styler-waystone-stat-group),
-html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
-  .poe-trade-styler-stat-filter-list
-  > .multiselect__element:not(.poe-trade-styler-waystone-stat-option):not(.poe-trade-styler-waystone-stat-group) {
-  display: none !important;
-}
-
 #trade
   .poe-trade-styler-preset-affix-stat-option
   > .multiselect__option {
@@ -2706,16 +3061,59 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
 }
 
 #trade .poe-trade-styler-quick-filters {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 4px;
   min-height: 42px;
-  padding: 6px 12px;
+  padding: 6px 56px;
   border-top: 1px solid rgba(145, 120, 70, 0.35);
   border-bottom: 1px solid rgba(145, 120, 70, 0.55);
   background: rgba(5, 5, 5, 0.72);
+}
+
+#trade .poe-trade-styler-quick-filters-clear {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0 0 2px !important;
+  border: 1px solid #665b43;
+  border-radius: 3px;
+  background: rgba(18, 18, 18, 0.94);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.55);
+  color: #c7b98f;
+  font: 700 23px/1 Arial, sans-serif;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    border-color 100ms ease,
+    color 100ms ease,
+    opacity 100ms ease;
+}
+
+#trade .poe-trade-styler-quick-filters-clear:hover,
+#trade .poe-trade-styler-quick-filters-clear:focus-visible {
+  border-color: #d65d55;
+  color: #ffaaa3;
+  outline: 1px solid rgba(214, 93, 85, 0.35);
+  outline-offset: 1px;
+}
+
+#trade .poe-trade-styler-quick-filters-clear:disabled {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: #716957;
+  opacity: 0.32;
+  outline: none;
+  cursor: default;
 }
 
 #trade .poe-trade-styler-active-preset-status {
@@ -2815,6 +3213,7 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
 }
 
 #trade .poe-trade-styler-quick-filter:not(.is-any):not(.is-empty):hover,
+#trade .poe-trade-styler-quick-filter-boolean:hover,
 #trade .poe-trade-styler-quick-filter:focus-visible {
   border-color: #e0b75d;
   opacity: 1;
@@ -3297,12 +3696,26 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
 }
 
 @media (min-width: 1200px) {
+  :root.poe-trade-styler-two-column-enabled.poe-trade-styler-sticky-search-enabled,
+  :root.poe-trade-styler-two-column-enabled.poe-trade-styler-sticky-search-enabled
+    body {
+    height: 100dvh;
+    overflow: hidden !important;
+  }
+
   :root.poe-trade-styler-two-column-enabled #trade {
     display: grid !important;
     grid-template-columns: minmax(480px, 1fr) minmax(0, 1fr);
     grid-template-rows: auto auto;
     column-gap: 14px;
     align-items: start;
+  }
+
+  :root.poe-trade-styler-two-column-enabled.poe-trade-styler-sticky-search-enabled
+    #trade {
+    grid-template-rows: auto minmax(0, 1fr);
+    height: var(--poe-trade-styler-layout-height, calc(100dvh - 16px));
+    overflow: hidden;
   }
 
   :root.poe-trade-styler-two-column-enabled #trade > .navigation {
@@ -3320,11 +3733,16 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
   :root.poe-trade-styler-two-column-enabled.poe-trade-styler-sticky-search-enabled
     #trade
     > .top {
-    position: sticky;
-    top: 8px;
+    position: relative;
+    top: auto;
     z-index: 10;
-    max-height: calc(100vh - 16px);
+    height: 100% !important;
+    min-height: 0;
+    max-height: none;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    margin-bottom: 0 !important;
     padding-bottom: calc(
       var(--poe-trade-styler-controls-height, 84px) +
         var(--poe-trade-styler-quick-filters-height, 42px)
@@ -3344,6 +3762,18 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
     width: auto !important;
     min-width: 0;
     margin-top: 0 !important;
+  }
+
+  :root.poe-trade-styler-two-column-enabled.poe-trade-styler-sticky-search-enabled
+    #trade
+    > #vue3-portal
+    > .results {
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
   }
 
   :root.poe-trade-styler-two-column-enabled
@@ -3393,9 +3823,24 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
     width: var(--poe-trade-styler-controls-width, 40vw);
     bottom: var(--poe-trade-styler-controls-height, 84px);
     z-index: 20;
+    box-shadow: 0 -6px 14px rgba(0, 0, 0, 0.45);
+  }
+
+  /* backdrop-filter creates a containing block for fixed descendants. Paint
+     the blur on a separate layer so viewport-positioned popovers are not
+     offset by the quick-filter bar itself. */
+  :root.poe-trade-styler-two-column-enabled.poe-trade-styler-sticky-search-enabled
+    #trade
+    > .top
+    .poe-trade-styler-quick-filters::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(5, 5, 5, 0.18);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    box-shadow: 0 -6px 14px rgba(0, 0, 0, 0.45);
+    content: "";
+    pointer-events: none;
   }
 
   :root.poe-trade-styler-two-column-enabled
@@ -4936,9 +5381,6 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
    cursor move does not trip the delayed close. */
 .poe-trade-styler-preset-popover::before {
   position: absolute;
-  right: 0;
-  left: 0;
-  height: var(--poe-trade-styler-hover-gap, 7px);
   content: "";
   pointer-events: none;
 }
@@ -4948,11 +5390,142 @@ html.poe-trade-styler-jewel-preset.poe-trade-styler-hide-irrelevant-affixes
 }
 
 .poe-trade-styler-preset-popover.is-positioned-below::before {
+  right: 0;
   bottom: 100%;
+  left: 0;
+  height: var(--poe-trade-styler-hover-gap, 7px);
 }
 
 .poe-trade-styler-preset-popover.is-positioned-above::before {
   top: 100%;
+  right: 0;
+  left: 0;
+  height: var(--poe-trade-styler-hover-gap, 7px);
+}
+
+.poe-trade-styler-preset-popover.is-positioned-right::before {
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  width: var(--poe-trade-styler-hover-gap, 7px);
+}
+
+.poe-trade-styler-preset-popover.is-positioned-left::before {
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: var(--poe-trade-styler-hover-gap, 7px);
+}
+
+/* Quick-filter popovers use the same viewport-aware placement as preset
+   menus. These late rules rotate both the pointer and the safe hover bridge
+   after the popover moves away from its original above-trigger position. */
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-below::before {
+  top: auto;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  width: auto;
+  height: var(--poe-trade-styler-hover-gap, 7px);
+}
+
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-above::before {
+  top: 100%;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  width: auto;
+  height: var(--poe-trade-styler-hover-gap, 7px);
+}
+
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-right::before {
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  left: auto;
+  width: var(--poe-trade-styler-hover-gap, 7px);
+  height: auto;
+}
+
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-left::before {
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 100%;
+  width: var(--poe-trade-styler-hover-gap, 7px);
+  height: auto;
+}
+
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-below::after {
+  top: auto;
+  right: auto;
+  bottom: 100%;
+  left: 50%;
+  border-color: transparent;
+  border-bottom-color: #8e7845;
+  transform: translateX(-50%);
+}
+
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-above::after {
+  top: 100%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  border-color: transparent;
+  border-top-color: #8e7845;
+  transform: translateX(-50%);
+}
+
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-right::after {
+  top: 50%;
+  right: 100%;
+  bottom: auto;
+  left: auto;
+  border-color: transparent;
+  border-right-color: #8e7845;
+  transform: translateY(-50%);
+}
+
+#trade :where(
+  .poe-trade-styler-quick-rarity-popover,
+  .poe-trade-styler-quick-number-popover,
+  .poe-trade-styler-quick-bound-popover
+).is-positioned-left::after {
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 100%;
+  border-color: transparent;
+  border-left-color: #8e7845;
+  transform: translateY(-50%);
 }
 
 .poe-trade-styler-preset-popover-content {

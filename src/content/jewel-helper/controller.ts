@@ -7,6 +7,7 @@ import type { PresetState } from "../presets/state";
 import { getSafeItemImageUrl } from "../image-assets";
 import { bindHoverMenu, positionHoverMenu } from "../presets/hover-menu";
 import { setPopoverOpen } from "../popover-transition";
+import { isPresetAccountOverflow } from "../preset-navigation-overflow";
 
 export interface JewelHelperFeature {
   close(): boolean;
@@ -167,7 +168,9 @@ export function createJewelHelperFeature({
       menu = createMenu();
       item.append(menu);
     }
-    if (flaskButton) {
+    if (isPresetAccountOverflow(item)) {
+      // Narrow navigation layout owns this item's placement in the account nav.
+    } else if (flaskButton) {
       if (anchorItem.previousElementSibling !== item) {
         anchorItem.insertAdjacentElement("beforebegin", item);
       }

@@ -12,6 +12,31 @@ interface VerticalRect {
   top: number;
 }
 
+interface ScrollMetrics {
+  clientHeight: number;
+  scrollHeight: number;
+  scrollTop: number;
+}
+
+const RESULTS_PRELOAD_DISTANCE = 480;
+
+export function isNearScrollEnd(
+  { clientHeight, scrollHeight, scrollTop }: ScrollMetrics,
+  preloadDistance = RESULTS_PRELOAD_DISTANCE
+): boolean {
+  if (
+    !Number.isFinite(clientHeight) ||
+    !Number.isFinite(scrollHeight) ||
+    !Number.isFinite(scrollTop) ||
+    clientHeight <= 0 ||
+    scrollHeight <= clientHeight
+  ) {
+    return false;
+  }
+
+  return scrollHeight - scrollTop - clientHeight <= preloadDistance;
+}
+
 export function isDropdownRenderedAbove(
   inputRect: VerticalRect,
   dropdownRect: VerticalRect
@@ -62,19 +87,71 @@ export function createLayoutFeature({
   window?: Window;
 }): LayoutFeature {
   let syncedFilterPane: HTMLElement | null = null;
+  let syncedResultsPane: HTMLElement | null = null;
+  let loadMoreClickPending = false;
+  let loadMoreClickResetHandle: number | null = null;
+
+  function onResultsScroll(): void {
+    browserWindow.dispatchEvent(new Event("scroll"));
+
+    const resultsPane = syncedResultsPane;
+    if (
+      !resultsPane ||
+      loadMoreClickPending ||
+      !isTwoColumnEnabled() ||
+      !isStickySearchEnabled() ||
+      !browserWindow.matchMedia("(min-width: 1200px)").matches ||
+      !isNearScrollEnd(resultsPane)
+    ) {
+      return;
+    }
+
+    const loadMoreButton = resultsPane.querySelector<HTMLButtonElement>(
+      "button.load-more-btn"
+    );
+    if (
+      !loadMoreButton ||
+      loadMoreButton.disabled ||
+      loadMoreButton.getAttribute("aria-disabled") === "true"
+    ) {
+      return;
+    }
+
+    loadMoreClickPending = true;
+    loadMoreButton.click();
+    loadMoreClickResetHandle = browserWindow.setTimeout(() => {
+      loadMoreClickPending = false;
+      loadMoreClickResetHandle = null;
+    }, 750);
+  }
 
   function sync(): void {
     const root = doc.documentElement;
+    const trade = doc.querySelector<HTMLElement>("#trade");
     const filterPane = doc.querySelector<HTMLElement>("#trade > .top");
     const controls = filterPane?.querySelector<HTMLElement>(".controls");
     const quickFilters = filterPane?.querySelector<HTMLElement>(
       ".poe-trade-styler-quick-filters"
     );
+    const resultsPane = doc.querySelector<HTMLElement>("#trade .results");
 
     if (filterPane && filterPane !== syncedFilterPane) {
       syncedFilterPane?.removeEventListener("scroll", sync);
       filterPane.addEventListener("scroll", sync, { passive: true });
       syncedFilterPane = filterPane;
+    }
+
+    if (resultsPane !== syncedResultsPane) {
+      syncedResultsPane?.removeEventListener("scroll", onResultsScroll);
+      resultsPane?.addEventListener("scroll", onResultsScroll, {
+        passive: true
+      });
+      syncedResultsPane = resultsPane;
+      loadMoreClickPending = false;
+      if (loadMoreClickResetHandle !== null) {
+        browserWindow.clearTimeout(loadMoreClickResetHandle);
+        loadMoreClickResetHandle = null;
+      }
     }
 
     if (
@@ -98,6 +175,13 @@ export function createLayoutFeature({
       "--poe-trade-styler-controls-left",
       `${filterRect.left}px`
     );
+    if (trade && Number.isFinite(browserWindow.innerHeight)) {
+      const tradeTop = Math.max(0, trade.getBoundingClientRect().top);
+      root.style.setProperty(
+        "--poe-trade-styler-layout-height",
+        `${Math.max(0, Math.floor(browserWindow.innerHeight - tradeTop - 8))}px`
+      );
+    }
     root.style.setProperty(
       "--poe-trade-styler-controls-width",
       `${filterRect.width}px`
@@ -146,6 +230,7 @@ export function createLayoutFeature({
   function clearProperties(root: HTMLElement): void {
     root.style.removeProperty("--poe-trade-styler-controls-left");
     root.style.removeProperty("--poe-trade-styler-controls-width");
+    root.style.removeProperty("--poe-trade-styler-layout-height");
     root.style.removeProperty("--poe-trade-styler-controls-height");
     root.style.removeProperty("--poe-trade-styler-quick-filters-height");
     root.style.removeProperty("--poe-trade-styler-stat-filter-height");
@@ -154,6 +239,13 @@ export function createLayoutFeature({
   function destroy(): void {
     syncedFilterPane?.removeEventListener("scroll", sync);
     syncedFilterPane = null;
+    syncedResultsPane?.removeEventListener("scroll", onResultsScroll);
+    syncedResultsPane = null;
+    if (loadMoreClickResetHandle !== null) {
+      browserWindow.clearTimeout(loadMoreClickResetHandle);
+      loadMoreClickResetHandle = null;
+    }
+    loadMoreClickPending = false;
     clearProperties(doc.documentElement);
   }
 

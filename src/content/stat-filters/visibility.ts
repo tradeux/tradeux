@@ -84,6 +84,16 @@ export function filterFocusedStatOptions({
           const isCorruptionOption = element.classList.contains(
             "poe-trade-styler-corruption-option"
           );
+          const isNativeOption =
+            !isPresetOption && !isPresetGroup && !isCorruptionOption;
+
+          // Preset stats are recommendations, not an exhaustive catalogue.
+          // Keep every native option available below the injected preset rows.
+          if (isNativeOption) {
+            element.classList.remove("poe-trade-styler-preset-stat-hidden");
+            return;
+          }
+
           const isRelevant = (isPresetOption || isCorruptionOption) && (
             !query ||
             element.dataset.poeTradeStylerWaystoneSearch?.includes(query)

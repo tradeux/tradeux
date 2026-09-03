@@ -29,6 +29,7 @@ import { createPresetGroupStateManager } from "./group-state-manager";
 import { bindHoverMenu, positionHoverMenu } from "./hover-menu";
 import { decoratePopover, setPopoverOpen } from "../popover-transition";
 import type { StylerSettings } from "../settings/model";
+import { isPresetAccountOverflow } from "../preset-navigation-overflow";
 
 type PresetVisibilitySettings = Pick<
   StylerSettings,
@@ -949,7 +950,10 @@ export function createPresetsFeature({
     const previousItem = previousButton.closest(
       ".poe-trade-styler-preset-navigation-item"
     );
-    if (previousItem?.nextElementSibling !== navigationItem) {
+    if (
+      !isPresetAccountOverflow(navigationItem) &&
+      previousItem?.nextElementSibling !== navigationItem
+    ) {
       previousItem?.insertAdjacentElement("afterend", navigationItem);
     }
     return button;
@@ -1015,6 +1019,7 @@ export function createPresetsFeature({
       }
 
       if (
+        !isPresetAccountOverflow(presetNavigationItem) &&
         bulkNavigationItem.nextElementSibling !== presetNavigationItem
       ) {
         bulkNavigationItem.insertAdjacentElement(
@@ -1053,6 +1058,7 @@ export function createPresetsFeature({
       }
 
       if (
+        !isPresetAccountOverflow(presetNavigationItem) &&
         bulkItemExchangeButton.nextElementSibling !== presetNavigationItem
       ) {
         bulkItemExchangeButton.insertAdjacentElement(

@@ -12,6 +12,7 @@ import {
   type GemFavoritesSettings
 } from "./favorites";
 import { getSkillGemDetail } from "./details";
+import { isPresetAccountOverflow } from "../preset-navigation-overflow";
 
 export interface GemHelperFeature {
   close(): boolean;
@@ -794,7 +795,10 @@ export function createGemHelperFeature({
         "poe-trade-styler-preset-navigation-item poe-trade-styler-gem-navigation-item";
       item.append(launcher);
     }
-    if (previousItem.nextElementSibling !== item) {
+    if (
+      !isPresetAccountOverflow(item) &&
+      previousItem.nextElementSibling !== item
+    ) {
       previousItem.insertAdjacentElement("afterend", item);
     }
     if (!modal) modal = createModal();

@@ -1,5 +1,6 @@
 import { DEFAULT_SETTINGS, type StylerSettings } from "./model";
 import { createModalFrame } from "../modal-frame";
+import { getSafeItemImageUrl } from "../image-assets";
 import manifest from "../../../manifest.json";
 
 export type { StylerSettings } from "./model";
@@ -19,7 +20,15 @@ export interface SettingsFeature {
 export interface SettingsDependencies {
   onApply(settings: StylerSettings): void;
   document?: Document;
+  presetToggles?: readonly SettingsToggleDefinition[];
+  quickFilterToggles?: readonly SettingsToggleDefinition[];
   storage?: chrome.storage.StorageArea;
+}
+
+export interface SettingsToggleDefinition {
+  icon?: string;
+  key: string;
+  label: string;
 }
 
 const SETTINGS_STORAGE_KEY = "poe-tradeux-settings";
@@ -33,6 +42,8 @@ export function createSettingsFeature(
   const storage = dependencies.storage ?? chrome.storage.local;
   const state: StylerSettings = {
     ...DEFAULT_SETTINGS,
+    disabledPresets: [],
+    disabledQuickFilters: [],
     gemItemFavorites: [],
     statFilterFavorites: [],
     uniqueItemFavorites: []
@@ -94,12 +105,14 @@ export function createSettingsFeature(
     ),
     hideIrrelevantAffixes: createOption(
       "poe-trade-styler-hide-irrelevant-affixes",
-      "Hide non-relevant prefixes and suffixes (experimental)",
-      "Show only relevant stats; when off, keep native stat filters unchanged."
+      "Show relevant preffixes and suffixes for preset base first",
+      "Place stats relevant to the selected preset base before the native stat list."
     )
   } satisfies Record<
     Exclude<
       keyof StylerSettings,
+      | "disabledPresets"
+      | "disabledQuickFilters"
       | "gemItemFavorites"
       | "hideLowTierFlasks"
       | "hideLowTierWaystones"
@@ -113,11 +126,31 @@ export function createSettingsFeature(
     options.twoColumnLayout.label,
     options.fullWidthScreen.label,
     options.disableBackground.label,
-    options.hideCornerDecorators.label,
-    options.rightSpaceForBetterTrading.label,
     options.stickySearchPanel.label,
     options.hideIrrelevantAffixes.label
   );
+
+  const settingsLayout = doc.createElement("div");
+  settingsLayout.className = "poe-trade-styler-settings-layout";
+  const featureOptions = doc.createElement("aside");
+  featureOptions.className = "poe-trade-styler-feature-options";
+  featureOptions.append(
+    options.hideCornerDecorators.label,
+    options.rightSpaceForBetterTrading.label
+  );
+  const featureToggleButtons = [
+    ...createToggleGroup(
+      "Enabled presets:",
+      "presets",
+      dependencies.presetToggles || []
+    ),
+    ...createToggleGroup(
+      "Quick filters:",
+      "quick-filters",
+      dependencies.quickFilterToggles || []
+    )
+  ];
+  settingsLayout.append(optionsContainer, featureOptions);
 
   const footer = doc.createElement("footer");
   footer.className = "poe-trade-styler-about";
@@ -141,7 +174,7 @@ export function createSettingsFeature(
   versionBadge.textContent = `v${APP_VERSION}`;
   footer.append(links, disclaimer, versionBadge);
 
-  dialog.append(optionsContainer, footer);
+  dialog.append(settingsLayout, footer);
 
   function createExternalLink(label: string, href: string): HTMLAnchorElement {
     const link = doc.createElement("a");
@@ -172,6 +205,74 @@ export function createSettingsFeature(
     return { checkbox, label };
   }
 
+  function createToggleGroup(
+    labelText: string,
+    kind: SettingsToggleKind,
+    definitions: readonly SettingsToggleDefinition[]
+  ): HTMLButtonElement[] {
+    const section = doc.createElement("section");
+    section.className = "poe-trade-styler-feature-option-group";
+    const label = doc.createElement("h3");
+    label.textContent = labelText;
+    const controls = doc.createElement("div");
+    controls.className = "poe-trade-styler-feature-toggle-list";
+    const buttons = definitions.map((definition) => {
+      const button = doc.createElement("button");
+      button.type = "button";
+      button.className = "poe-trade-styler-feature-toggle";
+      button.dataset.featureToggleKind = kind;
+      button.dataset.featureToggleKey = definition.key;
+      button.dataset.featureToggleLabel = definition.label;
+      const tooltip = doc.createElement("span");
+      tooltip.className = "poe-trade-styler-feature-toggle-tooltip";
+      tooltip.id =
+        `poe-trade-styler-${kind}-${definition.key}-tooltip`;
+      tooltip.setAttribute("role", "tooltip");
+      tooltip.textContent = definition.label;
+      button.setAttribute("aria-describedby", tooltip.id);
+
+      if (definition.icon?.startsWith("assets/")) {
+        const icon = doc.createElement("img");
+        icon.src = getSafeItemImageUrl(definition.icon);
+        icon.alt = "";
+        icon.setAttribute("aria-hidden", "true");
+        button.append(icon);
+      } else {
+        const icon = doc.createElement("span");
+        icon.textContent = definition.icon || definition.label.slice(0, 2);
+        icon.setAttribute("aria-hidden", "true");
+        button.append(icon);
+      }
+
+      button.append(tooltip);
+
+      button.addEventListener("click", () => {
+        const stateKey = getDisabledStateKey(kind);
+        const disabled = new Set(state[stateKey]);
+        if (disabled.has(definition.key)) {
+          disabled.delete(definition.key);
+        } else {
+          disabled.add(definition.key);
+        }
+        state[stateKey] = [...disabled];
+        apply();
+        persist();
+      });
+      controls.append(button);
+      return button;
+    });
+
+    section.append(label, controls);
+    featureOptions.append(section);
+    return buttons;
+  }
+
+  function getDisabledStateKey(
+    kind: SettingsToggleKind
+  ): "disabledPresets" | "disabledQuickFilters" {
+    return kind === "presets" ? "disabledPresets" : "disabledQuickFilters";
+  }
+
   function apply(): void {
     for (const [key, option] of Object.entries(options) as [
       keyof typeof options,
@@ -179,6 +280,21 @@ export function createSettingsFeature(
     ][]) {
       option.checkbox.checked = state[key];
     }
+
+    featureToggleButtons.forEach((button) => {
+      const kind = button.dataset.featureToggleKind as SettingsToggleKind;
+      const key = button.dataset.featureToggleKey || "";
+      const label = button.dataset.featureToggleLabel || key;
+      const enabled = !state[getDisabledStateKey(kind)].includes(key);
+      button.classList.toggle("is-disabled", !enabled);
+      button.setAttribute("aria-pressed", String(enabled));
+      button.setAttribute(
+        "aria-label",
+        `${label}: ${enabled ? "enabled" : "disabled"}. Click to ${
+          enabled ? "disable" : "enable"
+        }.`
+      );
+    });
 
     dependencies.onApply(state);
   }
@@ -188,6 +304,8 @@ export function createSettingsFeature(
       void storage.set({
         [SETTINGS_STORAGE_KEY]: {
           ...state,
+          disabledPresets: [...state.disabledPresets],
+          disabledQuickFilters: [...state.disabledQuickFilters],
           gemItemFavorites: [...state.gemItemFavorites],
           statFilterFavorites: [...state.statFilterFavorites],
           uniqueItemFavorites: [...state.uniqueItemFavorites]
@@ -221,6 +339,18 @@ export function createSettingsFeature(
     if (Array.isArray(stored.statFilterFavorites)) {
       state.statFilterFavorites = stored.statFilterFavorites.filter(
         (favorite): favorite is string => typeof favorite === "string"
+      );
+    }
+
+    if (Array.isArray(stored.disabledPresets)) {
+      state.disabledPresets = stored.disabledPresets.filter(
+        (key): key is string => typeof key === "string"
+      );
+    }
+
+    if (Array.isArray(stored.disabledQuickFilters)) {
+      state.disabledQuickFilters = stored.disabledQuickFilters.filter(
+        (key): key is string => typeof key === "string"
       );
     }
 
@@ -335,3 +465,5 @@ interface SettingsOption {
   checkbox: HTMLInputElement;
   label: HTMLLabelElement;
 }
+
+type SettingsToggleKind = "presets" | "quick-filters";

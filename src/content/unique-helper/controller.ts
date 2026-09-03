@@ -8,6 +8,7 @@ import type {
 import { composeRuneforgedView } from "./composition";
 import { getSafeItemImageUrl } from "../image-assets";
 import { createModalFrame } from "../modal-frame";
+import { isPresetAccountOverflow } from "../preset-navigation-overflow";
 import {
   filterUniqueEntries,
   getEntryVariant,
@@ -852,7 +853,10 @@ export function createUniqueHelperFeature({
       navigationItem.append(launcher);
     }
 
-    if (craftingPresetNavigationItem.nextElementSibling !== navigationItem) {
+    if (
+      !isPresetAccountOverflow(navigationItem) &&
+      craftingPresetNavigationItem.nextElementSibling !== navigationItem
+    ) {
       craftingPresetNavigationItem.insertAdjacentElement("afterend", navigationItem);
     }
 

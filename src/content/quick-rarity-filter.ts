@@ -1,6 +1,7 @@
 import type { QuickRarityFilterDefinition } from "./quick-filter-definitions";
 import { bindHoverPopover } from "./hover-popover";
 import { decoratePopover, setPopoverOpen } from "./popover-transition";
+import { positionViewportPopover } from "./popover-position";
 
 interface QuickRarityFilterDependencies {
   closePopovers(exceptControl?: Element | null): boolean;
@@ -17,7 +18,9 @@ interface QuickRarityFilterDependencies {
 }
 
 export interface QuickRarityFilterFeature {
+  clear(): Promise<boolean>;
   createControl(): HTMLDivElement;
+  hasValue(): boolean;
   syncControl(control: HTMLElement): void;
 }
 
@@ -211,6 +214,7 @@ export function createQuickRarityFilterFeature(
     const open = (): void => {
       closePopovers(control);
       setPopoverOpen(popover, true);
+      positionViewportPopover(trigger, popover);
       control.classList.add("is-open");
       trigger.setAttribute("aria-expanded", "true");
     };
@@ -271,5 +275,10 @@ export function createQuickRarityFilterFeature(
     return control;
   }
 
-  return { createControl, syncControl };
+  return {
+    clear: () => applyValue(""),
+    createControl,
+    hasValue: () => Boolean(readValue()),
+    syncControl
+  };
 }

@@ -7,6 +7,7 @@ import type {
 import type { PresetState } from "../presets/state";
 import { getSafeItemImageUrl } from "../image-assets";
 import { createModalFrame } from "../modal-frame";
+import { isPresetAccountOverflow } from "../preset-navigation-overflow";
 
 export interface GearHelperFeature {
   close(): boolean;
@@ -489,7 +490,10 @@ export function createGearHelperFeature({
         "poe-trade-styler-preset-navigation-item poe-trade-styler-gear-navigation-item";
       navigationItem.append(launcher);
     }
-    if (previousItem.nextElementSibling !== navigationItem) {
+    if (
+      !isPresetAccountOverflow(navigationItem) &&
+      previousItem.nextElementSibling !== navigationItem
+    ) {
       previousItem.insertAdjacentElement("afterend", navigationItem);
     }
     if (!modal) modal = createModal();

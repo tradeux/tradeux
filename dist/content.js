@@ -1,6 +1,13 @@
 "use strict";
 (() => {
   // src/content/layout/controller.ts
+  var RESULTS_PRELOAD_DISTANCE = 480;
+  function isNearScrollEnd({ clientHeight, scrollHeight, scrollTop }, preloadDistance = RESULTS_PRELOAD_DISTANCE) {
+    if (!Number.isFinite(clientHeight) || !Number.isFinite(scrollHeight) || !Number.isFinite(scrollTop) || clientHeight <= 0 || scrollHeight <= clientHeight) {
+      return false;
+    }
+    return scrollHeight - scrollTop - clientHeight <= preloadDistance;
+  }
   function isDropdownRenderedAbove(inputRect, dropdownRect) {
     return dropdownRect.height > 0 && dropdownRect.bottom <= inputRect.top + 1;
   }
@@ -24,17 +31,53 @@
     window: browserWindow = window
   }) {
     let syncedFilterPane = null;
+    let syncedResultsPane = null;
+    let loadMoreClickPending = false;
+    let loadMoreClickResetHandle = null;
+    function onResultsScroll() {
+      browserWindow.dispatchEvent(new Event("scroll"));
+      const resultsPane = syncedResultsPane;
+      if (!resultsPane || loadMoreClickPending || !isTwoColumnEnabled() || !isStickySearchEnabled() || !browserWindow.matchMedia("(min-width: 1200px)").matches || !isNearScrollEnd(resultsPane)) {
+        return;
+      }
+      const loadMoreButton = resultsPane.querySelector(
+        "button.load-more-btn"
+      );
+      if (!loadMoreButton || loadMoreButton.disabled || loadMoreButton.getAttribute("aria-disabled") === "true") {
+        return;
+      }
+      loadMoreClickPending = true;
+      loadMoreButton.click();
+      loadMoreClickResetHandle = browserWindow.setTimeout(() => {
+        loadMoreClickPending = false;
+        loadMoreClickResetHandle = null;
+      }, 750);
+    }
     function sync() {
       const root = doc.documentElement;
+      const trade = doc.querySelector("#trade");
       const filterPane = doc.querySelector("#trade > .top");
       const controls = filterPane?.querySelector(".controls");
       const quickFilters = filterPane?.querySelector(
         ".poe-trade-styler-quick-filters"
       );
+      const resultsPane = doc.querySelector("#trade .results");
       if (filterPane && filterPane !== syncedFilterPane) {
         syncedFilterPane?.removeEventListener("scroll", sync);
         filterPane.addEventListener("scroll", sync, { passive: true });
         syncedFilterPane = filterPane;
+      }
+      if (resultsPane !== syncedResultsPane) {
+        syncedResultsPane?.removeEventListener("scroll", onResultsScroll);
+        resultsPane?.addEventListener("scroll", onResultsScroll, {
+          passive: true
+        });
+        syncedResultsPane = resultsPane;
+        loadMoreClickPending = false;
+        if (loadMoreClickResetHandle !== null) {
+          browserWindow.clearTimeout(loadMoreClickResetHandle);
+          loadMoreClickResetHandle = null;
+        }
       }
       if (!isTwoColumnEnabled() || !isStickySearchEnabled() || !browserWindow.matchMedia("(min-width: 1200px)").matches || !filterPane || !controls) {
         clearProperties(root);
@@ -50,6 +93,13 @@
         "--poe-trade-styler-controls-left",
         `${filterRect.left}px`
       );
+      if (trade && Number.isFinite(browserWindow.innerHeight)) {
+        const tradeTop = Math.max(0, trade.getBoundingClientRect().top);
+        root.style.setProperty(
+          "--poe-trade-styler-layout-height",
+          `${Math.max(0, Math.floor(browserWindow.innerHeight - tradeTop - 8))}px`
+        );
+      }
       root.style.setProperty(
         "--poe-trade-styler-controls-width",
         `${filterRect.width}px`
@@ -90,6 +140,7 @@
     function clearProperties(root) {
       root.style.removeProperty("--poe-trade-styler-controls-left");
       root.style.removeProperty("--poe-trade-styler-controls-width");
+      root.style.removeProperty("--poe-trade-styler-layout-height");
       root.style.removeProperty("--poe-trade-styler-controls-height");
       root.style.removeProperty("--poe-trade-styler-quick-filters-height");
       root.style.removeProperty("--poe-trade-styler-stat-filter-height");
@@ -97,6 +148,13 @@
     function destroy() {
       syncedFilterPane?.removeEventListener("scroll", sync);
       syncedFilterPane = null;
+      syncedResultsPane?.removeEventListener("scroll", onResultsScroll);
+      syncedResultsPane = null;
+      if (loadMoreClickResetHandle !== null) {
+        browserWindow.clearTimeout(loadMoreClickResetHandle);
+        loadMoreClickResetHandle = null;
+      }
+      loadMoreClickPending = false;
       clearProperties(doc.documentElement);
     }
     return { destroy, sync };
@@ -579,35 +637,86 @@
     return currentBinding;
   }
 
+  // src/content/popover-position.ts
+  var VIEWPORT_MARGIN = 12;
+  var POPOVER_GAP = 7;
+  function positionViewportPopover(anchor, popover) {
+    const view = popover.ownerDocument.defaultView;
+    if (!view) return "viewport";
+    const anchorRect = anchor.getBoundingClientRect();
+    const popoverWidth = popover.offsetWidth;
+    const popoverHeight = popover.offsetHeight;
+    const viewportWidth = view.innerWidth || popover.ownerDocument.documentElement.clientWidth;
+    const viewportHeight = view.innerHeight || popover.ownerDocument.documentElement.clientHeight;
+    const availableWidth = Math.max(0, viewportWidth - VIEWPORT_MARGIN * 2);
+    const availableHeight = Math.max(0, viewportHeight - VIEWPORT_MARGIN * 2);
+    const maxLeft = Math.max(
+      VIEWPORT_MARGIN,
+      viewportWidth - popoverWidth - VIEWPORT_MARGIN
+    );
+    const maxTop = Math.max(
+      VIEWPORT_MARGIN,
+      viewportHeight - popoverHeight - VIEWPORT_MARGIN
+    );
+    const centeredLeft = anchorRect.left + anchorRect.width / 2 - popoverWidth / 2;
+    const centeredTop = anchorRect.top + anchorRect.height / 2 - popoverHeight / 2;
+    const clampLeft = (value) => Math.min(Math.max(VIEWPORT_MARGIN, value), maxLeft);
+    const clampTop = (value) => Math.min(Math.max(VIEWPORT_MARGIN, value), maxTop);
+    const below = anchorRect.bottom + POPOVER_GAP;
+    const above = anchorRect.top - popoverHeight - POPOVER_GAP;
+    const right = anchorRect.right + POPOVER_GAP;
+    const left = anchorRect.left - popoverWidth - POPOVER_GAP;
+    const fitsVertically = popoverHeight <= availableHeight;
+    const fitsHorizontally = popoverWidth <= availableWidth;
+    const candidates = [
+      {
+        placement: "below",
+        fits: fitsHorizontally && below + popoverHeight <= viewportHeight - VIEWPORT_MARGIN,
+        left: clampLeft(centeredLeft),
+        top: below
+      },
+      {
+        placement: "above",
+        fits: fitsHorizontally && above >= VIEWPORT_MARGIN,
+        left: clampLeft(centeredLeft),
+        top: above
+      },
+      {
+        placement: "right",
+        fits: fitsVertically && right + popoverWidth <= viewportWidth - VIEWPORT_MARGIN,
+        left: right,
+        top: clampTop(centeredTop)
+      },
+      {
+        placement: "left",
+        fits: fitsVertically && left >= VIEWPORT_MARGIN,
+        left,
+        top: clampTop(centeredTop)
+      }
+    ];
+    const candidate = candidates.find(({ fits }) => fits);
+    const placement = candidate?.placement ?? "viewport";
+    const positionedLeft = candidate?.left ?? clampLeft(centeredLeft);
+    const positionedTop = candidate?.top ?? clampTop(below);
+    popover.style.position = "fixed";
+    popover.style.left = `${Math.round(positionedLeft)}px`;
+    popover.style.top = `${Math.round(positionedTop)}px`;
+    popover.style.right = "auto";
+    popover.style.bottom = "auto";
+    popover.style.transform = "none";
+    popover.style.setProperty(
+      "--poe-trade-styler-hover-gap",
+      `${POPOVER_GAP}px`
+    );
+    for (const side of ["below", "above", "right", "left"]) {
+      popover.classList.toggle(`is-positioned-${side}`, placement === side);
+    }
+    return placement;
+  }
+
   // src/content/presets/hover-menu.ts
   function positionHoverMenu(anchor, menu) {
-    const view = menu.ownerDocument.defaultView;
-    if (!view) return;
-    const margin = 12;
-    const gap = 7;
-    const anchorRect = anchor.getBoundingClientRect();
-    const menuWidth = menu.offsetWidth;
-    const menuHeight = menu.offsetHeight;
-    const viewportWidth = view.innerWidth || menu.ownerDocument.documentElement.clientWidth;
-    const viewportHeight = view.innerHeight || menu.ownerDocument.documentElement.clientHeight;
-    const maxLeft = Math.max(margin, viewportWidth - menuWidth - margin);
-    const centeredLeft = anchorRect.left + anchorRect.width / 2 - menuWidth / 2;
-    const left = Math.min(Math.max(margin, centeredLeft), maxLeft);
-    const below = anchorRect.bottom + gap;
-    const above = anchorRect.top - menuHeight - gap;
-    const maxTop = Math.max(margin, viewportHeight - menuHeight - margin);
-    const fitsBelow = below + menuHeight <= viewportHeight - margin;
-    const fitsAbove = above >= margin;
-    const placement = fitsBelow ? "below" : fitsAbove ? "above" : "viewport";
-    const top = fitsBelow ? below : fitsAbove ? above : Math.min(Math.max(margin, below), maxTop);
-    menu.style.position = "fixed";
-    menu.style.left = `${Math.round(left)}px`;
-    menu.style.top = `${Math.round(top)}px`;
-    menu.style.right = "auto";
-    menu.style.bottom = "auto";
-    menu.style.setProperty("--poe-trade-styler-hover-gap", `${gap}px`);
-    menu.classList.toggle("is-positioned-below", placement === "below");
-    menu.classList.toggle("is-positioned-above", placement === "above");
+    positionViewportPopover(anchor, menu);
   }
   function bindHoverMenu({
     button,
@@ -827,7 +936,32 @@
       }
     } else if (preset === "jewels" && uniqueDefinitions.length > 0) {
       appendHeadings(["Jewel Bases"], true);
-      definitions.forEach((definition) => appendOption(definition));
+      const regularDefinitions = definitions.filter(
+        (definition) => !definition.key.startsWith("time-lost-")
+      );
+      const timeLostDefinitions = definitions.filter(
+        (definition) => definition.key.startsWith("time-lost-")
+      );
+      const timeLostByBaseKey = new Map(
+        timeLostDefinitions.map((definition) => [
+          definition.key.slice("time-lost-".length),
+          definition
+        ])
+      );
+      const alignedTimeLostDefinitions = regularDefinitions.map((definition) => timeLostByBaseKey.get(definition.key)).filter(
+        (definition) => Boolean(definition)
+      );
+      const unmatchedTimeLostDefinitions = timeLostDefinitions.filter(
+        (definition) => !regularDefinitions.some(
+          (regularDefinition) => definition.key === `time-lost-${regularDefinition.key}`
+        )
+      );
+      const orderedDefinitions = [
+        ...regularDefinitions,
+        ...alignedTimeLostDefinitions,
+        ...unmatchedTimeLostDefinitions
+      ];
+      orderedDefinitions.forEach((definition) => appendOption(definition));
       if (definitions.length % 2 !== 0) appendPlaceholder();
       appendHeadings(["Unique Jewels"], true);
       uniqueDefinitions.forEach((definition) => appendOption(definition, true));
@@ -1021,6 +1155,12 @@
       savedStates.clear();
     }
     return { apply, collapseEnabledGroups, restore };
+  }
+
+  // src/content/preset-navigation-overflow.ts
+  var PRESET_ACCOUNT_OVERFLOW_CLASS = "poe-trade-styler-preset-account-overflow";
+  function isPresetAccountOverflow(item) {
+    return Boolean(item?.classList.contains(PRESET_ACCOUNT_OVERFLOW_CLASS));
   }
 
   // src/content/presets/controller.ts
@@ -1703,7 +1843,7 @@
       const previousItem = previousButton.closest(
         ".poe-trade-styler-preset-navigation-item"
       );
-      if (previousItem?.nextElementSibling !== navigationItem) {
+      if (!isPresetAccountOverflow(navigationItem) && previousItem?.nextElementSibling !== navigationItem) {
         previousItem?.insertAdjacentElement("afterend", navigationItem);
       }
       return button;
@@ -1746,7 +1886,7 @@
         )) {
           presetNavigationItem.append(createWaystoneTierMenu());
         }
-        if (bulkNavigationItem.nextElementSibling !== presetNavigationItem) {
+        if (!isPresetAccountOverflow(presetNavigationItem) && bulkNavigationItem.nextElementSibling !== presetNavigationItem) {
           bulkNavigationItem.insertAdjacentElement(
             "afterend",
             presetNavigationItem
@@ -1777,7 +1917,7 @@
         )) {
           presetNavigationItem.append(createWaystoneTierMenu());
         }
-        if (bulkItemExchangeButton.nextElementSibling !== presetNavigationItem) {
+        if (!isPresetAccountOverflow(presetNavigationItem) && bulkItemExchangeButton.nextElementSibling !== presetNavigationItem) {
           bulkItemExchangeButton.insertAdjacentElement(
             "afterend",
             presetNavigationItem
@@ -1971,6 +2111,7 @@
       shortLabel: "Minimum item quality",
       icon: quickFilterIcon("item-quality"),
       values: Array.from({ length: 30 }, (_, index) => String(index + 1)),
+      hasMaximumInput: true,
       min: 0,
       max: 100
     },
@@ -2143,6 +2284,7 @@
       const open = () => {
         closePopovers(control);
         setPopoverOpen(popover, true);
+        positionViewportPopover(trigger, popover);
         control.classList.add("is-open");
         trigger.setAttribute("aria-expanded", "true");
       };
@@ -2198,7 +2340,12 @@
       syncControl(control);
       return control;
     }
-    return { createControl, syncControl };
+    return {
+      clear: () => applyValue(""),
+      createControl,
+      hasValue: () => Boolean(readValue()),
+      syncControl
+    };
   }
 
   // src/content/quick-filter-value.ts
@@ -2252,10 +2399,13 @@
     );
   }
   function readQuickNumberValue(filterBody, definition) {
-    const minimum = filterBody?.querySelector('input[placeholder="min"]')?.value.trim() || "";
+    const minimum = readQuickNumberBoundValue(filterBody, "min");
     if (!definition.exact) return minimum;
-    const maximum = filterBody?.querySelector('input[placeholder="max"]')?.value.trim() || "";
+    const maximum = readQuickNumberBoundValue(filterBody, "max");
     return minimum && minimum === maximum ? minimum : "";
+  }
+  function readQuickNumberBoundValue(filterBody, bound) {
+    return filterBody?.querySelector(`input[placeholder="${bound}"]`)?.value.trim() || "";
   }
   function setQuickNumberControlVisibility(control, definition, gemSelected) {
     const hidden = Boolean(definition.gemOnly && !gemSelected);
@@ -2310,6 +2460,7 @@
     const QUICK_BOUND_FILTERS = styler.QUICK_BOUND_FILTERS;
     let quickFilterSyncScheduled = false;
     let quickFilterGroupToggleInProgress = false;
+    let quickFilterClearInProgress = false;
     const hoverNumberInput = createHoverNumberInputController();
     const pendingQuickFilterGroupEnables = /* @__PURE__ */ new Map();
     function getQuickFilterBody(label) {
@@ -2434,7 +2585,6 @@
       control.classList.toggle("is-any", state === "any");
       control.classList.toggle("is-yes", state === "yes");
       control.classList.toggle("is-no", state === "no");
-      control.title = `Quick Miscellaneous filter: ${definition.label}. Current: ${stateLabel}. Click to cycle Any \u2192 Yes \u2192 No.`;
       control.setAttribute(
         "aria-label",
         `${definition.label}: ${stateLabel}. Click to change.`
@@ -2483,7 +2633,13 @@
       button.type = "button";
       button.className = "poe-trade-styler-quick-filter poe-trade-styler-quick-filter-boolean";
       button.dataset.quickFilter = definition.key;
-      button.append(createQuickFilterIcon(definition));
+      const tooltip = document.createElement("span");
+      tooltip.className = "poe-trade-styler-quick-filter-tooltip";
+      tooltip.id = `poe-trade-styler-quick-filter-${definition.key}-tooltip`;
+      tooltip.setAttribute("role", "tooltip");
+      tooltip.textContent = definition.label;
+      button.setAttribute("aria-describedby", tooltip.id);
+      button.append(createQuickFilterIcon(definition), tooltip);
       setQuickBooleanControlState(button, definition, "any");
       button.addEventListener("click", async (event) => {
         event.preventDefault();
@@ -2498,7 +2654,7 @@
       });
       return button;
     }
-    function setQuickNumberControlValue(control, definition, value) {
+    function setQuickNumberControlValue(control, definition, value, maximumValue = "") {
       const trigger = control.querySelector(
         ".poe-trade-styler-quick-number-trigger"
       );
@@ -2508,27 +2664,35 @@
       const resetButton = control.querySelector(
         ".poe-trade-styler-quick-number-reset"
       );
-      const input = control.querySelector(
-        ".poe-trade-styler-quick-number-input"
+      const minimumInput = control.querySelector(
+        '.poe-trade-styler-quick-number-input[data-bound="min"]'
+      );
+      const maximumInput = control.querySelector(
+        '.poe-trade-styler-quick-number-input[data-bound="max"]'
       );
       if (!trigger || !badge) return;
       control.dataset.value = value;
-      trigger.classList.toggle("is-empty", !value);
-      trigger.classList.toggle("is-enabled", Boolean(value));
+      control.dataset.maximumValue = maximumValue;
+      const displayValue = value && maximumValue ? `${value}\u2013${maximumValue}` : value || (maximumValue ? `\u2264${maximumValue}` : "");
+      trigger.classList.toggle("is-empty", !displayValue);
+      trigger.classList.toggle("is-enabled", Boolean(displayValue));
       control.querySelectorAll(".poe-trade-styler-quick-number-option").forEach((option) => {
         const selected = option.dataset.value === value;
         option.classList.toggle("is-selected", selected);
         option.setAttribute("aria-selected", String(selected));
       });
-      syncQuickValueBadge(badge, value);
-      if (input && input !== document.activeElement && input.value !== value) {
-        input.value = value;
+      syncQuickValueBadge(badge, displayValue);
+      if (minimumInput && minimumInput !== document.activeElement && minimumInput.value !== value) {
+        minimumInput.value = value;
       }
-      if (resetButton) resetButton.disabled = !value;
-      trigger.title = value ? `${definition.shortLabel}: ${value}. Click to disable.` : `${definition.shortLabel}: disabled. Hover to choose.`;
+      if (maximumInput && maximumInput !== document.activeElement && maximumInput.value !== maximumValue) {
+        maximumInput.value = maximumValue;
+      }
+      if (resetButton) resetButton.disabled = !displayValue;
+      trigger.title = displayValue ? `${definition.shortLabel}: ${displayValue}. Click to disable.` : `${definition.shortLabel}: disabled. Hover to choose.`;
       trigger.setAttribute(
         "aria-label",
-        value ? `${definition.shortLabel}: ${value}. Click to disable.` : `${definition.shortLabel}: disabled`
+        displayValue ? `${definition.shortLabel}: ${displayValue}. Click to disable.` : `${definition.shortLabel}: disabled`
       );
     }
     async function applyQuickNumberValue(definition, value, bound = "min", restoreFocusTo = null) {
@@ -2574,23 +2738,28 @@
       const open = () => {
         closeQuickBoundPopovers(control);
         setPopoverOpen(popover, true);
+        positionViewportPopover(trigger, popover);
         control.classList.add("is-open");
         trigger.setAttribute("aria-expanded", "true");
       };
       let popoverBinding = null;
-      const commitValue = async (value, closePopover = false, restoreFocusTo = null) => {
+      const commitValue = async (value, bound = "min", closePopover = false, restoreFocusTo = null) => {
         if (await applyQuickNumberValue(
           definition,
           value,
-          "min",
+          bound,
           restoreFocusTo
         )) {
           if (closePopover) {
-            control.querySelector(
-              ".poe-trade-styler-quick-number-input"
-            )?.blur();
+            restoreFocusTo?.blur();
           }
-          setQuickNumberControlValue(control, definition, value);
+          const filterBody = getQuickFilterBody(definition.label);
+          setQuickNumberControlValue(
+            control,
+            definition,
+            readQuickNumberValue(filterBody, definition),
+            definition.hasMaximumInput ? readQuickNumberBoundValue(filterBody, "max") : ""
+          );
           requestQuickFilterSync();
           setTimeout(requestQuickFilterSync, 80);
           if (closePopover) {
@@ -2601,35 +2770,49 @@
       };
       let initialFocusTarget = null;
       if (definition.min != null && definition.max != null) {
-        const input = document.createElement("input");
         const isValidInputValue = (value) => {
           if (value === "") return true;
           const number = Number(value);
           return Number.isInteger(number) && number >= definition.min && number <= definition.max;
         };
-        input.className = "poe-trade-styler-quick-number-input";
-        input.type = "number";
-        input.inputMode = "numeric";
-        input.step = "1";
-        input.min = String(definition.min);
-        input.max = String(definition.max);
-        input.placeholder = `${definition.min}\u2013${definition.max}`;
-        input.setAttribute("aria-label", definition.shortLabel);
-        hoverNumberInput.enable(input);
-        input.addEventListener("input", () => {
-          if (isValidInputValue(input.value)) {
-            void commitValue(input.value, false, input);
-          }
-        });
-        input.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" && isValidInputValue(input.value)) {
-            event.preventDefault();
-            event.stopPropagation();
-            void commitValue(input.value, true, input);
-          }
-        });
-        initialFocusTarget = input;
-        popover.append(input);
+        const createInput = (bound, ariaLabel, placeholder) => {
+          const input = document.createElement("input");
+          input.className = "poe-trade-styler-quick-number-input";
+          input.dataset.bound = bound;
+          input.type = "number";
+          input.inputMode = "numeric";
+          input.step = "1";
+          input.min = String(definition.min);
+          input.max = String(definition.max);
+          input.placeholder = placeholder;
+          input.setAttribute("aria-label", ariaLabel);
+          hoverNumberInput.enable(input);
+          input.addEventListener("input", () => {
+            if (isValidInputValue(input.value)) {
+              void commitValue(input.value, bound, false, input);
+            }
+          });
+          input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" && isValidInputValue(input.value)) {
+              event.preventDefault();
+              event.stopPropagation();
+              void commitValue(input.value, bound, true, input);
+            }
+          });
+          return input;
+        };
+        const minimumInput = createInput(
+          "min",
+          definition.shortLabel,
+          `${definition.min}\u2013${definition.max}`
+        );
+        initialFocusTarget = minimumInput;
+        popover.append(minimumInput);
+        if (definition.hasMaximumInput) {
+          popover.append(
+            createInput("max", "Maximum item quality", "Max quality")
+          );
+        }
       }
       const options = document.createElement("div");
       options.className = "poe-trade-styler-quick-number-options";
@@ -2647,7 +2830,7 @@
         option.addEventListener("click", async (event) => {
           event.preventDefault();
           event.stopPropagation();
-          await commitValue(value, true);
+          await commitValue(value, "min", true);
         });
         option.addEventListener("keydown", (event) => {
           const optionButtons = [
@@ -2677,7 +2860,15 @@
       resetButton.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
-        void commitValue("", true);
+        const reset = async () => {
+          await commitValue("", "min");
+          if (definition.hasMaximumInput) {
+            await commitValue("", "max");
+          }
+          trigger.focus({ preventScroll: true });
+          popoverBinding?.dismiss();
+        };
+        void reset();
       });
       popover.prepend(title);
       popover.append(resetButton);
@@ -2786,6 +2977,7 @@
       const open = () => {
         closeQuickBoundPopovers(control);
         setPopoverOpen(popover, true);
+        positionViewportPopover(trigger, popover);
         control.classList.add("is-open");
         trigger.setAttribute("aria-expanded", "true");
         input.value = control.dataset.value || "";
@@ -2877,6 +3069,96 @@
       requestSync: requestQuickFilterSync,
       waitForElement
     });
+    function hasActiveQuickFilters() {
+      if (rarityFilter.hasValue()) return true;
+      if (QUICK_BOOLEAN_FILTERS.some(
+        (definition) => readQuickBooleanState(definition) !== "any"
+      )) {
+        return true;
+      }
+      if (QUICK_NUMBER_FILTERS.some((definition) => {
+        const filterBody = getQuickFilterBody(definition.label);
+        const maximumValue = definition.hasMaximumInput ? readQuickNumberBoundValue(filterBody, "max") : "";
+        return isQuickFilterGroupEnabled(filterBody) && Boolean(
+          readQuickNumberValue(filterBody, definition) || maximumValue
+        );
+      })) {
+        return true;
+      }
+      return QUICK_BOUND_FILTERS.some((definition) => {
+        const filterBody = getQuickFilterBody(definition.label);
+        return Boolean(
+          isQuickFilterGroupEnabled(filterBody) && filterBody?.querySelector(
+            `input[placeholder="${definition.bound}"]`
+          )?.value.trim()
+        );
+      });
+    }
+    function syncQuickFilterClearButton(strip) {
+      const button = strip.querySelector(
+        ":scope > .poe-trade-styler-quick-filters-clear"
+      );
+      if (button) {
+        button.disabled = quickFilterClearInProgress || !hasActiveQuickFilters();
+      }
+    }
+    async function clearAllQuickFilters(button) {
+      if (quickFilterClearInProgress) return;
+      quickFilterClearInProgress = true;
+      button.disabled = true;
+      button.setAttribute("aria-busy", "true");
+      closeQuickBoundPopovers();
+      try {
+        for (const definition of QUICK_BOUND_FILTERS) {
+          const filterBody = getQuickFilterBody(definition.label);
+          const value = isQuickFilterGroupEnabled(filterBody) && filterBody?.querySelector(
+            `input[placeholder="${definition.bound}"]`
+          )?.value.trim() || "";
+          if (value) {
+            await applyQuickNumberValue(definition, "", definition.bound);
+          }
+        }
+        for (const definition of QUICK_BOOLEAN_FILTERS) {
+          if (readQuickBooleanState(definition) !== "any") {
+            await applyQuickBooleanState(definition, "any");
+          }
+        }
+        for (const definition of QUICK_NUMBER_FILTERS) {
+          const filterBody = getQuickFilterBody(definition.label);
+          const value = isQuickFilterGroupEnabled(filterBody) ? readQuickNumberValue(filterBody, definition) : "";
+          const maximumValue = definition.hasMaximumInput && isQuickFilterGroupEnabled(filterBody) ? readQuickNumberBoundValue(filterBody, "max") : "";
+          if (value) {
+            await applyQuickNumberValue(definition, "");
+          }
+          if (maximumValue) {
+            await applyQuickNumberValue(definition, "", "max");
+          }
+        }
+        if (rarityFilter.hasValue()) {
+          await rarityFilter.clear();
+        }
+      } finally {
+        quickFilterClearInProgress = false;
+        button.removeAttribute("aria-busy");
+        syncQuickFilters();
+        requestQuickFilterSync();
+        setTimeout(requestQuickFilterSync, 80);
+      }
+    }
+    function createQuickFilterClearButton() {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "poe-trade-styler-quick-filters-clear";
+      button.textContent = "\xD7";
+      button.title = "Clear all quick filters";
+      button.setAttribute("aria-label", "Clear all quick filters");
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        void clearAllQuickFilters(button);
+      });
+      return button;
+    }
     function syncQuickFilters() {
       const strip = document.querySelector(
         "#trade > .top .poe-trade-styler-quick-filters"
@@ -2907,9 +3189,15 @@
         );
         const filterBody = getQuickFilterBody(definition.label);
         const value = isQuickFilterGroupEnabled(filterBody) ? readQuickNumberValue(filterBody, definition) : "";
+        const maximumValue = definition.hasMaximumInput && isQuickFilterGroupEnabled(filterBody) ? readQuickNumberBoundValue(filterBody, "max") : "";
         if (control) {
           setQuickNumberControlVisibility(control, definition, gemSelected);
-          setQuickNumberControlValue(control, definition, value);
+          setQuickNumberControlValue(
+            control,
+            definition,
+            value,
+            maximumValue
+          );
         }
       });
       QUICK_BOUND_FILTERS.forEach((definition) => {
@@ -2924,6 +3212,7 @@
           setQuickBoundControlValue(control, definition, value);
         }
       });
+      syncQuickFilterClearButton(strip);
     }
     function requestQuickFilterSync() {
       if (quickFilterSyncScheduled) {
@@ -2963,6 +3252,7 @@
         (definition) => strip.append(createQuickNumberControl(definition))
       );
       strip.append(rarityFilter.createControl());
+      strip.append(createQuickFilterClearButton());
       controlsParent.insertBefore(strip, controls);
       syncQuickFilters();
     }
@@ -2978,6 +3268,8 @@
   // src/content/settings/model.ts
   var DEFAULT_SETTINGS = Object.freeze({
     disableBackground: true,
+    disabledPresets: [],
+    disabledQuickFilters: [],
     fullWidthScreen: true,
     gemItemFavorites: [],
     hideCornerDecorators: false,
@@ -3074,7 +3366,7 @@
     manifest_version: 3,
     name: "POE TradeUX",
     description: "Improves Path of Exile 2 trade search pages. Path of Exile 1 trade is not supported.",
-    version: "0.1.7",
+    version: "0.1.8",
     permissions: ["storage"],
     icons: {
       "16": "assets/icons/icon-16.png",
@@ -3127,6 +3419,8 @@
     const storage = dependencies.storage ?? chrome.storage.local;
     const state = {
       ...DEFAULT_SETTINGS,
+      disabledPresets: [],
+      disabledQuickFilters: [],
       gemItemFavorites: [],
       statFilterFavorites: [],
       uniqueItemFavorites: []
@@ -3185,19 +3479,38 @@
       ),
       hideIrrelevantAffixes: createOption(
         "poe-trade-styler-hide-irrelevant-affixes",
-        "Hide non-relevant prefixes and suffixes (experimental)",
-        "Show only relevant stats; when off, keep native stat filters unchanged."
+        "Show relevant preffixes and suffixes for preset base first",
+        "Place stats relevant to the selected preset base before the native stat list."
       )
     };
     optionsContainer.append(
       options.twoColumnLayout.label,
       options.fullWidthScreen.label,
       options.disableBackground.label,
-      options.hideCornerDecorators.label,
-      options.rightSpaceForBetterTrading.label,
       options.stickySearchPanel.label,
       options.hideIrrelevantAffixes.label
     );
+    const settingsLayout = doc.createElement("div");
+    settingsLayout.className = "poe-trade-styler-settings-layout";
+    const featureOptions = doc.createElement("aside");
+    featureOptions.className = "poe-trade-styler-feature-options";
+    featureOptions.append(
+      options.hideCornerDecorators.label,
+      options.rightSpaceForBetterTrading.label
+    );
+    const featureToggleButtons = [
+      ...createToggleGroup(
+        "Enabled presets:",
+        "presets",
+        dependencies.presetToggles || []
+      ),
+      ...createToggleGroup(
+        "Quick filters:",
+        "quick-filters",
+        dependencies.quickFilterToggles || []
+      )
+    ];
+    settingsLayout.append(optionsContainer, featureOptions);
     const footer = doc.createElement("footer");
     footer.className = "poe-trade-styler-about";
     const links = doc.createElement("nav");
@@ -3218,7 +3531,7 @@
     versionBadge.className = "poe-trade-styler-about-version";
     versionBadge.textContent = `v${APP_VERSION}`;
     footer.append(links, disclaimer, versionBadge);
-    dialog.append(optionsContainer, footer);
+    dialog.append(settingsLayout, footer);
     function createExternalLink(label, href) {
       const link = doc.createElement("a");
       link.href = href;
@@ -3242,10 +3555,77 @@
       label.append(checkbox, copy);
       return { checkbox, label };
     }
+    function createToggleGroup(labelText, kind, definitions) {
+      const section = doc.createElement("section");
+      section.className = "poe-trade-styler-feature-option-group";
+      const label = doc.createElement("h3");
+      label.textContent = labelText;
+      const controls = doc.createElement("div");
+      controls.className = "poe-trade-styler-feature-toggle-list";
+      const buttons = definitions.map((definition) => {
+        const button = doc.createElement("button");
+        button.type = "button";
+        button.className = "poe-trade-styler-feature-toggle";
+        button.dataset.featureToggleKind = kind;
+        button.dataset.featureToggleKey = definition.key;
+        button.dataset.featureToggleLabel = definition.label;
+        const tooltip = doc.createElement("span");
+        tooltip.className = "poe-trade-styler-feature-toggle-tooltip";
+        tooltip.id = `poe-trade-styler-${kind}-${definition.key}-tooltip`;
+        tooltip.setAttribute("role", "tooltip");
+        tooltip.textContent = definition.label;
+        button.setAttribute("aria-describedby", tooltip.id);
+        if (definition.icon?.startsWith("assets/")) {
+          const icon = doc.createElement("img");
+          icon.src = getSafeItemImageUrl(definition.icon);
+          icon.alt = "";
+          icon.setAttribute("aria-hidden", "true");
+          button.append(icon);
+        } else {
+          const icon = doc.createElement("span");
+          icon.textContent = definition.icon || definition.label.slice(0, 2);
+          icon.setAttribute("aria-hidden", "true");
+          button.append(icon);
+        }
+        button.append(tooltip);
+        button.addEventListener("click", () => {
+          const stateKey = getDisabledStateKey(kind);
+          const disabled = new Set(state[stateKey]);
+          if (disabled.has(definition.key)) {
+            disabled.delete(definition.key);
+          } else {
+            disabled.add(definition.key);
+          }
+          state[stateKey] = [...disabled];
+          apply();
+          persist();
+        });
+        controls.append(button);
+        return button;
+      });
+      section.append(label, controls);
+      featureOptions.append(section);
+      return buttons;
+    }
+    function getDisabledStateKey(kind) {
+      return kind === "presets" ? "disabledPresets" : "disabledQuickFilters";
+    }
     function apply() {
       for (const [key, option] of Object.entries(options)) {
         option.checkbox.checked = state[key];
       }
+      featureToggleButtons.forEach((button) => {
+        const kind = button.dataset.featureToggleKind;
+        const key = button.dataset.featureToggleKey || "";
+        const label = button.dataset.featureToggleLabel || key;
+        const enabled = !state[getDisabledStateKey(kind)].includes(key);
+        button.classList.toggle("is-disabled", !enabled);
+        button.setAttribute("aria-pressed", String(enabled));
+        button.setAttribute(
+          "aria-label",
+          `${label}: ${enabled ? "enabled" : "disabled"}. Click to ${enabled ? "disable" : "enable"}.`
+        );
+      });
       dependencies.onApply(state);
     }
     function persist() {
@@ -3253,6 +3633,8 @@
         void storage.set({
           [SETTINGS_STORAGE_KEY]: {
             ...state,
+            disabledPresets: [...state.disabledPresets],
+            disabledQuickFilters: [...state.disabledQuickFilters],
             gemItemFavorites: [...state.gemItemFavorites],
             statFilterFavorites: [...state.statFilterFavorites],
             uniqueItemFavorites: [...state.uniqueItemFavorites]
@@ -3282,6 +3664,16 @@
       if (Array.isArray(stored.statFilterFavorites)) {
         state.statFilterFavorites = stored.statFilterFavorites.filter(
           (favorite) => typeof favorite === "string"
+        );
+      }
+      if (Array.isArray(stored.disabledPresets)) {
+        state.disabledPresets = stored.disabledPresets.filter(
+          (key) => typeof key === "string"
+        );
+      }
+      if (Array.isArray(stored.disabledQuickFilters)) {
+        state.disabledQuickFilters = stored.disabledQuickFilters.filter(
+          (key) => typeof key === "string"
         );
       }
       if (Array.isArray(stored.gemItemFavorites)) {
@@ -3747,6 +4139,11 @@
         const isCorruptionOption = element.classList.contains(
           "poe-trade-styler-corruption-option"
         );
+        const isNativeOption = !isPresetOption && !isPresetGroup && !isCorruptionOption;
+        if (isNativeOption) {
+          element.classList.remove("poe-trade-styler-preset-stat-hidden");
+          return;
+        }
         const isRelevant = (isPresetOption || isCorruptionOption) && (!query || element.dataset.poeTradeStylerWaystoneSearch?.includes(query));
         element.classList.toggle(
           "poe-trade-styler-preset-stat-hidden",
@@ -5627,7 +6024,7 @@
         navigationItem.className = "poe-trade-styler-preset-navigation-item poe-trade-styler-unique-navigation-item";
         navigationItem.append(launcher);
       }
-      if (craftingPresetNavigationItem.nextElementSibling !== navigationItem) {
+      if (!isPresetAccountOverflow(navigationItem) && craftingPresetNavigationItem.nextElementSibling !== navigationItem) {
         craftingPresetNavigationItem.insertAdjacentElement("afterend", navigationItem);
       }
       if (!modal) modal = createModal();
@@ -6055,7 +6452,7 @@
         navigationItem.className = "poe-trade-styler-preset-navigation-item poe-trade-styler-gear-navigation-item";
         navigationItem.append(launcher);
       }
-      if (previousItem.nextElementSibling !== navigationItem) {
+      if (!isPresetAccountOverflow(navigationItem) && previousItem.nextElementSibling !== navigationItem) {
         previousItem.insertAdjacentElement("afterend", navigationItem);
       }
       if (!modal) modal = createModal();
@@ -58581,7 +58978,7 @@
         item.className = "poe-trade-styler-preset-navigation-item poe-trade-styler-gem-navigation-item";
         item.append(launcher);
       }
-      if (previousItem.nextElementSibling !== item) {
+      if (!isPresetAccountOverflow(item) && previousItem.nextElementSibling !== item) {
         previousItem.insertAdjacentElement("afterend", item);
       }
       if (!modal) modal = createModal();
@@ -58733,7 +59130,8 @@
         menu = createMenu();
         item.append(menu);
       }
-      if (flaskButton) {
+      if (isPresetAccountOverflow(item)) {
+      } else if (flaskButton) {
         if (anchorItem.previousElementSibling !== item) {
           anchorItem.insertAdjacentElement("beforebegin", item);
         }
@@ -58882,6 +59280,252 @@
     };
   }
 
+  // src/content/site-toolbar/controller.ts
+  function createSiteToolbarFeature({
+    document: doc = document,
+    isEnabled = () => true,
+    window: browserWindow = window
+  } = {}) {
+    const originalLocations = /* @__PURE__ */ new Map();
+    const presetOrder = /* @__PURE__ */ new Map();
+    let nextPresetOrder = 0;
+    const toolbar = doc.createElement("div");
+    const footerSlot = doc.createElement("div");
+    toolbar.className = "poe-trade-styler-site-toolbar";
+    toolbar.setAttribute("aria-label", "Path of Exile site controls");
+    footerSlot.className = "poe-trade-styler-site-toolbar-footer";
+    toolbar.append(footerSlot);
+    function findNativeFooter() {
+      const explicitFooter = [...doc.querySelectorAll("footer, #footer, .footer")].find(
+        (candidate2) => !candidate2.closest(
+          '[id^="poe-trade-styler"], [class*="poe-trade-styler"]'
+        )
+      );
+      if (explicitFooter) {
+        return explicitFooter;
+      }
+      const legalLink = doc.querySelector(
+        'a[href*="/legal/terms-of-use-and-privacy-policy"]'
+      );
+      let candidate = legalLink?.parentElement ?? null;
+      while (candidate && candidate !== doc.body) {
+        const text = candidate.textContent ?? "";
+        if (/Grinding Gear Games/i.test(text) && /2010\s*-\s*20\d{2}/.test(text)) {
+          return candidate;
+        }
+        candidate = candidate.parentElement;
+      }
+      return null;
+    }
+    function rememberAndMove(node, destination) {
+      if (!originalLocations.has(node) && node.parentNode) {
+        originalLocations.set(node, {
+          nextSibling: node.nextSibling,
+          parent: node.parentNode
+        });
+      }
+      if (node.parentElement !== destination) {
+        destination.append(node);
+      }
+    }
+    function pinAtCurrentPosition(node, rect) {
+      if (node.classList.contains("poe-trade-styler-site-toolbar-native-item")) {
+        return;
+      }
+      const element = node;
+      element.classList.add("poe-trade-styler-site-toolbar-native-item");
+      element.style.setProperty(
+        "--poe-trade-styler-native-item-left",
+        `${rect.left}px`
+      );
+      element.style.setProperty(
+        "--poe-trade-styler-native-item-top",
+        `${rect.top}px`
+      );
+      if (rect.width > 0) {
+        element.style.setProperty(
+          "--poe-trade-styler-native-item-width",
+          `${rect.width}px`
+        );
+      }
+    }
+    function pinAndMove(nodes) {
+      const nativeItems = nodes.filter((node) => node !== null);
+      const originalRects = new Map(
+        nativeItems.map((node) => [node, node.getBoundingClientRect()])
+      );
+      for (const node of nativeItems) {
+        const rect = originalRects.get(node);
+        if (rect) pinAtCurrentPosition(node, rect);
+        rememberAndMove(node, toolbar);
+      }
+    }
+    function outerWidth(element) {
+      const rect = element.getBoundingClientRect();
+      const style = browserWindow.getComputedStyle(element);
+      const marginLeft = Number.parseFloat(style.marginLeft) || 0;
+      const marginRight = Number.parseFloat(style.marginRight) || 0;
+      return Math.max(1, rect.width + marginLeft + marginRight);
+    }
+    function directPresetItems(container) {
+      return [...container.children].filter(
+        (child) => child.classList.contains("poe-trade-styler-preset-navigation-item")
+      );
+    }
+    function placePresetItemsBefore(container, items, before) {
+      const current = directPresetItems(container);
+      const alreadyPlaced = current.length === items.length && current.every((item, index) => item === items[index]) && (items.length === 0 || items[items.length - 1].nextSibling === before);
+      if (alreadyPlaced) return;
+      const fragment = doc.createDocumentFragment();
+      items.forEach((item) => fragment.append(item));
+      container.insertBefore(fragment, before);
+    }
+    function placePresetItemsAfter(container, items, after) {
+      const current = directPresetItems(container);
+      const alreadyPlaced = current.length === items.length && current.every((item, index) => item === items[index]) && (items.length === 0 || items[0].previousSibling === after);
+      if (alreadyPlaced) return;
+      const fragment = doc.createDocumentFragment();
+      items.forEach((item) => fragment.append(item));
+      const before = after?.nextSibling ?? container.firstChild;
+      container.insertBefore(fragment, before);
+    }
+    function syncPresetNavigationOverflow() {
+      const main = doc.querySelector(".nav.nav-tabs.main");
+      const account = doc.querySelector(".nav.nav-tabs.account");
+      const logo = toolbar.querySelector(":scope > .logo");
+      if (!main || !account || !logo) return;
+      doc.querySelectorAll(".poe-trade-styler-preset-navigation-item").forEach((item) => {
+        if (!presetOrder.has(item)) presetOrder.set(item, nextPresetOrder++);
+      });
+      const items = [...presetOrder].filter(([item]) => item.isConnected).sort((leftEntry, rightEntry) => leftEntry[1] - rightEntry[1]).map(([item]) => item);
+      if (items.length === 0) return;
+      const mainRect = main.getBoundingClientRect();
+      if (mainRect.width <= 0) return;
+      const nativeMainItems = [...main.children].filter(
+        (child) => !child.classList.contains("poe-trade-styler-preset-navigation-item")
+      );
+      const nativeRight = nativeMainItems.reduce(
+        (right, item) => Math.max(right, item.getBoundingClientRect().right),
+        mainRect.left
+      );
+      const logoRect = logo.getBoundingClientRect();
+      const presetStart = nativeRight + 6;
+      const presetEnd = logoRect.left - 6;
+      const availableWidth = Math.max(0, presetEnd - presetStart);
+      let usedWidth = 0;
+      let visibleCount = 0;
+      for (const item of items) {
+        const width = outerWidth(item);
+        if (usedWidth + width > availableWidth) break;
+        usedWidth += width;
+        visibleCount += 1;
+      }
+      const mainItems = items.slice(0, visibleCount);
+      const accountItems = items.slice(visibleCount);
+      items.forEach(
+        (item) => item.style.removeProperty("--poe-trade-styler-preset-main-leading-space")
+      );
+      if (mainItems[0]) {
+        mainItems[0].style.setProperty(
+          "--poe-trade-styler-preset-main-leading-space",
+          `${Math.max(6, presetStart - nativeRight)}px`
+        );
+      }
+      mainItems.forEach(
+        (item) => item.classList.remove(PRESET_ACCOUNT_OVERFLOW_CLASS)
+      );
+      accountItems.forEach(
+        (item) => item.classList.add(PRESET_ACCOUNT_OVERFLOW_CLASS)
+      );
+      const firstNativeAccountItem = [...account.children].find(
+        (child) => !child.classList.contains("poe-trade-styler-preset-navigation-item")
+      ) ?? null;
+      placePresetItemsBefore(account, accountItems, firstNativeAccountItem);
+      const lastNativeMainItem = nativeMainItems[nativeMainItems.length - 1] ?? null;
+      placePresetItemsAfter(main, mainItems, lastNativeMainItem);
+    }
+    function sync() {
+      if (!isEnabled()) {
+        restoreNativeLayout();
+        return;
+      }
+      const trade = doc.querySelector("#trade");
+      if (!trade) {
+        toolbar.style.removeProperty("--poe-trade-styler-site-toolbar-left");
+        toolbar.style.removeProperty("--poe-trade-styler-site-toolbar-width");
+        return;
+      }
+      const tradeRect = trade.getBoundingClientRect();
+      const leftEdge = Math.max(0, tradeRect.left);
+      const availableWidth = Math.max(0, browserWindow.innerWidth - leftEdge);
+      toolbar.style.setProperty(
+        "--poe-trade-styler-site-toolbar-left",
+        `${leftEdge}px`
+      );
+      toolbar.style.setProperty(
+        "--poe-trade-styler-site-toolbar-width",
+        `${Math.min(tradeRect.width, availableWidth)}px`
+      );
+      syncPresetNavigationOverflow();
+    }
+    function decorate() {
+      if (!isEnabled()) {
+        restoreNativeLayout();
+        return;
+      }
+      if (!toolbar.isConnected) {
+        doc.body.append(toolbar);
+      }
+      const statusBar = doc.querySelector("#statusBar");
+      const linkBack = doc.querySelector(".linkBack");
+      const logo = doc.querySelector(".logo");
+      const languageSelect = doc.querySelector(".language-select");
+      const nativeFooter = findNativeFooter();
+      pinAndMove([statusBar, linkBack, languageSelect]);
+      if (logo) rememberAndMove(logo, toolbar);
+      if (nativeFooter) rememberAndMove(nativeFooter, footerSlot);
+      sync();
+    }
+    function restoreNativeLayout() {
+      const main = doc.querySelector(".nav.nav-tabs.main");
+      const account = doc.querySelector(".nav.nav-tabs.account");
+      if (main && account) {
+        const items = [...presetOrder].filter(([item]) => item.isConnected).sort((leftEntry, rightEntry) => leftEntry[1] - rightEntry[1]).map(([item]) => item);
+        items.forEach((item) => {
+          item.classList.remove(PRESET_ACCOUNT_OVERFLOW_CLASS);
+          item.style.removeProperty("--poe-trade-styler-preset-main-leading-space");
+        });
+        const lastNativeMainItem = [...main.children].filter(
+          (child) => !child.classList.contains("poe-trade-styler-preset-navigation-item")
+        ).at(-1);
+        placePresetItemsAfter(main, items, lastNativeMainItem ?? null);
+      }
+      for (const [node, { nextSibling, parent }] of originalLocations) {
+        if (!node.isConnected || !parent.isConnected) continue;
+        if (node.classList.contains("poe-trade-styler-site-toolbar-native-item")) {
+          const element = node;
+          element.classList.remove("poe-trade-styler-site-toolbar-native-item");
+          element.style.removeProperty("--poe-trade-styler-native-item-left");
+          element.style.removeProperty("--poe-trade-styler-native-item-top");
+          element.style.removeProperty("--poe-trade-styler-native-item-width");
+        }
+        if (nextSibling?.parentNode === parent) {
+          parent.insertBefore(node, nextSibling);
+        } else {
+          parent.appendChild(node);
+        }
+      }
+      originalLocations.clear();
+      toolbar.remove();
+    }
+    function destroy() {
+      browserWindow.removeEventListener("resize", sync);
+      restoreNativeLayout();
+    }
+    browserWindow.addEventListener("resize", sync, { passive: true });
+    return { decorate, destroy, sync };
+  }
+
   // src/content/composition/decoration-scheduler.ts
   function createDecorationScheduler(tasks, requestFrame = requestAnimationFrame, cancelFrame = typeof cancelAnimationFrame === "function" ? cancelAnimationFrame : () => void 0) {
     let scheduled = false;
@@ -58958,10 +59602,28 @@
     const doc = environment.document ?? document;
     const browserWindow = environment.window ?? window;
     const { charmData, corruptionData, flaskData, gemData, gearData, jewelData, styler, tabletData, uniqueData, waystoneData } = dependencies;
+    const presetToggles = [
+      { key: "waystones", label: "Waystones", icon: waystoneData.WAYSTONE_TIER_15_ICON },
+      { key: "tablets", label: "Tablets", icon: tabletData.TABLET_GENERAL_ICON },
+      { key: "charms", label: "Charms", icon: charmData.CHARM_GENERAL_ICON },
+      { key: "flasks", label: "Flasks", icon: flaskData.FLASK_GENERAL_ICON },
+      { key: "gems", label: "Gems", icon: gemData.GEM_GENERAL_ICON },
+      { key: "jewels", label: "Jewels", icon: jewelData.JEWEL_GENERAL_ICON },
+      { key: "gear", label: "Gear", icon: gearData.GEAR_GENERAL_ICON },
+      { key: "uniques", label: "Uniques", icon: uniqueData.UNIQUE_HELPER_ICON }
+    ];
+    const quickFilterToggles = [
+      ...styler.QUICK_BOUND_FILTERS,
+      ...QUICK_BOOLEAN_FILTERS,
+      ...QUICK_NUMBER_FILTERS,
+      { ...QUICK_RARITY_FILTER, icon: "R" }
+    ].map(({ key, label, icon }) => ({ key, label, icon }));
     let applyState = () => void 0;
     const settingsFeature = createSettingsFeature({
       document: doc,
-      onApply: () => applyState()
+      onApply: () => applyState(),
+      presetToggles,
+      quickFilterToggles
     });
     const settings = settingsFeature.state;
     const presetState = createPresetState();
@@ -59061,6 +59723,11 @@
       styler,
       window: browserWindow
     });
+    const siteToolbar = createSiteToolbarFeature({
+      document: doc,
+      isEnabled: () => settings.stickySearchPanel,
+      window: browserWindow
+    });
     const deactivatePresetForSearchChange = () => {
       void presets.deactivate();
     };
@@ -59069,6 +59736,48 @@
       onClear: deactivatePresetForSearchChange
     });
     settingsFeature.mount();
+    function syncFeatureAvailability() {
+      const disabledPresets = new Set(settings.disabledPresets);
+      const activePreset = presetState.activePreset || (presets.isUniqueActive() ? "uniques" : null);
+      if (activePreset && disabledPresets.has(activePreset)) {
+        void presets.deactivate();
+      }
+      doc.querySelectorAll("[data-poe-trade-styler-preset]").forEach((button) => {
+        const enabled = !disabledPresets.has(
+          button.dataset.poeTradeStylerPreset || ""
+        );
+        const navigationItem = button.closest(
+          ".poe-trade-styler-preset-navigation-item"
+        );
+        button.disabled = !enabled;
+        if (navigationItem) {
+          navigationItem.hidden = !enabled;
+        } else {
+          button.hidden = !enabled;
+        }
+      });
+      const disabledQuickFilters = new Set(settings.disabledQuickFilters);
+      const quickFilterStrip = doc.querySelector(
+        "#trade > .top .poe-trade-styler-quick-filters"
+      );
+      let visibleQuickFilters = 0;
+      quickFilterStrip?.querySelectorAll("[data-quick-filter]").forEach((control) => {
+        const enabled = !disabledQuickFilters.has(
+          control.dataset.quickFilter || ""
+        );
+        control.classList.toggle(
+          "poe-trade-styler-feature-disabled",
+          !enabled
+        );
+        if (enabled && !control.hidden) visibleQuickFilters += 1;
+        if (!enabled && control.classList.contains("is-open")) {
+          quickFilters.closeBoundPopovers();
+        }
+      });
+      if (quickFilterStrip) {
+        quickFilterStrip.hidden = visibleQuickFilters === 0;
+      }
+    }
     applyState = () => {
       styler.setBackgroundDisabled(doc, settings.disableBackground);
       styler.setFullWidthEnabled(doc, settings.fullWidthScreen);
@@ -59091,6 +59800,8 @@
       uniqueHelper.decorate();
       quickFilters.decorate();
       searchClear.decorate();
+      siteToolbar.decorate();
+      syncFeatureAvailability();
       layout.sync();
     };
     const onDocumentPointerDown = (event) => {
@@ -59168,6 +59879,8 @@
         { name: "unique-helper", run: uniqueHelper.decorate },
         { name: "quick-filters", run: quickFilters.decorate },
         { name: "search-clear", run: searchClear.decorate },
+        { name: "site-toolbar", run: siteToolbar.decorate },
+        { name: "feature-availability", run: syncFeatureAvailability },
         { name: "layout", run: layout.sync }
       ],
       browserWindow.requestAnimationFrame.bind(browserWindow),
@@ -59188,6 +59901,7 @@
         browserWindow.removeEventListener("resize", onViewportChange);
         browserWindow.removeEventListener("scroll", onViewportChange);
         searchClear.destroy();
+        siteToolbar.destroy();
         layout.destroy();
         settingsFeature.destroy();
         uniqueHelper.destroy();

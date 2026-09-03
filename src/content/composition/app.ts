@@ -4,6 +4,11 @@ import { createPresetsFeature } from "../presets/controller";
 import { createNativeTradeForm } from "../presets/native-form";
 import { createPresetState } from "../presets/state";
 import { createQuickFiltersFeature } from "../quick-filters";
+import {
+  QUICK_BOOLEAN_FILTERS,
+  QUICK_NUMBER_FILTERS,
+  QUICK_RARITY_FILTER
+} from "../quick-filter-definitions";
 import { createSettingsFeature } from "../settings/controller";
 import { createStatFiltersFeature } from "../stat-filters/controller";
 import { createUniqueHelperFeature } from "../unique-helper/controller";
@@ -11,6 +16,7 @@ import { createGearHelperFeature } from "../gear-helper/controller";
 import { createGemHelperFeature } from "../gem-helper/controller";
 import { createJewelHelperFeature } from "../jewel-helper/controller";
 import { createSearchClearFeature } from "../search-clear/controller";
+import { createSiteToolbarFeature } from "../site-toolbar/controller";
 import { createDecorationScheduler } from "./decoration-scheduler";
 import { TRADE_SELECTORS } from "../trade-dom";
 import { isUserSearchFilterChange } from "./search-filter-change";
@@ -37,10 +43,29 @@ export function createContentApp(
   const { charmData, corruptionData, flaskData, gemData, gearData, jewelData, styler, tabletData, uniqueData, waystoneData } =
     dependencies;
 
+  const presetToggles = [
+    { key: "waystones", label: "Waystones", icon: waystoneData.WAYSTONE_TIER_15_ICON },
+    { key: "tablets", label: "Tablets", icon: tabletData.TABLET_GENERAL_ICON },
+    { key: "charms", label: "Charms", icon: charmData.CHARM_GENERAL_ICON },
+    { key: "flasks", label: "Flasks", icon: flaskData.FLASK_GENERAL_ICON },
+    { key: "gems", label: "Gems", icon: gemData.GEM_GENERAL_ICON },
+    { key: "jewels", label: "Jewels", icon: jewelData.JEWEL_GENERAL_ICON },
+    { key: "gear", label: "Gear", icon: gearData.GEAR_GENERAL_ICON },
+    { key: "uniques", label: "Uniques", icon: uniqueData.UNIQUE_HELPER_ICON }
+  ];
+  const quickFilterToggles = [
+    ...styler.QUICK_BOUND_FILTERS,
+    ...QUICK_BOOLEAN_FILTERS,
+    ...QUICK_NUMBER_FILTERS,
+    { ...QUICK_RARITY_FILTER, icon: "R" }
+  ].map(({ key, label, icon }) => ({ key, label, icon }));
+
   let applyState = (): void => undefined;
   const settingsFeature = createSettingsFeature({
     document: doc,
-    onApply: () => applyState()
+    onApply: () => applyState(),
+    presetToggles,
+    quickFilterToggles
   });
   const settings = settingsFeature.state;
   const presetState = createPresetState();
@@ -140,6 +165,11 @@ export function createContentApp(
     styler,
     window: browserWindow
   });
+  const siteToolbar = createSiteToolbarFeature({
+    document: doc,
+    isEnabled: () => settings.stickySearchPanel,
+    window: browserWindow
+  });
   const deactivatePresetForSearchChange = (): void => {
     void presets.deactivate();
   };
@@ -148,6 +178,57 @@ export function createContentApp(
     onClear: deactivatePresetForSearchChange
   });
   settingsFeature.mount();
+
+  function syncFeatureAvailability(): void {
+    const disabledPresets = new Set(settings.disabledPresets);
+    const activePreset = presetState.activePreset ||
+      (presets.isUniqueActive() ? "uniques" : null);
+
+    if (activePreset && disabledPresets.has(activePreset)) {
+      void presets.deactivate();
+    }
+
+    doc
+      .querySelectorAll<HTMLButtonElement>("[data-poe-trade-styler-preset]")
+      .forEach((button) => {
+        const enabled = !disabledPresets.has(
+          button.dataset.poeTradeStylerPreset || ""
+        );
+        const navigationItem = button.closest<HTMLElement>(
+          ".poe-trade-styler-preset-navigation-item"
+        );
+        button.disabled = !enabled;
+        if (navigationItem) {
+          navigationItem.hidden = !enabled;
+        } else {
+          button.hidden = !enabled;
+        }
+      });
+
+    const disabledQuickFilters = new Set(settings.disabledQuickFilters);
+    const quickFilterStrip = doc.querySelector<HTMLElement>(
+      "#trade > .top .poe-trade-styler-quick-filters"
+    );
+    let visibleQuickFilters = 0;
+    quickFilterStrip
+      ?.querySelectorAll<HTMLElement>("[data-quick-filter]")
+      .forEach((control) => {
+        const enabled = !disabledQuickFilters.has(
+          control.dataset.quickFilter || ""
+        );
+        control.classList.toggle(
+          "poe-trade-styler-feature-disabled",
+          !enabled
+        );
+        if (enabled && !control.hidden) visibleQuickFilters += 1;
+        if (!enabled && control.classList.contains("is-open")) {
+          quickFilters.closeBoundPopovers();
+        }
+      });
+    if (quickFilterStrip) {
+      quickFilterStrip.hidden = visibleQuickFilters === 0;
+    }
+  }
 
   applyState = (): void => {
     styler.setBackgroundDisabled(doc, settings.disableBackground);
@@ -172,6 +253,8 @@ export function createContentApp(
     uniqueHelper.decorate();
     quickFilters.decorate();
     searchClear.decorate();
+    siteToolbar.decorate();
+    syncFeatureAvailability();
     layout.sync();
   };
 
@@ -268,6 +351,8 @@ export function createContentApp(
       { name: "unique-helper", run: uniqueHelper.decorate },
       { name: "quick-filters", run: quickFilters.decorate },
       { name: "search-clear", run: searchClear.decorate },
+      { name: "site-toolbar", run: siteToolbar.decorate },
+      { name: "feature-availability", run: syncFeatureAvailability },
       { name: "layout", run: layout.sync }
     ],
     browserWindow.requestAnimationFrame.bind(browserWindow),
@@ -289,6 +374,7 @@ export function createContentApp(
       browserWindow.removeEventListener("resize", onViewportChange);
       browserWindow.removeEventListener("scroll", onViewportChange);
       searchClear.destroy();
+      siteToolbar.destroy();
       layout.destroy();
       settingsFeature.destroy();
       uniqueHelper.destroy();

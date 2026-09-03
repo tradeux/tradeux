@@ -280,7 +280,36 @@ export function createBaseMenu(
     }
   } else if (preset === "jewels" && uniqueDefinitions.length > 0) {
     appendHeadings(["Jewel Bases"], true);
-    definitions.forEach((definition) => appendOption(definition));
+    const regularDefinitions = definitions.filter(
+      (definition) => !definition.key.startsWith("time-lost-")
+    );
+    const timeLostDefinitions = definitions.filter(
+      (definition) => definition.key.startsWith("time-lost-")
+    );
+    const timeLostByBaseKey = new Map(
+      timeLostDefinitions.map((definition) => [
+        definition.key.slice("time-lost-".length),
+        definition
+      ])
+    );
+    const alignedTimeLostDefinitions = regularDefinitions
+      .map((definition) => timeLostByBaseKey.get(definition.key))
+      .filter(
+        (definition): definition is BaseMenuDefinition => Boolean(definition)
+      );
+    const unmatchedTimeLostDefinitions = timeLostDefinitions.filter(
+      (definition) =>
+        !regularDefinitions.some(
+          (regularDefinition) =>
+            definition.key === `time-lost-${regularDefinition.key}`
+        )
+    );
+    const orderedDefinitions = [
+      ...regularDefinitions,
+      ...alignedTimeLostDefinitions,
+      ...unmatchedTimeLostDefinitions
+    ];
+    orderedDefinitions.forEach((definition) => appendOption(definition));
     if (definitions.length % 2 !== 0) appendPlaceholder();
     appendHeadings(["Unique Jewels"], true);
     uniqueDefinitions.forEach((definition) => appendOption(definition, true));

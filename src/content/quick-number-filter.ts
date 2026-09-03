@@ -66,14 +66,21 @@ export function readQuickNumberValue(
   filterBody: Element | null,
   definition: QuickNumberFilterDefinition
 ): string {
-  const minimum = filterBody
-    ?.querySelector<HTMLInputElement>('input[placeholder="min"]')
-    ?.value.trim() || "";
+  const minimum = readQuickNumberBoundValue(filterBody, "min");
   if (!definition.exact) return minimum;
-  const maximum = filterBody
-    ?.querySelector<HTMLInputElement>('input[placeholder="max"]')
-    ?.value.trim() || "";
+  const maximum = readQuickNumberBoundValue(filterBody, "max");
   return minimum && minimum === maximum ? minimum : "";
+}
+
+export function readQuickNumberBoundValue(
+  filterBody: Element | null,
+  bound: "max" | "min"
+): string {
+  return (
+    filterBody
+      ?.querySelector<HTMLInputElement>(`input[placeholder="${bound}"]`)
+      ?.value.trim() || ""
+  );
 }
 
 export function setQuickNumberControlVisibility(
